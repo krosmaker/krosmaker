@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Helvetica Neue";
+  font-weight: normal;
+  src: url("~assets/fonts/HelveticaNeueLTStd-BdCn.woff") format("woff"),
+    url("~assets/fonts/HelveticaNeueLTStd-Cn.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  font-weight: bold;
+  src: url("~assets/fonts/HelveticaNeueLTStd-BdCn.woff") format("woff"),
+    url("~assets/fonts/HelveticaNeueLTStd-BdCn.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Berlin Sans";
+  font-weight: normal;
+  src: url("~assets/fonts/BerlinSans.woff") format("woff"),
+    url("~assets/fonts/BerlinSans.otf") format("opentype");
+}

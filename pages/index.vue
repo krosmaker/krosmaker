@@ -27,4 +27,4 @@ export default {};
 .controls-panel {
   padding: 1.5em;
 }
-</style>>
+</style>

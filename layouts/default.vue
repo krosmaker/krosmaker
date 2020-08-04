@@ -8,35 +8,27 @@
         <nuxt />
       </v-container>
     </v-main>
-<v-footer
-    class="main-footer"
-    dark
-    height="auto"
-  >
-    <v-card
-      class="flex"
-      flat
-      tile
-    >
-      <v-card-actions class="grey darken-3 justify-center">
-        <span>
-          The presented graphics from <strong>Krosmaster: Blast</strong> are
-          copyrighted by <strong>Ankama</strong>. This website is not produced,
-          endorsed, or affiliated with <strong>Ankama</strong>.
-        </span>
-      </v-card-actions>
+    <v-footer class="main-footer" dark height="auto">
+      <v-card class="flex" flat tile>
+        <v-card-actions class="grey darken-3 justify-center">
+          <span>
+            The presented graphics from <strong>Krosmaster: Blast</strong> are
+            copyrighted by <strong>Ankama</strong>. This website is not
+            produced, endorsed, or affiliated with <strong>Ankama</strong>.
+          </span>
+        </v-card-actions>
 
-      <v-card-actions class="grey darken-4 justify-center">
-        <span>&copy;2020 — <strong>MJ</strong></span>
-      </v-card-actions>
-    </v-card>
-  </v-footer>
+        <v-card-actions class="grey darken-4 justify-center">
+          <span>&copy;2020 — <strong>MJ</strong></span>
+        </v-card-actions>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
 <style scoped lang="scss">
 .toolbar-title {
-  font-weight: 900;
+  font-family: "Berlin Sans";
 }
 
 .main-footer {
