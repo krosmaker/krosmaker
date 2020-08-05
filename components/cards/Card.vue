@@ -1,10 +1,14 @@
 <template>
-  <Flippable class="card" :is-flipped="isFlipped">
+  <Flippable
+    class="card"
+    :is-flipped="isFlipped"
+    :class="{ 'is-rounded': isRounded }"
+  >
     <template v-slot:front>
-      <CardFront class="card-front" />
+      <CardFront class="card-front" :class="{ 'is-rounded': isRounded }" />
     </template>
     <template v-slot:back>
-      <CardBack class="card-back" />
+      <CardBack class="card-back" :class="{ 'is-rounded': isRounded }" />
     </template>
   </Flippable>
 </template>
@@ -20,6 +24,9 @@ import { Component, Prop } from "vue-property-decorator";
 export default class Card extends Vue {
   @Prop({ type: Boolean, default: false })
   isFlipped!: boolean;
+
+  @Prop({ type: Boolean, default: true })
+  isRounded!: boolean;
 }
 </script>
 
@@ -33,6 +40,11 @@ export default class Card extends Vue {
   .card-back {
     width: inherit;
     height: inherit;
+    overflow: hidden;
   }
+}
+
+.is-rounded {
+  border-radius: $card-border-radius;
 }
 </style>

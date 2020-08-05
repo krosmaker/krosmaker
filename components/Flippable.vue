@@ -25,7 +25,6 @@ export default class Flippable extends Vue {
 
 <style lang="scss" scoped>
 .flippable {
-  perspective: 2000px;
   transition: transform 1s;
   transform-style: preserve-3d;
 
@@ -35,6 +34,7 @@ export default class Flippable extends Vue {
     height: 100%;
     overflow: hidden;
     position: absolute;
+    border-radius: inherit;
     backface-visibility: hidden;
   }
 
