@@ -1,6 +1,8 @@
-# krosmaker
+# Krosmaker
 
-## Build Setup
+**Krosmaster: Blast** web-based card maker. Create custom cards for your Krosmasters!
+
+## Working from sources
 
 ```bash
 # install dependencies
@@ -17,4 +19,4 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+For detailed explanation of the project setup, check out [Nuxt.js documentation](https://nuxtjs.org).

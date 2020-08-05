@@ -11,7 +11,7 @@
     <v-footer class="main-footer" dark height="auto">
       <v-card class="flex" flat tile>
         <v-card-actions class="grey darken-3 justify-center">
-          <span>
+          <span class="font-weight-light caption">
             The presented graphics from <strong>Krosmaster: Blast</strong> are
             copyrighted by <strong>Ankama</strong>. This website is not
             produced, endorsed, or affiliated with <strong>Ankama</strong>.
