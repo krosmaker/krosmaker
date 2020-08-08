@@ -19,6 +19,7 @@
         </v-card-actions>
       </v-card>
     </v-flex>
+    <CardEditSidebar @artwork-select="onArtworkTabSelect" />
   </div>
 </template>
 
@@ -30,6 +31,10 @@ import { Component } from "vue-property-decorator";
 export default class KrosmasterCardContainer extends Vue {
   isFlipped: boolean = false;
   isRounded: boolean = true;
+
+  onArtworkTabSelect() {
+    this.isFlipped = true;
+  }
 }
 </script>
 

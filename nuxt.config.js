@@ -38,7 +38,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    { src: "~/plugins/debounce.js", ssr: true },
+    { src: "~/plugins/cropper.js", ssr: true },
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

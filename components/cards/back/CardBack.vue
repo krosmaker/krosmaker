@@ -1,12 +1,35 @@
 <template>
-  <div class="card-back">
-    <img class="artwork" src="~/assets/img/back/default-background.png" />
+  <div class="card-back" @click="onCardClick">
+    <img class="artwork" :src="cardImage" />
     <CardFrame class="frame" />
   </div>
 </template>
 
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
+import { TabId } from "~/store/sidebar";
+
+@Component
+export default class CardBack extends Vue {
+  get cardImage() {
+    const background = this.$store.state.background;
+    return background.useCropped ? background.cropped : background.original;
+  }
+
+  onCardClick() {
+    const store = this.$store;
+    store.commit("sidebar/setExpand", true);
+    store.commit("sidebar/setActiveTab", TabId.ARTWORK);
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .card-back {
+  cursor: pointer;
+
   .artwork,
   .frame {
     position: absolute;
