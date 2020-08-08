@@ -9,9 +9,17 @@
     mini-variant-width="57"
   >
     <v-tabs class="tabs" v-model="activeTab" vertical>
-      <v-tab @click="onArtworkClick">
+      <v-tab @click="onTabClick(0, 'name')">
+        <v-icon>mdi-account-edit</v-icon>
+      </v-tab>
+      <v-tab @click="onTabClick(1, 'artwork')">
         <v-icon>mdi-image-size-select-actual</v-icon>
       </v-tab>
+      <v-tab-item>
+        <v-card flat>
+          <NameForm />
+        </v-card>
+      </v-tab-item>
       <v-tab-item>
         <v-card flat>
           <ArtworkForm />
@@ -45,14 +53,14 @@ export default class CardEditSidebar extends Vue {
     this.$store.commit("sidebar/setExpand", expand);
   }
 
-  onArtworkClick() {
-    this.onClick(TabId.ARTWORK);
+  onTabClick(tab: TabId, tabName: string) {
+    this.onTabChange(tab);
     if (this.expand) {
-      this.$emit("artwork-select");
+      this.$emit(`${tabName}-select`);
     }
   }
 
-  onClick(tab: TabId) {
+  onTabChange(tab: TabId) {
     if (!this.expand) {
       this.expand = true;
     } else if (this.activeTab === tab) {

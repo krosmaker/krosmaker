@@ -1,5 +1,6 @@
 export enum TabId {
-  ARTWORK = 0,
+  NAME = 0,
+  ARTWORK = 1,
 }
 
 interface SidebarState {
@@ -8,7 +9,7 @@ interface SidebarState {
 }
 
 export const state: () => SidebarState = () => ({
-  activeTab: TabId.ARTWORK,
+  activeTab: TabId.NAME,
   expand: false,
 });
 
