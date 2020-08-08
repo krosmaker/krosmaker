@@ -7,6 +7,7 @@
     :mini-variant="!expand"
     width="500"
     mini-variant-width="57"
+    v-click-outside="onClickOutside"
   >
     <v-tabs class="tabs" v-model="activeTab" vertical>
       <v-tab @click="onTabClick(0, 'name')">
@@ -17,7 +18,7 @@
       </v-tab>
       <v-tab-item>
         <v-card flat>
-          <NameForm />
+          <KrosmasterDataForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>
@@ -66,6 +67,10 @@ export default class CardEditSidebar extends Vue {
     } else if (this.activeTab === tab) {
       this.expand = !this.expand;
     }
+  }
+
+  onClickOutside() {
+    this.expand = false;
   }
 }
 </script>

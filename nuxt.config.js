@@ -39,8 +39,9 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    { src: "~/plugins/debounce.js", ssr: true },
     { src: "~/plugins/cropper.js", ssr: true },
+    { src: "~/plugins/debounce.js", ssr: true },
+    { src: "~/plugins/directives.js", ssr: true },
   ],
   /*
    ** Auto import components

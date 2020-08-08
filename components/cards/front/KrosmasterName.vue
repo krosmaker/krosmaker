@@ -45,7 +45,7 @@ export default class KrosmasterName extends Vue {
     position: absolute;
     left: 0;
     top: 0;
-    width: $card-width;
+    width: $card-width * 0.75;
   }
 
   .common {
