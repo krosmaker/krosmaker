@@ -1,5 +1,5 @@
 <template>
-  <div class="card-back" @click.stop="onCardClick">
+  <div class="card-back prevent-sidebar-hide" @click.stop="onCardClick">
     <img class="artwork" :src="cardImage" />
     <CardFrame class="frame" />
   </div>

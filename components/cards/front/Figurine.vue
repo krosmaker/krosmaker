@@ -1,6 +1,6 @@
 <template>
   <img
-    class="figurine"
+    class="figurine prevent-sidebar-hide"
     :src="figurineImage"
     @click.stop="onClick"
     :style="{

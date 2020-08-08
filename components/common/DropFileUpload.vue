@@ -69,7 +69,7 @@ export default class DropFileUpload extends Vue {
 <style lang="scss" scoped>
 .upload-container {
   border: 1px dashed #757575;
-  padding: 2.5em 1em;
+  padding: 1.5em 1em;
 
   input {
     display: none;

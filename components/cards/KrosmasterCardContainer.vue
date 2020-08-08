@@ -6,13 +6,21 @@
     <v-flex class="controls-panel" xs12 sm8 md6>
       <v-card>
         <v-card-actions class="headline">
-          <v-btn text @click.stop="isFlipped = !isFlipped">
+          <v-btn
+            text
+            class="prevent-sidebar-hide"
+            @click.stop="isFlipped = !isFlipped"
+          >
             Flip
             <v-icon dark right>
               {{ isFlipped ? "mdi-redo" : "mdi-undo" }}
             </v-icon>
           </v-btn>
-          <v-btn text @click.stop="isRounded = !isRounded">
+          <v-btn
+            text
+            class="prevent-sidebar-hide"
+            @click.stop="isRounded = !isRounded"
+          >
             Round
             <v-icon dark right>mdi-rounded-corner</v-icon>
           </v-btn>

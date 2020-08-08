@@ -3,25 +3,25 @@
     <h1>Figurine</h1>
     <DropFileUpload @upload="onUpload" />
 
-    <h3 class="position-header">Position</h3>
+    <h3>Customize</h3>
     <v-row>
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="4">
         <v-slider label="X" v-model="offsetX" min="655" max="805"></v-slider>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="4">
         <v-slider label="Y" v-model="offsetY" min="-100" max="180"></v-slider>
       </v-col>
-      <v-col cols="12" sm="12">
+      <v-col cols="12" sm="4">
         <v-slider label="Size" v-model="height" min="100" max="260"></v-slider>
       </v-col>
+      <v-col cols="12" sm="12">
+        <v-switch
+          v-model="useCropped"
+          class="mx-2"
+          label="Enable cropping"
+        ></v-switch>
+      </v-col>
     </v-row>
-
-    <h3>Customize</h3>
-    <v-switch
-      v-model="useCropped"
-      class="mx-2"
-      label="Enable cropping"
-    ></v-switch>
     <transition name="fade" mode="in-out">
       <v-container v-show="useCropped" class="cropper-container">
         <vue-cropper
@@ -130,11 +130,9 @@ h1 {
 }
 
 h3 {
-  padding-left: 0.8em;
-}
-
-.position-header {
   padding-top: 1.5em;
+  padding-left: 0.8em;
+  padding-bottom: 1em;
 }
 
 .cropper-container {

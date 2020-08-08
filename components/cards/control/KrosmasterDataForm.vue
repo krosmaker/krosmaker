@@ -54,7 +54,7 @@ import { Component } from "vue-property-decorator";
 import {
   preventNonNumericInput,
   preventNonNumericPaste,
-} from "~/assets/src/numberInputs";
+} from "~/assets/src/helpers";
 
 @Component
 export default class KrosmasterName extends Vue {

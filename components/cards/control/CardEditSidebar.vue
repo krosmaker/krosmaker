@@ -77,20 +77,26 @@ export default class CardEditSidebar extends Vue {
     }
   }
 
-  onClickOutside() {
-    this.expand = false;
+  onClickOutside(event: MouseEvent) {
+    const element = event.target as HTMLElement;
+    if (this.expand && element.closest(".prevent-sidebar-hide") == null) {
+      this.expand = false;
+    }
   }
 }
 </script>
 
 <style lang="scss">
-.v-navigation-drawer__content {
-  overflow-y: hidden;
+.sidebar {
+  > div {
+    overflow-y: hidden;
+  }
 }
 </style>
 
 <style lang="scss" scoped>
 .sidebar {
+  overflow-y: hidden;
   background-color: #1e1e1e !important;
 }
 

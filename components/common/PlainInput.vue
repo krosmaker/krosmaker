@@ -16,7 +16,7 @@ import { Component, Prop } from "vue-property-decorator";
 import {
   preventNonNumericInput,
   preventNonNumericPaste,
-} from "~/assets/src/numberInputs";
+} from "~/assets/src/helpers";
 
 /**
  * An input that looks like regular text.
