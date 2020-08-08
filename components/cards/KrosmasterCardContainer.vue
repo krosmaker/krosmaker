@@ -20,8 +20,8 @@
       </v-card>
     </v-flex>
     <CardEditSidebar
-      @name-select="isFlipped = false"
-      @artwork-select="isFlipped = true"
+      @front-select="isFlipped = false"
+      @back-select="isFlipped = true"
     />
   </div>
 </template>

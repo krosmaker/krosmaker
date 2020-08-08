@@ -13,7 +13,7 @@ import { TabId } from "~/store/sidebar";
 
 @Component
 export default class CardBack extends Vue {
-  get cardImage() {
+  get cardImage(): string {
     const background = this.$store.state.background;
     return background.useCropped ? background.cropped : background.original;
   }

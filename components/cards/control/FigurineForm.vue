@@ -1,7 +1,21 @@
 <template>
   <v-card-text>
-    <h1>Artwork</h1>
+    <h1>Figurine</h1>
     <DropFileUpload @upload="onUpload" />
+
+    <h3 class="position-header">Position</h3>
+    <v-row>
+      <v-col cols="12" sm="6">
+        <v-slider label="X" v-model="offsetX" min="655" max="805"></v-slider>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-slider label="Y" v-model="offsetY" min="-100" max="180"></v-slider>
+      </v-col>
+      <v-col cols="12" sm="12">
+        <v-slider label="Size" v-model="height" min="100" max="260"></v-slider>
+      </v-col>
+    </v-row>
+
     <h3>Customize</h3>
     <v-switch
       v-model="useCropped"
@@ -13,11 +27,10 @@
         <vue-cropper
           ref="cropper"
           class="cropper"
-          :viewMode="1"
-          :autoCropArea="1.0"
+          dragMode="move"
           :responsive="false"
-          :aspectRatio="aspectRatio"
-          :src="$store.state.background.original"
+          :autoCropArea="1.0"
+          :src="$store.state.figurine.original"
           @crop="onCrop"
         >
         </vue-cropper>
@@ -35,19 +48,43 @@ import Cropper from "cropperjs";
 import { cardWidth, cardHeight } from "~/assets/src/constants";
 
 @Component
-export default class ArtworkForm extends Vue {
+export default class FigurineForm extends Vue {
+  get height(): number {
+    return this.$store.state.figurine.height;
+  }
+
+  set height(height: number) {
+    this.$store.commit("figurine/setHeight", height);
+  }
+
+  get offsetX(): number {
+    return this.$store.state.figurine.offsetX;
+  }
+
+  set offsetX(offsetX: number) {
+    this.$store.commit("figurine/setOffsetX", offsetX);
+  }
+
+  get offsetY(): number {
+    return this.$store.state.figurine.offsetY;
+  }
+
+  set offsetY(offsetY: number) {
+    this.$store.commit("figurine/setOffsetY", offsetY);
+  }
+
   get useCropped(): boolean {
-    return this.$store.state.background.useCropped;
+    return this.$store.state.figurine.useCropped;
   }
 
   set useCropped(useCropped: boolean) {
-    this.$store.commit("background/setCropping", useCropped);
+    this.$store.commit("figurine/setCropping", useCropped);
   }
 
   private updateCroppedImage: (cropper: Cropper) => void = debounce(
     (cropper: Cropper) => {
       const image = cropper.getCroppedCanvas().toDataURL("image/png");
-      this.$store.commit("background/crop", image);
+      this.$store.commit("figurine/crop", image);
     },
     150 // ms
   );
@@ -64,13 +101,12 @@ export default class ArtworkForm extends Vue {
     // Cropper has to be displayed in order to calculate the correct height:
     this.useCropped = true;
 
-    this.$store.commit("background/upload", image);
+    this.$store.commit("figurine/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");
   }
 
   onCrop() {
-    console.log("crop"!, this.cropper.getCanvasData());
     this.updateCroppedImage(this.cropper);
   }
 }
@@ -94,7 +130,11 @@ h1 {
 }
 
 h3 {
-  padding: 1.5em 0em 0em 0.8em;
+  padding-left: 0.8em;
+}
+
+.position-header {
+  padding-top: 1.5em;
 }
 
 .cropper-container {
@@ -103,8 +143,8 @@ h3 {
 
   .cropper {
     max-width: 370px;
-    min-height: 200px;
-    max-height: 400px;
+    min-height: 100px;
+    max-height: 250px;
   }
 }
 

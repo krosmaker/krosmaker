@@ -10,15 +10,23 @@
     v-click-outside="onClickOutside"
   >
     <v-tabs class="tabs" v-model="activeTab" vertical>
-      <v-tab @click="onTabClick(0, 'name')">
+      <v-tab @click="onTabClick(0, 'front')">
+        <v-icon>mdi-dna</v-icon>
+      </v-tab>
+      <v-tab @click="onTabClick(1, 'front')">
         <v-icon>mdi-account-edit</v-icon>
       </v-tab>
-      <v-tab @click="onTabClick(1, 'artwork')">
+      <v-tab @click="onTabClick(2, 'back')">
         <v-icon>mdi-image-size-select-actual</v-icon>
       </v-tab>
       <v-tab-item>
         <v-card flat>
           <KrosmasterDataForm />
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <FigurineForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>

@@ -1,6 +1,7 @@
 export enum TabId {
   NAME = 0,
-  ARTWORK = 1,
+  FIGURINE = 1,
+  ARTWORK = 2,
 }
 
 interface SidebarState {

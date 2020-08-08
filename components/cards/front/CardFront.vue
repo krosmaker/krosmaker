@@ -3,6 +3,7 @@
     <img class="background" src="~assets/img/front/background.png" />
     <KrosmasterName class="name" />
     <KrosmasterStatistics class="statistics" />
+    <Figurine class="figurine" />
   </div>
 </template>
 
@@ -31,6 +32,10 @@
     position: absolute;
     left: 43.2%;
     top: 20%;
+  }
+
+  .figurine {
+    position: absolute;
   }
 }
 </style>
