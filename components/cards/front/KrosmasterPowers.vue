@@ -1,6 +1,11 @@
 <template>
   <fragment>
-    <div v-for="(power, index) in powers" :key="index" class="power-container">
+    <div
+      v-for="(power, index) in powers"
+      :key="index"
+      class="power-container"
+      @click="selectPower(index)"
+    >
       <img
         class="power-name-background"
         src="~/assets/img/front/powers/header.png"
@@ -38,13 +43,18 @@ export default class PowersForm extends Vue {
   }
 
   onNameChange(name: string, index: number) {
-    this.$store.commit("krosmaster/changePowerName", { index, name });
+    this.$store.commit("krosmaster/setPowerName", { index, name });
+  }
+
+  selectPower(index: number) {
+    this.$store.commit("sidebar/setActivePower", index);
   }
 
   openPower(index: number) {
-    this.$store.commit("sidebar/setActivePower", index);
-    this.$store.commit("sidebar/setActiveTab", TabId.POWERS);
-    this.$store.commit("sidebar/setExpand", true);
+    const store = this.$store;
+    store.commit("sidebar/setActivePower", index);
+    store.commit("sidebar/setActiveTab", TabId.POWERS);
+    store.commit("sidebar/setExpand", true);
   }
 }
 </script>
@@ -57,7 +67,7 @@ export default class PowersForm extends Vue {
   margin-bottom: -3.75%;
 
   .power-name-background {
-    margin-left: 5%;
+    margin-left: 4.7%;
     margin-bottom: -7%;
   }
 

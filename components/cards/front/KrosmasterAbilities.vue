@@ -1,5 +1,6 @@
 <template>
   <div class="abilities-container">
+    <KrosmasterSpells />
     <KrosmasterPowers />
   </div>
 </template>

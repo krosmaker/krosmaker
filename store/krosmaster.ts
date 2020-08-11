@@ -3,6 +3,40 @@ export interface Power {
   description: string;
 }
 
+export enum Element {
+  NONE = "none",
+  AIR = "air",
+  EARTH = "earth",
+  FIRE = "fire",
+  WATER = "water",
+}
+
+export enum Range {
+  REGULAR = "regular",
+  SPECIAL = "special",
+}
+
+export enum Limit {
+  NONE = "none",
+  TURN = "turn",
+  TARGET = "target",
+}
+
+export interface Spell extends Power {
+  damage: {
+    element: Element;
+    value: number;
+  };
+  range: {
+    type: Range;
+    value: [number, number];
+  };
+  limit: {
+    type: Limit;
+    value: number;
+  };
+}
+
 interface KrosmasterState {
   name: string;
   isElite: boolean;
@@ -11,7 +45,7 @@ interface KrosmasterState {
   hp: string;
   ap: string;
 
-  spells: Array<any>;
+  spells: Spell[];
   powers: Power[];
 }
 
@@ -57,16 +91,78 @@ export const mutations = {
     [powers[from], powers[to]] = [powers[to], powers[from]];
     state.powers = powers.slice();
   },
-  changePowerName(
+  setPowerName(
     state: KrosmasterState,
     update: { index: number; name: string }
   ) {
     state.powers[update.index].name = update.name || "";
   },
-  changePowerDescription(
+  setPowerDescription(
     state: KrosmasterState,
     update: { index: number; description: string }
   ) {
     state.powers[update.index].description = update.description || "";
+  },
+
+  addSpell(state: KrosmasterState, spell: Spell) {
+    state.spells.push(spell);
+  },
+  removeSpell(state: KrosmasterState, index: number) {
+    state.spells.splice(index, 1);
+  },
+  switchSpells(state: KrosmasterState, update: { from: number; to: number }) {
+    const { from, to } = update;
+    const spells = state.spells;
+    [spells[from], spells[to]] = [spells[to], spells[from]];
+    state.spells = spells.slice();
+  },
+  setSpellName(
+    state: KrosmasterState,
+    update: { index: number; name: string }
+  ) {
+    state.spells[update.index].name = update.name || "";
+  },
+  setSpellDescription(
+    state: KrosmasterState,
+    update: { index: number; description: string }
+  ) {
+    state.spells[update.index].description = update.description || "";
+  },
+  setSpellElement(
+    state: KrosmasterState,
+    update: { index: number; element: Element }
+  ) {
+    state.spells[update.index].damage.element = update.element;
+  },
+  setSpellDamage(
+    state: KrosmasterState,
+    update: { index: number; damage: number }
+  ) {
+    state.spells[update.index].damage.value = update.damage;
+  },
+  setSpellRangeType(
+    state: KrosmasterState,
+    update: { index: number; range: Range }
+  ) {
+    state.spells[update.index].range.type = update.range;
+  },
+  setSpellRange(
+    state: KrosmasterState,
+    update: { index: number; range: [number, number] }
+  ) {
+    console.log("updating range in state", update);
+    state.spells[update.index].range.value = update.range;
+  },
+  setSpellLimitType(
+    state: KrosmasterState,
+    update: { index: number; limit: Limit }
+  ) {
+    state.spells[update.index].limit.type = update.limit;
+  },
+  setSpellLimit(
+    state: KrosmasterState,
+    update: { index: number; limit: number }
+  ) {
+    state.spells[update.index].limit.value = update.limit;
   },
 };

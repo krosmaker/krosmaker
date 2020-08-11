@@ -9,12 +9,14 @@ export enum TabId {
 interface SidebarState {
   activeTab: TabId;
   expand: boolean;
+  activeSpell: number | null;
   activePower: number | null;
 }
 
 export const state: () => SidebarState = () => ({
   activeTab: TabId.NAME,
   expand: false,
+  activeSpell: null,
   activePower: null,
 });
 
@@ -24,6 +26,9 @@ export const mutations = {
   },
   setActiveTab(state: SidebarState, tab: TabId) {
     state.activeTab = tab;
+  },
+  setActiveSpell(state: SidebarState, index: number | null) {
+    state.activeSpell = index;
   },
   setActivePower(state: SidebarState, index: number | null) {
     state.activePower = index;

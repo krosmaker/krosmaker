@@ -15,8 +15,9 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row>
-            <v-col class="pa-0 pt-2" cols="12" sm="12">
+            <v-col class="pa-0 pt-4" cols="12" sm="12">
               <v-text-field
+                dense
                 class="name-input"
                 label="Name"
                 :value="power.name"
@@ -145,11 +146,11 @@ export default class PowersForm extends Vue {
   }
 
   onNameChange(name: string, index: number) {
-    this.$store.commit("krosmaster/changePowerName", { index, name });
+    this.$store.commit("krosmaster/setPowerName", { index, name });
   }
 
   onDescriptionChange(description: string, index: number) {
-    this.$store.commit("krosmaster/changePowerDescription", {
+    this.$store.commit("krosmaster/setPowerDescription", {
       index,
       description,
     });
