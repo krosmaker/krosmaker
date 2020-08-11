@@ -2,16 +2,20 @@ export enum TabId {
   NAME = 0,
   FIGURINE = 1,
   ARTWORK = 2,
+  SPELLS = 3,
+  POWERS = 4,
 }
 
 interface SidebarState {
   activeTab: TabId;
   expand: boolean;
+  activePower: number | null;
 }
 
 export const state: () => SidebarState = () => ({
   activeTab: TabId.NAME,
   expand: false,
+  activePower: null,
 });
 
 export const mutations = {
@@ -20,5 +24,8 @@ export const mutations = {
   },
   setActiveTab(state: SidebarState, tab: TabId) {
     state.activeTab = tab;
+  },
+  setActivePower(state: SidebarState, index: number | null) {
+    state.activePower = index;
   },
 };

@@ -5,16 +5,37 @@
 
     <h3>Customize</h3>
     <v-row>
-      <v-col cols="12" sm="4">
-        <v-slider label="X" v-model="offsetX" min="655" max="805"></v-slider>
+      <v-col class="pa-0" cols="12" sm="6">
+        <v-slider
+          class="fixed-label-slider"
+          dense
+          label="X"
+          v-model="offsetX"
+          min="655"
+          max="805"
+        ></v-slider>
       </v-col>
-      <v-col cols="12" sm="4">
-        <v-slider label="Y" v-model="offsetY" min="-100" max="180"></v-slider>
+      <v-col class="pa-0" cols="12" sm="6">
+        <v-slider
+          class="fixed-label-slider"
+          dense
+          label="Y"
+          v-model="offsetY"
+          min="-90"
+          max="110"
+        ></v-slider>
       </v-col>
-      <v-col cols="12" sm="4">
-        <v-slider label="Size" v-model="height" min="100" max="260"></v-slider>
+      <v-col class="pa-0" cols="12" sm="12">
+        <v-slider
+          class="fixed-label-slider"
+          dense
+          label="Size"
+          v-model="height"
+          min="95"
+          max="255"
+        ></v-slider>
       </v-col>
-      <v-col cols="12" sm="12">
+      <v-col class="crop-switch" cols="12" sm="12">
         <v-switch
           v-model="useCropped"
           class="mx-2"
@@ -121,6 +142,13 @@ export default class FigurineForm extends Vue {
   background-color: transparent;
   opacity: 1;
 }
+
+.fixed-label-slider {
+  label {
+    width: 32px;
+    text-align: right;
+  }
+}
 </style>
 
 <style lang="scss" scoped>
@@ -154,5 +182,10 @@ h3 {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.crop-switch {
+  margin-top: -1em;
+  padding: 0;
 }
 </style>

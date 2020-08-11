@@ -56,7 +56,6 @@ export default class PlainInput extends Vue {
 <style lang="scss" scoped>
 input {
   white-space: nowrap;
-  text-transform: uppercase;
   outline: 0px solid transparent;
   caret-color: white;
   font-weight: inherit;

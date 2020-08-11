@@ -4,14 +4,9 @@
     <KrosmasterName class="name" />
     <KrosmasterStatistics class="statistics" />
     <Figurine class="figurine" />
+    <KrosmasterAbilities class="abilities" />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.card-front {
-  background-color: #444;
-}
-</style>
 
 <style lang="scss" scoped>
 .card-front {
@@ -36,6 +31,11 @@
 
   .figurine {
     position: absolute;
+  }
+
+  .abilities {
+    position: absolute;
+    top: 30%;
   }
 }
 </style>

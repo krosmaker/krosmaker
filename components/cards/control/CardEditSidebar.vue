@@ -7,17 +7,22 @@
     :mini-variant="!expand"
     width="500"
     mini-variant-width="57"
-    v-click-outside="onClickOutside"
   >
     <v-tabs class="tabs" v-model="activeTab" vertical>
       <v-tab @click="onTabClick(0, 'front')">
         <v-icon>mdi-dna</v-icon>
       </v-tab>
       <v-tab @click="onTabClick(1, 'front')">
-        <v-icon>mdi-account-edit</v-icon>
+        <v-icon>mdi-account-box</v-icon>
       </v-tab>
       <v-tab @click="onTabClick(2, 'back')">
         <v-icon>mdi-image-size-select-actual</v-icon>
+      </v-tab>
+      <v-tab @click="onTabClick(3, 'front')">
+        <v-icon>mdi-auto-fix</v-icon>
+      </v-tab>
+      <v-tab @click="onTabClick(4, 'front')">
+        <v-icon>mdi-arm-flex</v-icon>
       </v-tab>
       <v-tab-item>
         <v-card flat>
@@ -32,6 +37,16 @@
       <v-tab-item>
         <v-card flat>
           <ArtworkForm />
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <SpellsForm />
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <PowersForm />
         </v-card>
       </v-tab-item>
     </v-tabs>
@@ -74,13 +89,6 @@ export default class CardEditSidebar extends Vue {
       this.expand = true;
     } else if (this.activeTab === tab) {
       this.expand = !this.expand;
-    }
-  }
-
-  onClickOutside(event: MouseEvent) {
-    const element = event.target as HTMLElement;
-    if (this.expand && element.closest(".prevent-sidebar-hide") == null) {
-      this.expand = false;
     }
   }
 }

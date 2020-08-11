@@ -11,9 +11,9 @@ export const state: () => FigurineState = () => ({
   original: require("~/assets/img/front/default-figurine.png"),
   cropped: require("~/assets/img/front/default-figurine.png"),
   useCropped: true,
-  height: 180, // px
+  height: 175, // px
   offsetX: 730, // 73.0% left
-  offsetY: 40, // 4.0% top
+  offsetY: 10, // 1.0% top
 });
 
 export const mutations = {

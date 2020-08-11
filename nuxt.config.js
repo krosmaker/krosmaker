@@ -41,7 +41,7 @@ export default {
   plugins: [
     { src: "~/plugins/cropper.js", ssr: true },
     { src: "~/plugins/debounce.js", ssr: true },
-    { src: "~/plugins/directives.js", ssr: true },
+    { src: "~/plugins/fragment.js", ssr: true },
   ],
   /*
    ** Auto import components
