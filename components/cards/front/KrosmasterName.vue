@@ -3,7 +3,11 @@
     <div class="name-shadow">{{ content }}</div>
     <input
       class="name"
-      :class="{ elite: isElite, common: !isElite }"
+      :class="{
+        elite: showElite,
+        'elite-simplified': showSimplifiedElite,
+        common: !isElite,
+      }"
       type="text"
       maxlength="30"
       v-model="content"
@@ -14,9 +18,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { detect, BrowserInfo } from "detect-browser";
 
 @Component
 export default class KrosmasterName extends Vue {
+  browser: BrowserInfo | null = detect() as BrowserInfo | null;
+
   get content(): string {
     return this.$store.state.krosmaster.name;
   }
@@ -27,6 +34,27 @@ export default class KrosmasterName extends Vue {
 
   get isElite(): boolean {
     return this.$store.state.krosmaster.isElite;
+  }
+
+  get isExporting(): boolean {
+    return this.$store.state.export.isExporting;
+  }
+
+  get showElite(): boolean {
+    if (this.browser && this.browser.name == "firefox") {
+      return this.isElite;
+    } else {
+      // Gradient is not supported by browsers other than Firefox:
+      return this.isElite && !this.isExporting;
+    }
+  }
+
+  get showSimplifiedElite(): boolean {
+    if (this.browser && this.browser.name == "firefox") {
+      return false;
+    } else {
+      return this.isElite && this.isExporting;
+    }
   }
 }
 </script>
@@ -62,6 +90,10 @@ export default class KrosmasterName extends Vue {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .elite-simplified {
+    color: #e3b971;
   }
 
   .name-shadow {

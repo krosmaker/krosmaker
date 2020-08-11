@@ -5,10 +5,18 @@
     :class="{ 'is-rounded': isRounded }"
   >
     <template v-slot:front>
-      <CardFront class="card-front" :class="{ 'is-rounded': isRounded }" />
+      <CardFront
+        ref="front"
+        class="card-front"
+        :class="{ 'is-rounded': isRounded }"
+      />
     </template>
     <template v-slot:back>
-      <CardBack class="card-back" :class="{ 'is-rounded': isRounded }" />
+      <CardBack
+        ref="back"
+        class="card-back"
+        :class="{ 'is-rounded': isRounded }"
+      />
     </template>
   </Flippable>
 </template>

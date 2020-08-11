@@ -10,8 +10,11 @@
 
 <style lang="scss" scoped>
 .card-front {
+  border-radius: inherit;
+
   .background {
     // Using an <img> instead of background-image to avoid artifacts.
+    border-radius: inherit;
     position: absolute;
     left: 0;
     top: 0;
