@@ -49,6 +49,7 @@
           ref="cropper"
           class="cropper"
           dragMode="move"
+          :view-mode="1"
           :responsive="false"
           :autoCropArea="1.0"
           :src="$store.state.figurine.original"
@@ -67,9 +68,27 @@ import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
 import { cardWidth, cardHeight } from "~/assets/src/constants";
+import EventBus from "~/assets/src/events/bus";
+import { FigurineState } from "~/store/figurine";
+import { TabId } from "~/store/sidebar";
 
-@Component
+@Component({
+  watch: {
+    activeTab(newValue: TabId, oldValue: TabId) {
+      if (newValue === TabId.FIGURINE) {
+        (this as FigurineForm).restoreCropperSettings();
+      }
+    },
+  },
+})
 export default class FigurineForm extends Vue {
+  invalidate: boolean = true;
+  replaceImage: boolean = false;
+
+  get activeTab(): TabId {
+    return this.$store.state.sidebar.activeTab;
+  }
+
   get height(): number {
     return this.$store.state.figurine.height;
   }
@@ -102,16 +121,43 @@ export default class FigurineForm extends Vue {
     this.$store.commit("figurine/setCropping", useCropped);
   }
 
+  mounted() {
+    EventBus.$on("card-load", () => {
+      this.invalidate = true;
+      this.replaceImage = true;
+    });
+  }
+
+  private restoreCropperSettings() {
+    const figurineState = this.$store.state.figurine;
+    if (this.replaceImage) {
+      // This has to be done when the cropper is displayed to correctly update the size.
+      // That's why the image is not replaced immediately on background-cropping event.
+      this.replaceImage = false;
+      this.cropper.replace(figurineState.original);
+      return;
+    }
+    if (this.invalidate) {
+      this.invalidate = false;
+      const cropperData = figurineState.cropper;
+      if (cropperData != null) {
+        this.cropper.setCanvasData(cropperData.canvasData);
+        this.cropper.setData(cropperData.croppingData);
+      }
+    }
+  }
+
   private updateCroppedImage: (cropper: Cropper) => void = debounce(
     (cropper: Cropper) => {
       const image = cropper.getCroppedCanvas().toDataURL("image/png");
       this.$store.commit("figurine/crop", image);
+      this.$store.commit("figurine/setCropperData", cropper);
     },
     150 // ms
   );
 
-  private get cropper(): Cropper {
-    return (this.$refs.cropper as any) as Cropper;
+  private get cropper(): Cropper & Vue {
+    return (this.$refs.cropper as any) as Cropper & Vue;
   }
 
   get aspectRatio(): number {
@@ -128,6 +174,13 @@ export default class FigurineForm extends Vue {
   }
 
   onCrop() {
+    if (this.invalidate) {
+      this.restoreCropperSettings();
+      if (this.$store.state.background.cropper != null) {
+        // It was necessary to restore the cropper state. Crop image change is ignored.
+        return;
+      }
+    }
     this.updateCroppedImage(this.cropper);
   }
 }

@@ -33,9 +33,27 @@ import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
 import { cardWidth, cardHeight } from "~/assets/src/constants";
+import EventBus from "~/assets/src/events/bus";
+import { BackgroundState } from "~/store/background";
+import { TabId } from "~/store/sidebar";
 
-@Component
+@Component({
+  watch: {
+    activeTab(newValue: TabId, oldValue: TabId) {
+      if (newValue === TabId.ARTWORK) {
+        (this as ArtworkForm).restoreCropperSettings();
+      }
+    },
+  },
+})
 export default class ArtworkForm extends Vue {
+  invalidate: boolean = true;
+  replaceImage: boolean = false;
+
+  get activeTab(): TabId {
+    return this.$store.state.sidebar.activeTab;
+  }
+
   get useCropped(): boolean {
     return this.$store.state.background.useCropped;
   }
@@ -44,16 +62,43 @@ export default class ArtworkForm extends Vue {
     this.$store.commit("background/setCropping", useCropped);
   }
 
+  mounted() {
+    EventBus.$on("card-load", () => {
+      this.invalidate = true;
+      this.replaceImage = true;
+    });
+  }
+
+  private restoreCropperSettings() {
+    const backgroundState = this.$store.state.background;
+    if (this.replaceImage) {
+      // This has to be done when the cropper is displayed to correctly update the size.
+      // That's why the image is not replaced immediately on background-cropping event.
+      this.replaceImage = false;
+      this.cropper.replace(backgroundState.original);
+      return;
+    }
+    if (this.invalidate) {
+      this.invalidate = false;
+      const cropperData = backgroundState.cropper;
+      if (cropperData != null) {
+        this.cropper.setCanvasData(cropperData.canvasData);
+        this.cropper.setData(cropperData.croppingData);
+      }
+    }
+  }
+
   private updateCroppedImage: (cropper: Cropper) => void = debounce(
     (cropper: Cropper) => {
       const image = cropper.getCroppedCanvas().toDataURL("image/png");
       this.$store.commit("background/crop", image);
+      this.$store.commit("background/setCropperData", cropper);
     },
     150 // ms
   );
 
-  private get cropper(): Cropper {
-    return (this.$refs.cropper as any) as Cropper;
+  private get cropper(): Cropper & Vue {
+    return (this.$refs.cropper as any) as Cropper & Vue;
   }
 
   get aspectRatio(): number {
@@ -70,7 +115,13 @@ export default class ArtworkForm extends Vue {
   }
 
   onCrop() {
-    console.log("crop"!, this.cropper.getCanvasData());
+    if (this.invalidate) {
+      this.restoreCropperSettings();
+      if (this.$store.state.background.cropper != null) {
+        // It was necessary to restore the cropper state. Crop image change is ignored.
+        return;
+      }
+    }
     this.updateCroppedImage(this.cropper);
   }
 }

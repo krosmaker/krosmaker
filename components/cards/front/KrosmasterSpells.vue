@@ -109,7 +109,7 @@ import Vue from "vue";
 import { mapState } from "vuex";
 import { Component } from "vue-property-decorator";
 
-import { Spell } from "~/store/krosmaster";
+import { Spell } from "~/assets/src/data/fighters";
 import { maxAbilitiesCount } from "~/assets/src/constants";
 import { TabId } from "~/store/sidebar";
 
@@ -212,7 +212,7 @@ export default class SpellsForm extends Vue {
   .spell-limit {
     font-family: "Helvetica Neue";
     position: absolute;
-    top: 22px;
+    top: 24px;
     left: 80%;
     font-size: 22px;
     font-weight: bold;
@@ -293,6 +293,7 @@ export default class SpellsForm extends Vue {
       text-shadow: 2px 2px #111111;
       margin-left: 16.5%;
       margin-top: 1px;
+      margin-bottom: -1%;
       width: $card-width * 0.7;
       font-weight: 700;
       font-size: 19px;
@@ -309,7 +310,7 @@ export default class SpellsForm extends Vue {
       margin-left: 16.5%;
       margin-right: 14%;
       min-height: 37px;
-      padding-top: 0.5%;
+      padding-top: 1%;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;

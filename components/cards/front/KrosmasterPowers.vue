@@ -32,7 +32,7 @@ import Vue from "vue";
 import { mapState } from "vuex";
 import { Component } from "vue-property-decorator";
 
-import { Power } from "~/store/krosmaster";
+import { Power } from "~/assets/src/data/fighters";
 import { maxAbilitiesCount } from "~/assets/src/constants";
 import { TabId } from "~/store/sidebar";
 

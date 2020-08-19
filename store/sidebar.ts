@@ -4,6 +4,7 @@ export enum TabId {
   ARTWORK = 2,
   SPELLS = 3,
   POWERS = 4,
+  EXPORT = 5,
 }
 
 interface SidebarState {
@@ -32,5 +33,9 @@ export const mutations = {
   },
   setActivePower(state: SidebarState, index: number | null) {
     state.activePower = index;
+  },
+  reset(state: SidebarState) {
+    state.activeSpell = null;
+    state.activePower = null;
   },
 };

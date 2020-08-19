@@ -24,6 +24,9 @@
       <v-tab @click="onTabClick(4, 'front')">
         <v-icon>mdi-arm-flex</v-icon>
       </v-tab>
+      <v-tab @click="onTabClick(5)">
+        <v-icon>mdi-content-save</v-icon>
+      </v-tab>
       <v-tab-item>
         <v-card flat>
           <KrosmasterDataForm />
@@ -47,6 +50,11 @@
       <v-tab-item>
         <v-card flat>
           <PowersForm />
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <ExportForm />
         </v-card>
       </v-tab-item>
     </v-tabs>
@@ -77,9 +85,9 @@ export default class CardEditSidebar extends Vue {
     this.$store.commit("sidebar/setExpand", expand);
   }
 
-  onTabClick(tab: TabId, tabName: string) {
+  onTabClick(tab: TabId, tabName: string | null = null) {
     this.onTabChange(tab);
-    if (this.expand) {
+    if (this.expand && tabName != null) {
       this.$emit(`${tabName}-select`);
     }
   }

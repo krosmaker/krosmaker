@@ -1,7 +1,13 @@
-interface BackgroundState {
+import Cropper from "cropperjs";
+
+export interface BackgroundState {
   original: string;
   cropped: string;
   useCropped: boolean;
+  cropper?: {
+    croppingData: Cropper.Data;
+    canvasData: Cropper.CanvasData;
+  };
 }
 
 export const state: () => BackgroundState = () => ({
@@ -11,14 +17,25 @@ export const state: () => BackgroundState = () => ({
 });
 
 export const mutations = {
+  replace(state: BackgroundState, newState: BackgroundState) {
+    Object.assign(state, newState);
+  },
+
   setCropping(state: BackgroundState, useCropped: boolean) {
     state.useCropped = useCropped;
   },
   upload(state: BackgroundState, image: string) {
     state.original = image;
     state.cropped = image;
+    state.cropper = undefined;
   },
   crop(state: BackgroundState, image: string) {
     state.cropped = image;
+  },
+  setCropperData(state: BackgroundState, cropper: Cropper & Vue) {
+    state.cropper = {
+      canvasData: cropper.getCanvasData(),
+      croppingData: cropper.getData(),
+    };
   },
 };

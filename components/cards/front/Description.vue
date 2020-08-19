@@ -144,8 +144,8 @@ export default class Description extends Vue {
 .water-icon {
   width: 19px;
   height: 19px;
-  margin-bottom: 1px;
-  margin-top: -5px;
+  margin-bottom: 0px;
+  margin-top: -4px;
   margin-left: -1px;
 }
 

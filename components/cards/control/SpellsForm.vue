@@ -157,8 +157,9 @@
 
         <v-card-text>
           <span>Do you really want to delete </span>
-          <strong>
-            {{ activeSpell != null ? spells[activeSpell].name : "" }} </strong
+          <strong>{{
+            activeSpell != null ? spells[activeSpell].name : ""
+          }}</strong
           >?
           <span> Entered data will be lost.</span>
         </v-card-text>
@@ -185,7 +186,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
-import { Spell, Element, Range, Limit } from "~/store/krosmaster";
+import { Spell, Element, Range, Limit } from "~/assets/src/data/fighters";
 import { maxAbilitiesCount } from "~/assets/src/constants";
 
 @Component
@@ -266,7 +267,6 @@ export default class SpellsForm extends Vue {
   }
 
   onRangeChange(range: [number, number], index: number) {
-    console.log("range changed", range);
     this.$store.commit("krosmaster/setSpellRange", {
       index,
       range,

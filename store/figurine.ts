@@ -1,10 +1,16 @@
-interface FigurineState {
+import Cropper from "cropperjs";
+
+export interface FigurineState {
   original: string;
   cropped: string;
   useCropped: boolean;
   height: number;
   offsetX: number;
   offsetY: number;
+  cropper?: {
+    croppingData: Cropper.Data;
+    canvasData: Cropper.CanvasData;
+  };
 }
 
 export const state: () => FigurineState = () => ({
@@ -17,6 +23,10 @@ export const state: () => FigurineState = () => ({
 });
 
 export const mutations = {
+  replace(state: FigurineState, newState: FigurineState) {
+    Object.assign(state, newState);
+  },
+
   setHeight(state: FigurineState, height: number) {
     state.height = height;
   },
@@ -32,8 +42,15 @@ export const mutations = {
   upload(state: FigurineState, image: string) {
     state.original = image;
     state.cropped = image;
+    state.cropper = undefined;
   },
   crop(state: FigurineState, image: string) {
     state.cropped = image;
+  },
+  setCropperData(state: FigurineState, cropper: Cropper & Vue) {
+    state.cropper = {
+      canvasData: cropper.getCanvasData(),
+      croppingData: cropper.getData(),
+    };
   },
 };
