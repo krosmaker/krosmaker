@@ -285,7 +285,7 @@ export default class SpellsForm extends Vue {
   .spell-content {
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
-    padding-bottom: 8px;
+    padding-bottom: 9px;
 
     .spell-name {
       font-family: "Helvetica Neue";
@@ -310,7 +310,7 @@ export default class SpellsForm extends Vue {
       margin-left: 16.5%;
       margin-right: 14%;
       min-height: 37px;
-      padding-top: 1%;
+      padding-top: 1.2%;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;

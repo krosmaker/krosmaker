@@ -29,8 +29,16 @@ export default class CardBack extends Vue {
 <style lang="scss" scoped>
 .card-back {
   cursor: pointer;
+  overflow: hidden;
 
-  .artwork,
+  .artwork {
+    position: absolute;
+    top: 16px;
+    left: 23px;
+    width: 475px;
+    height: 337px;
+  }
+
   .frame {
     position: absolute;
     width: 100%;

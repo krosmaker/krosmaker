@@ -74,7 +74,7 @@ export default class PowersForm extends Vue {
   .power-content {
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
-    padding-bottom: 8px;
+    padding-bottom: 9px;
 
     .power-name {
       font-family: "Helvetica Neue";
@@ -97,7 +97,7 @@ export default class PowersForm extends Vue {
       margin-left: 9%;
       margin-right: 9%;
       min-height: 25px;
-      padding-top: 1%;
+      padding-top: 1.1%;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;

@@ -32,7 +32,7 @@ import { Component } from "vue-property-decorator";
 import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
-import { cardWidth, cardHeight } from "~/assets/src/constants";
+import { artworkWidth, artworkHeight } from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
 import { BackgroundState } from "~/store/background";
 import { TabId } from "~/store/sidebar";
@@ -60,6 +60,14 @@ export default class ArtworkForm extends Vue {
 
   set useCropped(useCropped: boolean) {
     this.$store.commit("background/setCropping", useCropped);
+  }
+
+  get aspectRatio(): number {
+    return artworkWidth / artworkHeight;
+  }
+
+  private get cropper(): Cropper & Vue {
+    return (this.$refs.cropper as any) as Cropper & Vue;
   }
 
   mounted() {
@@ -96,14 +104,6 @@ export default class ArtworkForm extends Vue {
     },
     150 // ms
   );
-
-  private get cropper(): Cropper & Vue {
-    return (this.$refs.cropper as any) as Cropper & Vue;
-  }
-
-  get aspectRatio(): number {
-    return cardWidth / cardHeight;
-  }
 
   onUpload(image: string) {
     // Cropper has to be displayed in order to calculate the correct height:

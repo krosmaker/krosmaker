@@ -28,7 +28,7 @@ export default class Description extends Vue {
   private splitPattern = RegExp(
     "(" +
       this.markers
-        .map((marker) => `(?:[+-]?\\d+ )?${marker.keyword}`)
+        .map((marker) => `(?:[+-]?\\d+ )?${marker.keyword}(?=\\b|$)`)
         .join("|") +
       "|\n|\\*.*?\\*)",
     "g"
@@ -91,8 +91,7 @@ export default class Description extends Vue {
   width: 19px;
   height: 19px;
   margin-top: -5px;
-  margin-bottom: 1px;
-  margin-left: -1px;
+  margin-left: -2px;
   margin-right: -2px;
 }
 
@@ -116,9 +115,8 @@ export default class Description extends Vue {
   background-image: url("~assets/img/front/descriptions/markers/ap.png");
   width: 19px;
   height: 19px;
-  margin-bottom: 1px;
   margin-top: -5px;
-  margin-left: -2px;
+  margin-left: -1px;
   margin-right: -1px;
 }
 
@@ -144,7 +142,6 @@ export default class Description extends Vue {
 .water-icon {
   width: 19px;
   height: 19px;
-  margin-bottom: 0px;
   margin-top: -4px;
   margin-left: -1px;
 }
