@@ -32,7 +32,12 @@ import { Component } from "vue-property-decorator";
 import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
-import { artworkWidth, artworkHeight } from "~/assets/src/constants";
+import {
+  artworkWidth,
+  artworkHeight,
+  minionArtworkWidth,
+  minionArtworkHeight,
+} from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
 import { BackgroundState } from "~/store/background";
 import { TabId } from "~/store/sidebar";
@@ -50,6 +55,10 @@ export default class ArtworkForm extends Vue {
   invalidate: boolean = true;
   replaceImage: boolean = false;
 
+  get isKrosmaster(): boolean {
+    return this.$store.state.krosmaster.type !== "minion";
+  }
+
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
   }
@@ -63,7 +72,9 @@ export default class ArtworkForm extends Vue {
   }
 
   get aspectRatio(): number {
-    return artworkWidth / artworkHeight;
+    return this.isKrosmaster
+      ? artworkWidth / artworkHeight
+      : minionArtworkWidth / minionArtworkHeight;
   }
 
   private get cropper(): Cropper & Vue {
@@ -88,6 +99,7 @@ export default class ArtworkForm extends Vue {
     }
     if (this.invalidate) {
       this.invalidate = false;
+      this.cropper.setAspectRatio(this.aspectRatio);
       const cropperData = backgroundState.cropper;
       if (cropperData != null) {
         this.cropper.setCanvasData(cropperData.canvasData);

@@ -51,6 +51,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import EventBus from "~/assets/src/events/bus";
 
 import {
   preventNonNumericInput,
@@ -73,7 +74,25 @@ export default class KrosmasterName extends Vue {
   }
 
   set type(type: KrosmasterType) {
+    const previousType = this.type;
     this.$store.commit("krosmaster/setType", type);
+
+    // Updating default background on major fighter type change:
+    if (type === "minion" && previousType !== "minion") {
+      this.$store.commit(
+        "background/upload",
+        require("~/assets/img/back/background-minion.png")
+      );
+      // Updating croppers:
+      EventBus.$emit("card-load");
+    } else if (type !== "minion" && previousType === "minion") {
+      this.$store.commit(
+        "background/upload",
+        require("~/assets/img/back/default-background.png")
+      );
+      // Updating croppers:
+      EventBus.$emit("card-load");
+    }
   }
 
   get mp(): string {
