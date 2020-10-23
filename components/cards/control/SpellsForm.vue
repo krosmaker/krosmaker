@@ -228,8 +228,10 @@ export default class SpellsForm extends Vue {
     const krosmaster = this.$store.state.krosmaster;
     const totalAbilities = krosmaster.powers.length + krosmaster.spells.length;
     const maxAbilities =
-      krosmaster.type == "minion" ? maxMinionAbilitiesCount : maxAbilitiesCount;
-    return totalAbilities >= maxAbilitiesCount;
+      krosmaster.type === "minion"
+        ? maxMinionAbilitiesCount
+        : maxAbilitiesCount;
+    return totalAbilities >= maxAbilities;
   }
 
   truncate(text: string, length: number): string {

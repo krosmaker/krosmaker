@@ -4,12 +4,20 @@
       v-for="(power, index) in powers"
       :key="index"
       class="power-container"
+      :class="{ 'minion-power-container': isMinion }"
       @click="selectPower(index)"
     >
       <img
+        v-if="isMinion"
+        class="power-name-background"
+        src="~/assets/img/front/powers/minion-header.png"
+      />
+      <img
+        v-else
         class="power-name-background"
         src="~/assets/img/front/powers/header.png"
       />
+
       <div class="power-content">
         <PlainInput
           class="power-name"
@@ -40,6 +48,10 @@ import { TabId } from "~/store/sidebar";
 export default class Powers extends Vue {
   get powers(): Power[] {
     return this.$store.state.krosmaster.powers;
+  }
+
+  get isMinion(): boolean {
+    return this.$store.state.krosmaster.type === "minion";
   }
 
   onNameChange(name: string, index: number) {
@@ -104,6 +116,31 @@ export default class Powers extends Vue {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+    }
+  }
+}
+
+.minion-power-container {
+  .power-name-background {
+    margin-left: 2.8%;
+    margin-bottom: -9.2%;
+    padding-bottom: 2px;
+  }
+
+  .power-content {
+    width: $minion-card-width;
+    background: url("~assets/img/front/descriptions/minion-background.png")
+      bottom center no-repeat;
+
+    .power-name {
+      margin-left: 10%;
+    }
+
+    .power-description {
+      margin-left: 10%;
+      margin-right: 9.5%;
+      margin-top: -1px;
+      margin-bottom: 3px;
     }
   }
 }

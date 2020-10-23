@@ -1,8 +1,8 @@
 <template>
-  <fragment>
+  <div>
     <img v-if="isKrosmaster" src="~/assets/img/back/frame.png" />
     <img v-else src="~/assets/img/back/frame-minion.png" />
-  </fragment>
+  </div>
 </template>
 
 <script lang="ts">
