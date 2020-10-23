@@ -9,3 +9,4 @@ export const minionArtworkWidth: number = 368;
 export const minionArtworkHeight: number = 233;
 
 export const maxAbilitiesCount: number = 3;
+export const maxMinionAbilitiesCount: number = 1;

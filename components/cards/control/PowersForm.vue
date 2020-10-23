@@ -114,7 +114,10 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import { Power } from "~/assets/src/data/fighters";
-import { maxAbilitiesCount } from "~/assets/src/constants";
+import {
+  maxAbilitiesCount,
+  maxMinionAbilitiesCount,
+} from "~/assets/src/constants";
 
 @Component
 export default class PowersForm extends Vue {
@@ -134,9 +137,10 @@ export default class PowersForm extends Vue {
 
   get isFull(): boolean {
     const krosmaster = this.$store.state.krosmaster;
-    return (
-      maxAbilitiesCount <= krosmaster.powers.length + krosmaster.spells.length
-    );
+    const totalAbilities = krosmaster.powers.length + krosmaster.spells.length;
+    const maxAbilities =
+      krosmaster.type == "minion" ? maxMinionAbilitiesCount : maxAbilitiesCount;
+    return totalAbilities >= maxAbilitiesCount;
   }
 
   truncate(text: string, length: number): string {

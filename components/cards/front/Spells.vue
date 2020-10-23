@@ -4,6 +4,7 @@
       v-for="(spell, index) in spells"
       :key="index"
       class="spell-container"
+      :class="{ 'minion-spell-container': isMinion }"
       @click="selectSpell(index)"
     >
       <img
@@ -81,6 +82,12 @@
       />
 
       <img
+        v-if="isMinion"
+        class="spell-name-background"
+        src="~/assets/img/front/spells/minion-header.png"
+      />
+      <img
+        v-else
         class="spell-name-background"
         src="~/assets/img/front/spells/header.png"
       />
@@ -117,6 +124,10 @@ import { TabId } from "~/store/sidebar";
 export default class Spells extends Vue {
   get spells(): Spell[] {
     return this.$store.state.krosmaster.spells;
+  }
+
+  get isMinion(): boolean {
+    return this.$store.state.krosmaster.type === "minion";
   }
 
   onNameChange(name: string, index: number) {
@@ -322,6 +333,65 @@ export default class Spells extends Vue {
     .spell-description-extended {
       margin-right: 9%;
     }
+  }
+}
+
+.minion-spell-container {
+  .spell-content {
+    width: $minion-card-width;
+    background: url("~assets/img/front/descriptions/minion-background.png")
+      bottom center no-repeat;
+
+    .spell-name {
+      width: $minion-card-width * 0.7;
+      margin-left: 19.2%;
+      margin-top: 0px;
+      margin-bottom: 2px;
+    }
+
+    .spell-description {
+      padding-top: 4px;
+      margin-top: -4px;
+      margin-left: 19%;
+      margin-bottom: 4px;
+      margin-right: 19%;
+    }
+
+    .spell-description-extended {
+      margin-right: 8.4%;
+    }
+  }
+
+  .spell-range-background {
+    left: 4%;
+  }
+
+  .spell-range {
+    left: 3.4%;
+  }
+
+  .spell-damage-background {
+    top: 34px;
+    left: 62.5%;
+  }
+
+  .spell-damage-value {
+    top: 40px;
+    left: 65.8%;
+  }
+
+  .spell-limit {
+    top: 22px;
+    left: 55%;
+  }
+
+  .spell-limit-extended {
+    left: 62%;
+  }
+
+  .spell-name-background {
+    margin-left: 13%;
+    margin-bottom: -8.9%;
   }
 }
 </style>

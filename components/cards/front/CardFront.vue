@@ -65,14 +65,17 @@ export default class CardFront extends Vue {
 
 .card-front-minion {
   .name {
-    position: absolute;
-    left: 5%;
+    left: 5.4%;
     top: 9.5%;
   }
+
   .statistics {
-    position: absolute;
     left: 16.8%;
     top: 30%;
+  }
+
+  .abilities {
+    top: 53%;
   }
 }
 </style>
