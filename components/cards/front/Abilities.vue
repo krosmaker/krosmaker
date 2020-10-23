@@ -1,7 +1,7 @@
 <template>
   <div class="abilities-container">
-    <KrosmasterSpells />
-    <KrosmasterPowers />
+    <Spells />
+    <Powers />
   </div>
 </template>
 

@@ -29,7 +29,7 @@
       </v-tab>
       <v-tab-item>
         <v-card flat>
-          <KrosmasterDataForm />
+          <BasicDataForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>

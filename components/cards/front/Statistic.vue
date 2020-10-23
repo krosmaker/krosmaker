@@ -17,7 +17,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class KrosmasterStatistic extends Vue {
+export default class Statistic extends Vue {
   @Prop({ type: String, required: true })
   type!: "mp" | "hp" | "ap";
 

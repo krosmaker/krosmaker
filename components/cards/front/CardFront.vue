@@ -1,12 +1,33 @@
 <template>
   <div class="card-front">
-    <img class="background" src="~assets/img/front/background.png" />
-    <KrosmasterName class="name" />
-    <KrosmasterStatistics class="statistics" />
+    <img
+      v-if="isKrosmaster"
+      class="background"
+      src="~assets/img/front/background.png"
+    />
+    <img
+      v-else
+      class="background"
+      src="~assets/img/front/background-minion.png"
+    />
+    <FighterName class="name" />
+    <Statistics class="statistics" />
     <Figurine class="figurine" />
-    <KrosmasterAbilities class="abilities" />
+    <Abilities class="abilities" />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
+@Component
+export default class CardFront extends Vue {
+  get isKrosmaster(): boolean {
+    return this.$store.state.krosmaster.type !== "minion";
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .card-front {

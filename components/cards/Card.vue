@@ -2,7 +2,7 @@
   <Flippable
     class="card"
     :is-flipped="isFlipped"
-    :class="{ 'is-rounded': isRounded }"
+    :class="{ 'is-rounded': isRounded, 'card-minion': isMinion }"
   >
     <template v-slot:front>
       <CardFront
@@ -35,6 +35,10 @@ export default class Card extends Vue {
 
   @Prop({ type: Boolean, default: true })
   isRounded!: boolean;
+
+  get isMinion(): boolean {
+    return this.$store.state.krosmaster.type === "minion";
+  }
 }
 </script>
 
@@ -50,6 +54,11 @@ export default class Card extends Vue {
     height: inherit;
     overflow: hidden;
   }
+}
+
+.card-minion {
+  width: $minion-card-width;
+  height: $minion-card-height;
 }
 
 .is-rounded {

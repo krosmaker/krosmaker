@@ -69,7 +69,7 @@ import { Component } from "vue-property-decorator";
 import { toPng } from "html-to-image";
 
 @Component
-export default class KrosmasterCardContainer extends Vue {
+export default class CardContainer extends Vue {
   isFlipped: boolean = false;
   isRounded: boolean = true;
   warningDialog: boolean = false;
@@ -115,6 +115,10 @@ export default class KrosmasterCardContainer extends Vue {
   min-height: $card-height;
   max-width: $card-width;
   max-height: $card-height;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .controls-panel {

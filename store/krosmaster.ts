@@ -5,10 +5,12 @@ import {
   Range,
   Limit,
 } from "~/assets/src/data/fighters";
+export type KrosmasterType = "common" | "elite" | "minion";
 
 export interface KrosmasterState {
   name: string;
-  isElite: boolean;
+  isElite?: boolean; // Legacy setting. Migration utility.
+  type: KrosmasterType;
 
   mp: string;
   hp: string;
@@ -20,7 +22,7 @@ export interface KrosmasterState {
 
 export const state: () => KrosmasterState = () => ({
   name: "Enter Krosmaster name",
-  isElite: true,
+  type: "elite",
 
   mp: "3",
   hp: "12",
@@ -33,13 +35,17 @@ export const state: () => KrosmasterState = () => ({
 export const mutations = {
   replace(state: KrosmasterState, newState: KrosmasterState) {
     Object.assign(state, newState);
+    // Migration utility - legacy configuration import:
+    if (newState.isElite != null) {
+      state.type = newState.isElite ? "elite" : "common";
+    }
   },
 
   setName(state: KrosmasterState, name: string) {
     state.name = name || "";
   },
-  setElite(state: KrosmasterState, isElite: boolean) {
-    state.isElite = isElite;
+  setType(state: KrosmasterState, type: KrosmasterType) {
+    state.type = type;
   },
 
   setMP(state: KrosmasterState, mp: string) {

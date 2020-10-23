@@ -114,7 +114,7 @@ import { maxAbilitiesCount } from "~/assets/src/constants";
 import { TabId } from "~/store/sidebar";
 
 @Component
-export default class SpellsForm extends Vue {
+export default class Spells extends Vue {
   get spells(): Spell[] {
     return this.$store.state.krosmaster.spells;
   }

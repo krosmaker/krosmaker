@@ -1,3 +1,3 @@
 <template>
-  <KrosmasterCardContainer />
+  <CardContainer />
 </template>

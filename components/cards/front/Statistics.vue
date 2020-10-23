@@ -1,8 +1,8 @@
 <template>
   <v-layout class="statistics" row>
-    <KrosmasterStatistic class="statistic-container" type="mp" />
-    <KrosmasterStatistic class="statistic-container" type="hp" />
-    <KrosmasterStatistic class="statistic-container" type="ap" />
+    <Statistic class="statistic-container" type="mp" />
+    <Statistic class="statistic-container" type="hp" />
+    <Statistic class="statistic-container" type="ap" />
   </v-layout>
 </template>
 
@@ -10,7 +10,7 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class KrosmasterStatistics extends Vue {}
+export default class Statistics extends Vue {}
 </script>
 
 <style lang="scss" scoped>

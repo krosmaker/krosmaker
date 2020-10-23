@@ -21,7 +21,7 @@ import { Component } from "vue-property-decorator";
 import { detect, BrowserInfo } from "detect-browser";
 
 @Component
-export default class KrosmasterName extends Vue {
+export default class FighterName extends Vue {
   browser: BrowserInfo | null = detect() as BrowserInfo | null;
 
   get content(): string {
@@ -33,7 +33,7 @@ export default class KrosmasterName extends Vue {
   }
 
   get isElite(): boolean {
-    return this.$store.state.krosmaster.isElite;
+    return this.$store.state.krosmaster.type === "elite";
   }
 
   get isExporting(): boolean {

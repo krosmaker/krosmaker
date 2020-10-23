@@ -37,7 +37,7 @@ import { maxAbilitiesCount } from "~/assets/src/constants";
 import { TabId } from "~/store/sidebar";
 
 @Component
-export default class PowersForm extends Vue {
+export default class Powers extends Vue {
   get powers(): Power[] {
     return this.$store.state.krosmaster.powers;
   }

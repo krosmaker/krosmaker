@@ -38,9 +38,10 @@
         />
       </v-col>
       <v-col cols="12" sm="12">
-        <v-radio-group v-model="isElite" row label="Rarity:">
-          <v-radio label="Elite" :value="true" color="amber" />
-          <v-radio label="Common" :value="false" color="white" />
+        <v-radio-group v-model="type" row label="Rarity:">
+          <v-radio label="Elite" value="elite" color="amber" />
+          <v-radio label="Common" value="common" color="white" />
+          <v-radio label="Minion" value="minion" color="white" />
         </v-radio-group>
       </v-col>
     </v-row>
@@ -55,6 +56,7 @@ import {
   preventNonNumericInput,
   preventNonNumericPaste,
 } from "~/assets/src/helpers";
+import { KrosmasterType } from "~/store/krosmaster";
 
 @Component
 export default class KrosmasterName extends Vue {
@@ -66,12 +68,12 @@ export default class KrosmasterName extends Vue {
     this.$store.commit("krosmaster/setName", content);
   }
 
-  get isElite(): boolean {
-    return this.$store.state.krosmaster.isElite;
+  get type(): KrosmasterType {
+    return this.$store.state.krosmaster.type;
   }
 
-  set isElite(isElite: boolean) {
-    this.$store.commit("krosmaster/setElite", isElite);
+  set type(type: KrosmasterType) {
+    this.$store.commit("krosmaster/setType", type);
   }
 
   get mp(): string {
