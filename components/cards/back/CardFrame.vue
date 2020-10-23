@@ -1,7 +1,7 @@
 <template>
   <div>
-    <img v-if="isKrosmaster" src="~/assets/img/back/frame.png" />
-    <img v-else src="~/assets/img/back/frame-minion.png" />
+    <img v-if="isKrosmaster" class="frame" src="~/assets/img/back/frame.png" />
+    <img v-else class="frame" src="~/assets/img/back/frame-minion.png" />
   </div>
 </template>
 
@@ -16,3 +16,9 @@ export default class BackgroundFrame extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.frame {
+  border-radius: inherit;
+}
+</style>

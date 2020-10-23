@@ -53,6 +53,7 @@ export default class Card extends Vue {
     width: inherit;
     height: inherit;
     overflow: hidden;
+    border-radius: inherit;
   }
 }
 

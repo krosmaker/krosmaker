@@ -37,6 +37,7 @@ export default class CardBack extends Vue {
 .card-back {
   cursor: pointer;
   overflow: hidden;
+  border-radius: inherit;
 
   .artwork {
     position: absolute;
