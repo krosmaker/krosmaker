@@ -21,7 +21,7 @@ export interface KrosmasterState {
 }
 
 export const state: () => KrosmasterState = () => ({
-  name: "Enter Krosmaster name",
+  name: "Enter name",
   type: "elite",
 
   mp: "3",

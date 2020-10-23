@@ -11,8 +11,8 @@
           dense
           label="X"
           v-model="offsetX"
-          min="655"
-          max="805"
+          min="645"
+          max="815"
         ></v-slider>
       </v-col>
       <v-col class="pa-0" cols="12" sm="6">
@@ -21,8 +21,8 @@
           dense
           label="Y"
           v-model="offsetY"
-          min="-90"
-          max="110"
+          min="-70"
+          max="130"
         ></v-slider>
       </v-col>
       <v-col class="pa-0" cols="12" sm="12">
@@ -31,8 +31,8 @@
           dense
           label="Size"
           v-model="height"
-          min="95"
-          max="255"
+          min="55"
+          max="295"
         ></v-slider>
       </v-col>
       <v-col class="crop-switch" cols="12" sm="12">

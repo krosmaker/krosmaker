@@ -19,7 +19,8 @@ import { TabId } from "~/store/sidebar";
 @Component
 export default class Figurine extends Vue {
   get offsetX(): number {
-    return this.$store.state.figurine.offsetX;
+    const isMinion = this.$store.state.krosmaster.type === "minion";
+    return this.$store.state.figurine.offsetX - (isMinion ? 75 : 0);
   }
 
   get offsetY(): number {

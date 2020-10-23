@@ -3,7 +3,11 @@
     <h1>Krosmaster</h1>
     <v-row>
       <v-col cols="12" sm="12">
-        <v-text-field v-model="content" label="Name" maxlength="30" />
+        <v-text-field
+          v-model="content"
+          label="Name"
+          :maxlength="maxNameLength"
+        />
       </v-col>
       <v-col cols="12" sm="4">
         <v-text-field
@@ -67,6 +71,10 @@ export default class KrosmasterName extends Vue {
 
   set content(content: string) {
     this.$store.commit("krosmaster/setName", content);
+  }
+
+  get maxNameLength(): number {
+    return this.$store.state.krosmaster.type === "minion" ? 20 : 30;
   }
 
   get type(): KrosmasterType {

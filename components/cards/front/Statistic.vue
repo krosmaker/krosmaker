@@ -1,5 +1,11 @@
 <template>
-  <v-layout class="statistic-container" column justify-center align-center>
+  <v-layout
+    class="statistic-container"
+    :class="{ 'minion-statistic-container': isMinion }"
+    column
+    justify-center
+    align-center
+  >
     <PlainInput
       class="statistic"
       :class="type"
@@ -28,6 +34,10 @@ export default class Statistic extends Vue {
   set value(value: string) {
     const type = this.type.toUpperCase();
     this.$store.commit(`krosmaster/set${type}`, value);
+  }
+
+  get isMinion(): boolean {
+    return this.$store.state.krosmaster.type === "minion";
   }
 }
 </script>
@@ -73,5 +83,17 @@ $statistics: (
     font-size: 10px;
     font-weight: 900;
   }
+}
+
+.minion-statistic-container {
+  .statistic {
+    font-size: 37px;
+  }
+
+  .statistic-label {
+    margin-top: -1.7em;
+  }
+
+  margin-right: 1.05em;
 }
 </style>

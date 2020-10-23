@@ -1,5 +1,5 @@
 <template>
-  <div class="card-front">
+  <div class="card-front" :class="{ 'card-front-minion': !isKrosmaster }">
     <img
       v-if="isKrosmaster"
       class="background"
@@ -59,6 +59,19 @@ export default class CardFront extends Vue {
 
   .abilities {
     position: absolute;
+    top: 30%;
+  }
+}
+
+.card-front-minion {
+  .name {
+    position: absolute;
+    left: 5%;
+    top: 9.5%;
+  }
+  .statistics {
+    position: absolute;
+    left: 16.8%;
     top: 30%;
   }
 }
