@@ -28,7 +28,7 @@ export default class Description extends Vue {
   private splitPattern = RegExp(
     "(" +
       this.markers
-        .map((marker) => `(?:[+-]?\\d+ )?${marker.keyword}(?=\\b|$)`)
+        .map((marker) => `(?:[+-]?\\d* ?)?${marker.keyword}(?=\\b|$)`)
         .join("|") +
       "|\n|\\*.*?\\*)",
     "g"

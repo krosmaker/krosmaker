@@ -29,9 +29,7 @@
     />
     <v-dialog v-model="warningDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">
-          Warning
-        </v-card-title>
+        <v-card-title class="headline">Warning</v-card-title>
 
         <v-card-text>
           Card downloading is currently
@@ -58,9 +56,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text @click="warningDialog = false">
-            I understand
-          </v-btn>
+          <v-btn text @click="warningDialog = false">I understand</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

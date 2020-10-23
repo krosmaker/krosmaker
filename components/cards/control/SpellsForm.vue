@@ -151,9 +151,7 @@
 
     <v-dialog v-model="showDeleteDialog" max-width="400">
       <v-card>
-        <v-card-title class="headline">
-          Confirm deletion
-        </v-card-title>
+        <v-card-title class="headline">Confirm deletion</v-card-title>
 
         <v-card-text>
           <span>Do you really want to delete </span>

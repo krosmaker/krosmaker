@@ -24,13 +24,36 @@
           Load
         </v-btn>
       </v-col>
+      <v-col cols="12" sm="6">
+        <v-btn
+          dark
+          x-large
+          width="100%"
+          @click="onExport"
+          :loading="isExporting"
+        >
+          <v-icon dark left>mdi-download</v-icon>
+          Export
+        </v-btn>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <input
+          class="hidden"
+          ref="fileInput"
+          type="file"
+          accept="application/json"
+          @change="onImportFile"
+        />
+        <v-btn dark x-large width="100%" @click="onImport">
+          <v-icon dark left>mdi-upload</v-icon>
+          Import
+        </v-btn>
+      </v-col>
     </v-row>
 
     <v-dialog v-model="overrideDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">
-          Warning
-        </v-card-title>
+        <v-card-title class="headline">Warning</v-card-title>
 
         <v-card-text>
           Krosmaster with file name <strong>{{ fileName }}</strong>
@@ -54,9 +77,7 @@
 
     <v-dialog v-model="noDataDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">
-          Nothing to load
-        </v-card-title>
+        <v-card-title class="headline">Nothing to load</v-card-title>
 
         <v-card-text>
           You have not saved any Krosmasters yet or your browser data has been
@@ -66,18 +87,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text color="warning" @click="noDataDialog = false">
-            OK
-          </v-btn>
+          <v-btn text color="warning" @click="noDataDialog = false">OK</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="loadingDialog" persistent max-width="600">
       <v-card>
-        <v-card-title class="headline">
-          Load Krosmaster
-        </v-card-title>
+        <v-card-title class="headline">Load Krosmaster</v-card-title>
 
         <v-card-text>
           Choose a Krosmaster to load. This will override the current card
@@ -111,6 +128,11 @@
             </template>
             <template v-slot:[`item.load`]="{ item }">
               <v-btn text color="success" @click="loadKrosmaster(item.name)">
+                <v-icon dark>mdi-database-import</v-icon>
+              </v-btn>
+            </template>
+            <template v-slot:[`item.export`]="{ item }">
+              <v-btn text color="info" @click="exportKrosmaster(item.name)">
                 <v-icon dark>mdi-download-circle</v-icon>
               </v-btn>
             </template>
@@ -129,9 +151,7 @@
 
     <v-dialog v-model="deleteDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">
-          Warning
-        </v-card-title>
+        <v-card-title class="headline">Warning</v-card-title>
 
         <v-card-text>
           Do you really want to delete <strong>{{ krosmasterToDelete }}</strong
@@ -158,6 +178,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { saveAs } from "file-saver";
 
 import KrosmakerDatabase, { Krosmaster } from "~/assets/src/data/database";
 import EventBus from "~/assets/src/events/bus";
@@ -183,14 +204,21 @@ export default class KrosmasterName extends Vue {
       sortable: false,
       filterable: false,
       value: "load",
-      width: 25,
+      width: 15,
+    },
+    {
+      text: "Export",
+      sortable: false,
+      filterable: false,
+      value: "export",
+      width: 15,
     },
     {
       text: "Delete",
       sortable: false,
       filterable: false,
       value: "delete",
-      width: 25,
+      width: 15,
     },
   ];
   krosmasterNames: Array<{ name: string }> = [];
@@ -199,6 +227,8 @@ export default class KrosmasterName extends Vue {
 
   krosmasterToDelete: string = "";
   deleteDialog: boolean = false;
+
+  isExporting: boolean = false;
 
   onSave() {
     this.isSaving = true;
@@ -262,19 +292,31 @@ export default class KrosmasterName extends Vue {
     this.isLoading = true;
     this.database.krosmasters.get(id).then((krosmaster) => {
       if (krosmaster != null) {
-        this.fileName = id;
-        this.$store.commit("krosmaster/replace", krosmaster.data);
-        this.$store.commit("background/replace", krosmaster.background);
-        this.$store.commit("figurine/replace", krosmaster.figurine);
-
-        // Croppers need special treatment:
-        EventBus.$emit("card-load");
-
-        this.$store.commit("sidebar/reset");
+        this.replaceKrosmaster(krosmaster);
       }
       this.loadingDialog = false;
       this.isLoading = false;
     });
+  }
+
+  exportKrosmaster(id: string) {
+    this.database.krosmasters.get(id).then((krosmaster) => {
+      if (krosmaster != null) {
+        this.exportKrosmasterFile(krosmaster);
+      }
+    });
+  }
+
+  private replaceKrosmaster(krosmaster: Krosmaster) {
+    this.fileName = krosmaster.id;
+    this.$store.commit("krosmaster/replace", krosmaster.data);
+    this.$store.commit("background/replace", krosmaster.background);
+    this.$store.commit("figurine/replace", krosmaster.figurine);
+
+    // Croppers need special treatment:
+    EventBus.$emit("card-load");
+
+    this.$store.commit("sidebar/reset");
   }
 
   onDelete(id: string) {
@@ -289,6 +331,51 @@ export default class KrosmasterName extends Vue {
     this.database.krosmasters.delete(this.krosmasterToDelete);
     this.krosmasterToDelete = "";
     this.deleteDialog = false;
+  }
+
+  onExport() {
+    this.isExporting = true;
+    const krosmaster = this.serializeKrosmaster();
+    this.exportKrosmasterFile(krosmaster);
+  }
+
+  private exportKrosmasterFile(krosmaster: Krosmaster) {
+    const json = JSON.stringify(krosmaster, undefined, 2);
+
+    saveAs(
+      new Blob([json], {
+        type: "application/json",
+      }),
+      `${krosmaster.id}.json`
+    );
+
+    this.isExporting = false;
+  }
+
+  private get fileInput(): HTMLInputElement {
+    return this.$refs.fileInput as HTMLInputElement;
+  }
+
+  onImport() {
+    this.fileInput.value = "";
+    this.fileInput.click();
+  }
+
+  onImportFile(inputEvent: InputEvent) {
+    const event = inputEvent as any;
+    var files = event.target?.files || event?.dataTransfer?.files;
+    if (files != null && files!.length > 0) {
+      const file = files[0];
+      var reader = new FileReader();
+      reader.onload = (event) => {
+        const file = event?.target?.result as string | null;
+        if (file) {
+          const krosmaster = JSON.parse(file);
+          this.replaceKrosmaster(krosmaster);
+        }
+      };
+      reader.readAsText(file);
+    }
   }
 }
 </script>
@@ -306,5 +393,9 @@ tbody {
 h1 {
   padding: 0.6em;
   padding-bottom: 1em;
+}
+
+.hidden {
+  display: none;
 }
 </style>
