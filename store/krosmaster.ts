@@ -36,7 +36,7 @@ export const mutations = {
   replace(state: KrosmasterState, newState: KrosmasterState) {
     Object.assign(state, newState);
     // Migration utility - legacy configuration import:
-    if (newState.isElite != null) {
+    if (newState.type == null && newState.isElite != null) {
       state.type = newState.isElite ? "elite" : "common";
     }
   },

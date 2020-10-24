@@ -21,8 +21,8 @@
           dense
           label="Y"
           v-model="offsetY"
-          min="-70"
-          max="130"
+          min="-140"
+          max="160"
         ></v-slider>
       </v-col>
       <v-col class="pa-0" cols="12" sm="12">
