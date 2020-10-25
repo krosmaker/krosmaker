@@ -138,9 +138,9 @@ export default class Powers extends Vue {
 
     .power-description {
       margin-left: 10%;
-      margin-right: 9.5%;
+      margin-right: 8.9%;
       margin-top: -1px;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
   }
 }
