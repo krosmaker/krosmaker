@@ -50,6 +50,9 @@ as at the time it was a free online tool that allowed to easily correct
 the results manually, and had a pretty accurate background removal algorithm
 in the first place.
 
+After the backgrounds were removed, Gimp was used to add a shadow outline
+(5 blur radius, 100% opacity) and a shadow image under the minion (60% opacity).
+
 # Artworks
 
 ## Krosmasters
@@ -78,19 +81,23 @@ the following process:
 1. Use `Filters > Blur > Gaussian blur` with default settings twice.
 1. Set layer opacity to around **0.3.**.
 1. Make the minion image layer transparent.
-1. Add 2 new layers.
+1. Add at least 2 new layers.
 1. Paint a few white **1** pixel dots with the pencil tool on each layer.
    They will form the star constelation painted over the outline.
    Avoid placing dots over inner elements like eyes.
-1. Use `Filters > Light and shadow > Sparkle` on each layer. Use a random
-   spike angle. Adjust the flare intensity, spike length and spike density
-   to make sure that each of the stars appears different.
-1. Set the star layers opacities to around **0.8**.
+1. Use `Filters > Light and shadow > Sparkle` on each layer with slightly
+   different settings. Use a random spike angle. Adjust the flare intensity,
+   spike length and spike density to make sure that each of the stars
+   appears different.
+1. Merge the star layers.
+1. Use `Filters > Blur > Gaussian blur` with a radius of **1**.
+1. Set the star layer opacity to around **0.8**.
 1. Add a new layer.
 1. Set the dynamics of the paintbrush to `Pen generic` and its size to **2**.
 1. Place a dot on one of the stars with the paintbrush tool. Shift-click on
-   the nearest star to connect the stars with a line. Place the line twice if it
-   appears too faint. Repeat until all stars all connected.
+   the nearest star to connect the stars with a line. Place the line twice
+   if it appears too faint. Repeat until all stars all connected.
+1. Use `Filters > Blur > Gaussian blur` with a radius of **1**.
 1. Set the lines layer opacity to around **0.8**.
 
 The final result should consist of:
@@ -99,8 +106,9 @@ The final result should consist of:
 - A transparent layer with the original minion image used for tracing
   (not rendered).
 - A blured outline layer representing the minion.
-- Two layers with stars placed over the outline. Can be safely merged into one.
+- A layer with stars placed over the outline.
 - A constelation layer with joins the stars with subtle lines drawn roughly
   over the outline.
 
-The results are not exactly the same style, but they are reasonably close.
+The results are not exactly the same style as the originals, but they are
+reasonably close.
