@@ -5,6 +5,9 @@
       :src="cardImage"
     />
     <CardFrame class="frame" />
+    <div :class="{ watermark: true, 'watermark-minion': !isKrosmaster }">
+      @Krosmaker
+    </div>
   </div>
 </template>
 
@@ -60,6 +63,21 @@ export default class CardBack extends Vue {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+  }
+
+  .watermark {
+    font-family: "Verdana";
+    color: #c39822;
+    font-size: 10px;
+    transform: rotate(-90deg);
+
+    position: absolute;
+    right: -21px;
+    top: 48%;
+  }
+
+  .watermark-minion {
+    right: -24px;
   }
 }
 </style>
