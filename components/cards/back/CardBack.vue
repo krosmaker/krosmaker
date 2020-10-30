@@ -74,11 +74,12 @@ export default class CardBack extends Vue {
 
     position: absolute;
     left: 96.1%;
-    top: 61%;
+    top: 60%;
   }
 
   .watermark-minion {
-    left: 95.5%;
+    left: 95.7%;
+    top: 62.5%;
   }
 }
 </style>
