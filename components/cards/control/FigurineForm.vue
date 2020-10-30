@@ -84,6 +84,7 @@ import { TabId } from "~/store/sidebar";
 export default class FigurineForm extends Vue {
   invalidate: boolean = true;
   replaceImage: boolean = false;
+  reloaded: boolean = true;
 
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
@@ -94,6 +95,7 @@ export default class FigurineForm extends Vue {
   }
 
   set height(height: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/setHeight", height);
   }
 
@@ -102,6 +104,7 @@ export default class FigurineForm extends Vue {
   }
 
   set offsetX(offsetX: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/setOffsetX", offsetX);
   }
 
@@ -110,6 +113,7 @@ export default class FigurineForm extends Vue {
   }
 
   set offsetY(offsetY: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/setOffsetY", offsetY);
   }
 
@@ -118,6 +122,7 @@ export default class FigurineForm extends Vue {
   }
 
   set useCropped(useCropped: boolean) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/setCropping", useCropped);
   }
 
@@ -125,6 +130,7 @@ export default class FigurineForm extends Vue {
     EventBus.$on("card-load", () => {
       this.invalidate = true;
       this.replaceImage = true;
+      this.reloaded = true;
     });
   }
 
@@ -149,9 +155,14 @@ export default class FigurineForm extends Vue {
 
   private updateCroppedImage: (cropper: Cropper) => void = debounce(
     (cropper: Cropper) => {
-      const image = cropper.getCroppedCanvas().toDataURL("image/png");
-      this.$store.commit("figurine/crop", image);
-      this.$store.commit("figurine/setCropperData", cropper);
+      if (this.reloaded) {
+        this.reloaded = false;
+      } else {
+        const image = cropper.getCroppedCanvas().toDataURL("image/png");
+        this.$store.commit("export/setDirty", true);
+        this.$store.commit("figurine/crop", image);
+        this.$store.commit("figurine/setCropperData", cropper);
+      }
     },
     150 // ms
   );
@@ -168,6 +179,7 @@ export default class FigurineForm extends Vue {
     // Cropper has to be displayed in order to calculate the correct height:
     this.useCropped = true;
 
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");

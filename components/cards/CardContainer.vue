@@ -79,6 +79,18 @@ export default class CardContainer extends Vue {
     return this.$store.state.export.isExporting;
   }
 
+  mounted() {
+    window.addEventListener("beforeunload", (event) => {
+      if (!this.$store.state.export.isDirty) {
+        return undefined;
+      }
+      const warning =
+        "The card configuration contains unsaved changes that will be lost. Do you really want to exit?";
+      (event || window.event).returnValue = warning;
+      return warning;
+    });
+  }
+
   download() {
     if (!this.wasWarned) {
       this.showDownloadWarning();

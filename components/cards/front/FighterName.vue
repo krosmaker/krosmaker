@@ -29,6 +29,7 @@ export default class FighterName extends Vue {
   }
 
   set content(content: string) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setName", content);
   }
 

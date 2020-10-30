@@ -252,6 +252,7 @@ export default class KrosmasterName extends Vue {
     const krosmaster = this.serializeKrosmaster();
     this.database.krosmasters.put(krosmaster).then(() => {
       this.isSaving = false;
+      this.$store.commit("export/setDirty", false);
     });
   }
 
@@ -317,6 +318,7 @@ export default class KrosmasterName extends Vue {
     EventBus.$emit("card-load");
 
     this.$store.commit("sidebar/reset");
+    this.$store.commit("export/setDirty", false);
   }
 
   onDelete(id: string) {

@@ -54,6 +54,7 @@ import { TabId } from "~/store/sidebar";
 export default class ArtworkForm extends Vue {
   invalidate: boolean = true;
   replaceImage: boolean = false;
+  reloaded: boolean = true;
 
   get isKrosmaster(): boolean {
     return this.$store.state.krosmaster.type !== "minion";
@@ -68,6 +69,7 @@ export default class ArtworkForm extends Vue {
   }
 
   set useCropped(useCropped: boolean) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("background/setCropping", useCropped);
   }
 
@@ -85,6 +87,7 @@ export default class ArtworkForm extends Vue {
     EventBus.$on("card-load", () => {
       this.invalidate = true;
       this.replaceImage = true;
+      this.reloaded = true;
     });
   }
 
@@ -110,9 +113,14 @@ export default class ArtworkForm extends Vue {
 
   private updateCroppedImage: (cropper: Cropper) => void = debounce(
     (cropper: Cropper) => {
-      const image = cropper.getCroppedCanvas().toDataURL("image/png");
-      this.$store.commit("background/crop", image);
-      this.$store.commit("background/setCropperData", cropper);
+      if (this.reloaded) {
+        this.reloaded = false;
+      } else {
+        const image = cropper.getCroppedCanvas().toDataURL("image/png");
+        this.$store.commit("export/setDirty", true);
+        this.$store.commit("background/crop", image);
+        this.$store.commit("background/setCropperData", cropper);
+      }
     },
     150 // ms
   );
@@ -121,6 +129,7 @@ export default class ArtworkForm extends Vue {
     // Cropper has to be displayed in order to calculate the correct height:
     this.useCropped = true;
 
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("background/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");

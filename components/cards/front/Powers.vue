@@ -55,6 +55,7 @@ export default class Powers extends Vue {
   }
 
   onNameChange(name: string, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setPowerName", { index, name });
   }
 

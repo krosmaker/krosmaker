@@ -70,6 +70,7 @@ export default class KrosmasterName extends Vue {
   }
 
   set content(content: string) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setName", content);
   }
 
@@ -83,6 +84,7 @@ export default class KrosmasterName extends Vue {
 
   set type(type: KrosmasterType) {
     const previousType = this.type;
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setType", type);
 
     // Updating default background on major fighter type change:
@@ -108,6 +110,7 @@ export default class KrosmasterName extends Vue {
   }
 
   set mp(mp: string) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setMP", mp);
   }
 
@@ -116,6 +119,7 @@ export default class KrosmasterName extends Vue {
   }
 
   set hp(hp: string) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setHP", hp);
   }
 
@@ -124,6 +128,7 @@ export default class KrosmasterName extends Vue {
   }
 
   set ap(ap: string) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setAP", ap);
   }
 

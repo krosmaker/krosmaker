@@ -239,10 +239,12 @@ export default class SpellsForm extends Vue {
   }
 
   onNameChange(name: string, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellName", { index, name });
   }
 
   onDescriptionChange(description: string, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellDescription", {
       index,
       description,
@@ -250,6 +252,7 @@ export default class SpellsForm extends Vue {
   }
 
   onElementChange(element: Element, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellElement", {
       index,
       element,
@@ -257,6 +260,7 @@ export default class SpellsForm extends Vue {
   }
 
   onDamageChange(damage: number, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellDamage", {
       index,
       damage,
@@ -264,6 +268,7 @@ export default class SpellsForm extends Vue {
   }
 
   onRangeTypeChange(range: Range, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellRangeType", {
       index,
       range,
@@ -271,18 +276,21 @@ export default class SpellsForm extends Vue {
   }
 
   onRangeChange(range: [number, number], index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellRange", {
       index,
       range,
     });
   }
   onLimitTypeChange(limit: Limit, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellLimitType", {
       index,
       limit,
     });
   }
   onLimitChange(limit: number, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellLimit", {
       index,
       limit,
@@ -307,6 +315,7 @@ export default class SpellsForm extends Vue {
           value: 1,
         },
       };
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/addSpell", spell);
       this.activeSpell = this.spells.length - 1;
     }
@@ -322,6 +331,7 @@ export default class SpellsForm extends Vue {
 
   private moveSpell(from: number, to: number) {
     if (this.isValidIndex(from) && this.isValidIndex(to)) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/switchSpells", { from, to });
       this.activeSpell = to;
     }
@@ -333,6 +343,7 @@ export default class SpellsForm extends Vue {
 
   deleteSpell() {
     if (this.activeSpell != null) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/removeSpell", this.activeSpell);
       this.activeSpell = null;
     }

@@ -150,10 +150,12 @@ export default class PowersForm extends Vue {
   }
 
   onNameChange(name: string, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setPowerName", { index, name });
   }
 
   onDescriptionChange(description: string, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setPowerDescription", {
       index,
       description,
@@ -162,6 +164,7 @@ export default class PowersForm extends Vue {
 
   addPower() {
     if (!this.isFull) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/addPower", {
         name: "New power",
         description: "Describe the power here.",
@@ -180,6 +183,7 @@ export default class PowersForm extends Vue {
 
   private movePower(from: number, to: number) {
     if (this.isValidIndex(from) && this.isValidIndex(to)) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/switchPowers", { from, to });
       this.activePower = to;
     }
@@ -191,6 +195,7 @@ export default class PowersForm extends Vue {
 
   deletePower() {
     if (this.activePower != null) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/removePower", this.activePower);
       this.activePower = null;
     }

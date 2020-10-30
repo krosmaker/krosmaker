@@ -131,12 +131,14 @@ export default class Spells extends Vue {
   }
 
   onNameChange(name: string, index: number) {
+    this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setSpellName", { index, name });
   }
 
   onLimitChange(value: string, index: number) {
     const limit = parseInt(value);
     if (value && !isNaN(limit)) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/setSpellLimit", { index, limit });
     }
   }
@@ -146,6 +148,7 @@ export default class Spells extends Vue {
     if (value && !isNaN(rangeFrom)) {
       const range = this.$store.state.krosmaster.spells[index].range.value;
       const rangeTo = Math.max(range[1], rangeFrom);
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/setSpellRange", {
         index,
         range: [rangeFrom, rangeTo],
@@ -158,6 +161,7 @@ export default class Spells extends Vue {
     if (value && !isNaN(rangeTo)) {
       const range = this.$store.state.krosmaster.spells[index].range.value;
       const rangeFrom = Math.min(range[0], rangeTo);
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/setSpellRange", {
         index,
         range: [rangeFrom, rangeTo],
@@ -168,6 +172,7 @@ export default class Spells extends Vue {
   onDamageChange(value: string, index: number) {
     const damage = parseInt(value);
     if (value && !isNaN(damage)) {
+      this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/setSpellDamage", { index, damage });
     }
   }

@@ -33,6 +33,7 @@ export default class Statistic extends Vue {
 
   set value(value: string) {
     const type = this.type.toUpperCase();
+    this.$store.commit("export/setDirty", true);
     this.$store.commit(`krosmaster/set${type}`, value);
   }
 
