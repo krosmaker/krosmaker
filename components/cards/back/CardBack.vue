@@ -70,14 +70,15 @@ export default class CardBack extends Vue {
     color: #c39822;
     font-size: 10px;
     transform: rotate(-90deg);
+    transform-origin: 0 0;
 
     position: absolute;
-    right: -21px;
-    top: 48%;
+    left: 96.1%;
+    top: 61%;
   }
 
   .watermark-minion {
-    right: -24px;
+    left: 95.5%;
   }
 }
 </style>
