@@ -166,8 +166,64 @@
             Cancel
           </v-btn>
           <v-btn text color="error" @click="deleteKrosmaster">
-            <v-icon dark left>mdi-file-delete</v-icon>
+            <v-icon dark left>mdi-delete</v-icon>
             Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="importWarningDialog" persistent max-width="450">
+      <v-card>
+        <v-card-title class="headline">Warning</v-card-title>
+
+        <v-card-text>
+          The current card data has unsaved changes which will be lost if
+          another card is imported. Do you want to override the card?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="importWarningDialog = false">
+            <v-icon dark left>mdi-cancel</v-icon>
+            Cancel
+          </v-btn>
+          <v-btn text color="warning" @click="acceptImportOverride">
+            <v-icon dark left>mdi-upload</v-icon>
+            Override
+          </v-btn>
+          <v-btn text color="success" @click="acceptImportSaveAndOverride">
+            <v-icon dark left>mdi-database-import</v-icon>
+            Save first
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="loadWarningDialog" persistent max-width="450">
+      <v-card>
+        <v-card-title class="headline">Warning</v-card-title>
+
+        <v-card-text>
+          The current card data has unsaved changes which will be lost if
+          another card is loaded. Do you want to override the card?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="loadWarningDialog = false">
+            <v-icon dark left>mdi-cancel</v-icon>
+            Cancel
+          </v-btn>
+          <v-btn text color="warning" @click="acceptLoadOverride">
+            <v-icon dark left>mdi-upload</v-icon>
+            Override
+          </v-btn>
+          <v-btn text color="success" @click="acceptLoadSaveAndOverride">
+            <v-icon dark left>mdi-database-import</v-icon>
+            Save first
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -230,6 +286,13 @@ export default class KrosmasterName extends Vue {
 
   isExporting: boolean = false;
 
+  importWarningDialog: boolean = false;
+  loadWarningDialog: boolean = false;
+
+  get isDirty(): boolean {
+    return this.$store.state.export.isDirty;
+  }
+
   onSave() {
     this.isSaving = true;
     const krosmaster = this.serializeKrosmaster();
@@ -272,6 +335,24 @@ export default class KrosmasterName extends Vue {
   }
 
   onLoad() {
+    if (this.isDirty) {
+      this.loadWarningDialog = true;
+    } else {
+      this.showLoadingDialog();
+    }
+  }
+
+  acceptLoadSaveAndOverride() {
+    this.saveKrosmaster();
+    this.acceptLoadOverride();
+  }
+
+  acceptLoadOverride() {
+    this.loadWarningDialog = false;
+    this.showLoadingDialog();
+  }
+
+  showLoadingDialog() {
     this.isLoading = true;
     this.database.krosmasters
       .orderBy("id")
@@ -359,6 +440,24 @@ export default class KrosmasterName extends Vue {
   }
 
   onImport() {
+    if (this.isDirty) {
+      this.importWarningDialog = true;
+    } else {
+      this.showImportFileChooser();
+    }
+  }
+
+  acceptImportSaveAndOverride() {
+    this.saveKrosmaster();
+    this.acceptImportOverride();
+  }
+
+  acceptImportOverride() {
+    this.importWarningDialog = false;
+    this.showImportFileChooser();
+  }
+
+  private showImportFileChooser() {
     this.fileInput.value = "";
     this.fileInput.click();
   }
