@@ -23,7 +23,9 @@ export default {
           "A web-based tool that allows to create custom Krosmaster: Blast cards.",
       },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/krosmaker/favicon.ico" },
+    ],
   },
   /*
    ** Global CSS
