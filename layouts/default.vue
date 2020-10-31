@@ -2,6 +2,13 @@
   <v-app dark>
     <v-app-bar fixed app>
       <v-toolbar-title class="toolbar-title" v-text="'Krosmaker'" />
+      <v-spacer></v-spacer>
+      <v-btn icon href="https://twitter.com/krosmaker">
+        <v-icon>mdi-twitter</v-icon>
+      </v-btn>
+      <v-btn icon href="https://github.com/czyzby/krosmaker/issues">
+        <v-icon>mdi-github</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container fill-height fill-width fluid>
@@ -13,9 +20,9 @@
         <v-divider />
         <v-card-actions class="justify-center">
           <span class="font-weight-light caption">
-            The presented graphics from <strong>Krosmaster: Blast</strong> are
-            copyrighted by <strong>Ankama</strong>. This website is not
-            produced, endorsed, or affiliated with <strong>Ankama</strong>.
+            The graphics from <strong>Krosmaster: Blast</strong> are copyrighted
+            by <strong>Ankama</strong> and published with their permission. This
+            website is not produced or affiliated with <strong>Ankama</strong>.
           </span>
         </v-card-actions>
         <v-divider />
