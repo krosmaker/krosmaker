@@ -14,7 +14,6 @@ export const mutations = {
   },
 
   setDirty(state: ExportState, isDirty: boolean) {
-    console.log("isDirty", isDirty);
     state.isDirty = isDirty;
   },
 };

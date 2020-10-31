@@ -72,6 +72,12 @@ export default {
       },
     },
   },
+  env: {
+    version: require("./package.json").version,
+    gitHash: require("child_process").execSync("git rev-parse --short HEAD", {
+      encoding: "utf8",
+    }),
+  },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/

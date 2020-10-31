@@ -22,10 +22,27 @@
         <v-card-actions class="justify-center">
           <span>&copy;2020 — <strong>MJ</strong></span>
         </v-card-actions>
+        <div class="version">{{ version }}-{{ hash }}</div>
       </v-card>
     </v-footer>
   </v-app>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
+@Component
+export default class DefaultLayout extends Vue {
+  get version(): string {
+    return process.env.version || "";
+  }
+
+  get hash(): string {
+    return process.env.gitHash || "";
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .toolbar-title {
@@ -34,5 +51,14 @@
 
 .main-footer {
   padding: 0px;
+}
+
+.version {
+  color: #777;
+  width: 100%;
+  font-size: 10px;
+  text-align: right;
+  margin-top: -14px;
+  padding-right: 4px;
 }
 </style>
