@@ -27,7 +27,7 @@
       @front-select="isFlipped = false"
       @back-select="isFlipped = true"
     />
-    <v-dialog v-model="warningDialog" persistent max-width="400">
+    <v-dialog v-model="warningDialog" persistent max-width="490">
       <v-card>
         <v-card-title class="headline">Warning</v-card-title>
 
@@ -57,6 +57,9 @@
           <v-spacer></v-spacer>
 
           <v-btn text @click="warningDialog = false">I understand</v-btn>
+          <v-btn text @click="discardDownloadWarning" color="warning">
+            OK, don't show this again
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -73,10 +76,24 @@ export default class CardContainer extends Vue {
   isFlipped: boolean = false;
   isRounded: boolean = true;
   warningDialog: boolean = false;
-  wasWarned: boolean = false;
+  wasWarned: boolean = this.isWarningSkipped;
 
   get isExporting(): boolean {
     return this.$store.state.export.isExporting;
+  }
+
+  get isWarningSkipped(): boolean {
+    if (process.browser) {
+      const setting = localStorage.getItem("skipWarning");
+      return setting ? setting === "true" : false;
+    }
+    return false;
+  }
+
+  set isWarningSkipped(skipWarning: boolean) {
+    if (process.browser) {
+      localStorage.setItem("skipWarning", String(skipWarning));
+    }
   }
 
   mounted() {
@@ -89,6 +106,12 @@ export default class CardContainer extends Vue {
       (event || window.event).returnValue = warning;
       return warning;
     });
+  }
+
+  discardDownloadWarning() {
+    this.wasWarned = true;
+    this.isWarningSkipped = true;
+    this.warningDialog = false;
   }
 
   download() {
