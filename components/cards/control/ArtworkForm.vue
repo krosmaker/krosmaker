@@ -17,7 +17,6 @@
           :autoCropArea="1.0"
           :responsive="false"
           :aspectRatio="aspectRatio"
-          :src="$store.state.background.original"
           @crop="onCrop"
         >
         </vue-cropper>
@@ -53,7 +52,7 @@ import { TabId } from "~/store/sidebar";
 })
 export default class ArtworkForm extends Vue {
   invalidate: boolean = true;
-  replaceImage: boolean = false;
+  replaceImage: boolean = true;
   reloaded: boolean = true;
 
   get isKrosmaster(): boolean {
@@ -71,6 +70,7 @@ export default class ArtworkForm extends Vue {
   set useCropped(useCropped: boolean) {
     this.$store.commit("export/setDirty", true);
     this.$store.commit("background/setCropping", useCropped);
+    this.restoreCropperSettings();
   }
 
   get aspectRatio(): number {
@@ -84,6 +84,7 @@ export default class ArtworkForm extends Vue {
   }
 
   mounted() {
+    this.restoreCropperSettings();
     EventBus.$on("card-load", () => {
       this.invalidate = true;
       this.replaceImage = true;
@@ -93,6 +94,7 @@ export default class ArtworkForm extends Vue {
 
   private restoreCropperSettings() {
     const backgroundState = this.$store.state.background;
+    if (!backgroundState.useCropped) return;
     if (this.replaceImage) {
       // This has to be done when the cropper is displayed to correctly update the size.
       // That's why the image is not replaced immediately on background-cropping event.
@@ -142,6 +144,8 @@ export default class ArtworkForm extends Vue {
         // It was necessary to restore the cropper state. Crop image change is ignored.
         return;
       }
+    } else if (!this.useCropped) {
+      return;
     }
     this.updateCroppedImage(this.cropper);
   }

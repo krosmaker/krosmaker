@@ -52,7 +52,6 @@
           :view-mode="1"
           :responsive="false"
           :autoCropArea="1.0"
-          :src="$store.state.figurine.original"
           @crop="onCrop"
         >
         </vue-cropper>
@@ -83,7 +82,7 @@ import { TabId } from "~/store/sidebar";
 })
 export default class FigurineForm extends Vue {
   invalidate: boolean = true;
-  replaceImage: boolean = false;
+  replaceImage: boolean = true;
   reloaded: boolean = true;
 
   get activeTab(): TabId {
@@ -124,9 +123,11 @@ export default class FigurineForm extends Vue {
   set useCropped(useCropped: boolean) {
     this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/setCropping", useCropped);
+    this.restoreCropperSettings();
   }
 
   mounted() {
+    this.restoreCropperSettings();
     EventBus.$on("card-load", () => {
       this.invalidate = true;
       this.replaceImage = true;
@@ -136,6 +137,7 @@ export default class FigurineForm extends Vue {
 
   private restoreCropperSettings() {
     const figurineState = this.$store.state.figurine;
+    if (!figurineState.useCropped) return;
     if (this.replaceImage) {
       // This has to be done when the cropper is displayed to correctly update the size.
       // That's why the image is not replaced immediately on background-cropping event.
@@ -192,6 +194,8 @@ export default class FigurineForm extends Vue {
         // It was necessary to restore the cropper state. Crop image change is ignored.
         return;
       }
+    } else if (!this.useCropped) {
+      return;
     }
     this.updateCroppedImage(this.cropper);
   }
