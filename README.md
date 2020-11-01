@@ -1,21 +1,29 @@
+![Krosmaker](.github/images/banner.png)
+
 # Krosmaker
 
 **Krosmaster: Blast** web-based card maker. Create custom cards for your Krosmasters!
 
+![Sample](.github/images/screenshot.png)
+
 ## Working from sources
 
+![build](https://github.com/krosmaker/krosmaker/workflows/build/badge.svg)
+
+You can run the following commands after cloning the repository:
+
 ```bash
-# install dependencies
+# Install dependencies:
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Serve at localhost:3000 with hot reload:
 $ npm run dev
 
-# build for production and launch server
+# Build for deployment and launch local server:
 $ npm run build
 $ npm run start
 
-# generate static project
+# Generate a static project:
 $ npm run generate
 ```
 
