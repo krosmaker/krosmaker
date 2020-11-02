@@ -9,8 +9,8 @@ export type KrosmasterType = "common" | "elite" | "minion";
 
 export interface KrosmasterState {
   name: string;
-  isElite?: boolean; // Legacy setting. Migration utility.
   type: KrosmasterType;
+  comment?: string;
 
   mp: string;
   hp: string;
@@ -23,6 +23,7 @@ export interface KrosmasterState {
 export const state: () => KrosmasterState = () => ({
   name: "Enter name",
   type: "elite",
+  comment: "",
 
   mp: "3",
   hp: "12",
@@ -35,9 +36,8 @@ export const state: () => KrosmasterState = () => ({
 export const mutations = {
   replace(state: KrosmasterState, newState: KrosmasterState) {
     Object.assign(state, newState);
-    // Migration utility - legacy configuration import:
-    if (newState.type == null && newState.isElite != null) {
-      state.type = newState.isElite ? "elite" : "common";
+    if (!newState.comment) {
+      state.comment = "";
     }
   },
 
@@ -46,6 +46,9 @@ export const mutations = {
   },
   setType(state: KrosmasterState, type: KrosmasterType) {
     state.type = type;
+  },
+  setComment(state: KrosmasterState, comment: string) {
+    state.comment = comment;
   },
 
   setMP(state: KrosmasterState, mp: string) {

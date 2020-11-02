@@ -48,6 +48,9 @@
           <v-radio label="Minion" value="minion" color="white" />
         </v-radio-group>
       </v-col>
+      <v-col cols="12" sm="12">
+        <v-textarea label="Comment" v-model="comment" no-resize rows="5" />
+      </v-col>
     </v-row>
   </v-card-text>
 </template>
@@ -72,6 +75,15 @@ export default class KrosmasterName extends Vue {
   set content(content: string) {
     this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setName", content);
+  }
+
+  get comment(): string {
+    return this.$store.state.krosmaster.comment;
+  }
+
+  set comment(comment: string) {
+    this.$store.commit("export/setDirty", true);
+    this.$store.commit("krosmaster/setComment", comment);
   }
 
   get maxNameLength(): number {
