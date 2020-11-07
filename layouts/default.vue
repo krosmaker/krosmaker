@@ -42,11 +42,11 @@ import { Component } from "vue-property-decorator";
 @Component
 export default class DefaultLayout extends Vue {
   get version(): string {
-    return process.env.version || "";
+    return process.env.version || "local";
   }
 
   get hash(): string {
-    return process.env.gitHash || "";
+    return process.env.gitHash || "dev";
   }
 }
 </script>
