@@ -228,6 +228,46 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="validationErrorDialog" persistent max-width="450">
+      <v-card>
+        <v-card-title class="headline">Unable to import</v-card-title>
+
+        <v-card-text>
+          {{ validationErrorMessage }}
+        </v-card-text>
+
+        <v-expansion-panels
+          dark
+          flat
+          v-if="validationErrors && validationErrors.length"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Validation error messages
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-card-text class="ma-0 pa-0 validation-error-messages-panel">
+                <ul>
+                  <li v-for="(error, i) in validationErrors" :key="i">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </v-card-text>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="validationErrorDialog = false">
+            <v-icon dark left>mdi-cancel</v-icon>
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card-text>
 </template>
 
@@ -238,6 +278,8 @@ import { saveAs } from "file-saver";
 
 import KrosmakerDatabase, { Krosmaster } from "~/assets/src/data/database";
 import EventBus from "~/assets/src/events/bus";
+import { validateKrosmasterData } from "~/assets/src/data/validation";
+import { ValidationError } from "fastest-validator";
 
 @Component
 export default class KrosmasterName extends Vue {
@@ -288,6 +330,10 @@ export default class KrosmasterName extends Vue {
 
   importWarningDialog: boolean = false;
   loadWarningDialog: boolean = false;
+
+  validationErrorDialog: boolean = false;
+  validationErrorMessage: string = "";
+  validationErrors: ValidationError[] = [];
 
   get isDirty(): boolean {
     return this.$store.state.export.isDirty;
@@ -471,12 +517,38 @@ export default class KrosmasterName extends Vue {
       reader.onload = (event) => {
         const file = event?.target?.result as string | null;
         if (file) {
-          const krosmaster = JSON.parse(file);
-          this.replaceKrosmaster(krosmaster);
+          try {
+            const krosmaster = JSON.parse(file);
+            const validationErrors = validateKrosmasterData(krosmaster);
+            if (validationErrors.length === 0) {
+              this.replaceKrosmaster(krosmaster);
+            } else {
+              this.showValidationErrorDialog(
+                "The selected file has invalid data. " +
+                  "The file is either corrupted or was modified manually. " +
+                  "If you want to attempt to fix the file, please try to go through the validation errors.",
+                validationErrors
+              );
+            }
+          } catch (error) {
+            console.error("Unable to decode imported file.", error);
+            this.showValidationErrorDialog(
+              "The selected file has invalid format. Please try another."
+            );
+          }
         }
       };
       reader.readAsText(file);
     }
+  }
+
+  private showValidationErrorDialog(
+    message: string,
+    validationErrors: ValidationError[] = []
+  ) {
+    this.validationErrorMessage = message;
+    this.validationErrors = validationErrors;
+    this.validationErrorDialog = true;
   }
 }
 </script>
@@ -498,5 +570,11 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+.validation-error-messages-panel {
+  max-height: 150px;
+  overflow-y: auto;
+  opacity: 0.7;
 }
 </style>
