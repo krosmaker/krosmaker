@@ -1,4 +1,6 @@
-import platform from "platform";
+import { detect, BrowserInfo } from "detect-browser";
+
+const browser: BrowserInfo | null = detect() as BrowserInfo | null;
 
 export function preventNonNumericInput(
   event: KeyboardEvent,
@@ -22,6 +24,14 @@ export function preventNonNumericPaste(
   }
 }
 
-export function isWindows() {
-  return (platform?.os?.family || "").toLowerCase().indexOf("windows") !== -1;
+export function isWindows(): boolean {
+  return (browser?.os || "").toLowerCase().indexOf("windows") !== -1;
+}
+
+export function isFirefox(): boolean {
+  return browser != null && browser.name === "firefox";
+}
+
+export function isEdge(): boolean {
+  return browser != null && browser.name.indexOf("edge") !== -1;
 }

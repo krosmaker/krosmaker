@@ -18,12 +18,11 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { detect, BrowserInfo } from "detect-browser";
+
+import { isFirefox, isEdge } from "~/assets/src/helpers";
 
 @Component
 export default class FighterName extends Vue {
-  browser: BrowserInfo | null = detect() as BrowserInfo | null;
-
   get content(): string {
     return this.$store.state.krosmaster.name;
   }
@@ -42,17 +41,23 @@ export default class FighterName extends Vue {
   }
 
   get showElite(): boolean {
-    if (this.browser && this.browser.name == "firefox") {
+    if (isFirefox()) {
       return this.isElite;
+    } else if (isEdge()) {
+      // Edge does not support gradients at all:
+      return false;
     } else {
-      // Gradient is not supported by browsers other than Firefox:
+      // Gradient is not supported on export by browsers other than Firefox:
       return this.isElite && !this.isExporting;
     }
   }
 
   get showSimplifiedElite(): boolean {
-    if (this.browser && this.browser.name == "firefox") {
+    if (isFirefox()) {
       return false;
+    } else if (isEdge()) {
+      // Edge does not support gradients at all:
+      return this.isElite;
     } else {
       return this.isElite && this.isExporting;
     }
@@ -94,7 +99,7 @@ export default class FighterName extends Vue {
   }
 
   .elite-simplified {
-    color: #e3b971;
+    color: #fabc38;
   }
 
   .name-shadow {
