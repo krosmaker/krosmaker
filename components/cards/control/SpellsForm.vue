@@ -15,7 +15,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row>
-            <v-col class="pa-0 pt-4" cols="12" sm="12">
+            <v-col class="pa-0 pt-4" cols="12">
               <v-text-field
                 dense
                 class="name-input"
@@ -26,7 +26,7 @@
                 required
               />
             </v-col>
-            <v-col class="pa-0 pt-1 pb-1" cols="12" sm="12">
+            <v-col class="pa-0 pt-1 pb-1" cols="12">
               <v-textarea
                 dense
                 label="Description"
@@ -39,7 +39,7 @@
                 hint="Keywords converted to icons: AP, MP, HP, Injury, Injuries, Air, Earth, Fire and Water. Surround text with * to bold."
               />
             </v-col>
-            <v-col class="pa-0 pt-4 pr-2" ols="12" sm="6">
+            <v-col class="pa-0 pt-4 pr-2" cols="6">
               <v-select
                 dense
                 :value="spell.range.type"
@@ -48,7 +48,7 @@
                 label="Range"
               ></v-select>
             </v-col>
-            <v-col class="pa-0 pt-6 pl-2" cols="12" sm="6">
+            <v-col class="pa-0 pt-6 pl-2" cols="6">
               <v-range-slider
                 class="range-slider"
                 :value="spell.range.value"
@@ -59,36 +59,39 @@
                 hide-details
               >
                 <template v-slot:prepend>
-                  {{ spell.range.value[0] }}
+                  <span class="slider-label">{{ spell.range.value[0] }}</span>
                 </template>
                 <template v-slot:append>
-                  {{ spell.range.value[1] }}
+                  <span class="slider-label">{{ spell.range.value[1] }}</span>
                 </template>
               </v-range-slider>
             </v-col>
-            <v-col class="pa-0 pt-1 pr-2" cols="12" sm="6">
+            <v-col class="pa-0 pt-1 pr-2" cols="6">
               <v-select
                 dense
                 :value="spell.damage.element"
                 @input="onElementChange($event, index)"
                 :items="elements"
-                label="Element"
+                label="Damage"
                 required
               ></v-select>
             </v-col>
-            <v-col class="pa-0 pt-1 pl-2" cols="12" sm="6">
-              <v-text-field
+            <v-col class="pa-0 pt-1 pl-2" cols="6">
+              <v-slider
                 dense
                 :value="spell.damage.value"
                 @input="onDamageChange($event, index)"
-                label="Damage"
-                type="number"
                 min="0"
                 max="9"
+                hide-details
                 :disabled="spell.damage.element === 'none'"
-              />
+              >
+                <template v-slot:prepend>
+                  <span class="slider-label">{{ spell.damage.value }}</span>
+                </template>
+              </v-slider>
             </v-col>
-            <v-col class="pa-0 pt-1 pr-2" cols="12" sm="6">
+            <v-col class="pa-0 pt-1 pr-2" cols="6">
               <v-select
                 dense
                 :value="spell.limit.type"
@@ -97,19 +100,22 @@
                 label="Limit"
               ></v-select>
             </v-col>
-            <v-col class="pa-0 pt-1 pl-2" cols="12" sm="6">
-              <v-text-field
+            <v-col class="pa-0 pt-1 pl-2" cols="6">
+              <v-slider
                 dense
                 :value="spell.limit.value"
                 @input="onLimitChange($event, index)"
-                label="Casts"
-                type="number"
                 min="1"
                 max="9"
+                hide-details
                 :disabled="spell.limit.type === 'none'"
-              />
+              >
+                <template v-slot:prepend>
+                  <span class="slider-label">{{ spell.limit.value }}</span>
+                </template>
+              </v-slider>
             </v-col>
-            <v-col class="pa-1" cols="12" sm="12">
+            <v-col class="pa-1" cols="12">
               <v-card-actions>
                 <v-btn
                   color="red darken-1"
@@ -356,6 +362,14 @@ export default class SpellsForm extends Vue {
 h1 {
   padding: 0.6em;
   padding-bottom: 1em;
+}
+
+.range-slider {
+  margin-top: -8px;
+}
+
+.slider-label {
+  margin-top: 5px;
 }
 
 .panel-header {

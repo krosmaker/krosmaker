@@ -17,7 +17,11 @@
         src="~/assets/img/front/spells/ranges/regular.png"
         v-else
       />
-      <div class="spell-range" v-if="spell.range.type === 'regular'">
+      <div
+        class="spell-range"
+        :class="{ 'spell-range-windows': isWindows }"
+        v-if="spell.range.type === 'regular'"
+      >
         <PlainInput
           numeric
           :limit="1"
@@ -74,6 +78,7 @@
       />
       <PlainInput
         class="spell-damage-value"
+        :class="{ 'spell-damage-value-windows': isWindows }"
         v-if="spell.damage.element !== 'none'"
         numeric
         :limit="1"
@@ -94,6 +99,7 @@
       <div class="spell-content">
         <PlainInput
           class="spell-name"
+          :class="{ 'spell-name-windows': isWindows }"
           :value="spell.name"
           @input="onNameChange($event, index)"
           :limit="40"
@@ -102,6 +108,7 @@
           class="spell-description"
           :class="{
             'spell-description-extended': spell.damage.element === 'none',
+            'spell-description-windows': isWindows,
           }"
           :content="spell.description"
           @click.native="openSpell(index)"
@@ -119,6 +126,7 @@ import { Component } from "vue-property-decorator";
 import { Spell } from "~/assets/src/data/fighters";
 import { maxAbilitiesCount } from "~/assets/src/constants";
 import { TabId } from "~/store/sidebar";
+import { isWindows } from "~/assets/src/helpers";
 
 @Component
 export default class Spells extends Vue {
@@ -128,6 +136,10 @@ export default class Spells extends Vue {
 
   get isMinion(): boolean {
     return this.$store.state.krosmaster.type === "minion";
+  }
+
+  get isWindows(): boolean {
+    return isWindows();
   }
 
   onNameChange(name: string, index: number) {
@@ -225,6 +237,10 @@ export default class Spells extends Vue {
     }
   }
 
+  .spell-range-windows {
+    margin-top: -3px;
+  }
+
   .spell-limit {
     font-family: "Helvetica Neue";
     position: absolute;
@@ -293,6 +309,10 @@ export default class Spells extends Vue {
       drop-shadow(1px 1px 0px $spell-damage-shadow);
   }
 
+  .spell-damage-value-windows {
+    margin-top: -5px;
+  }
+
   .spell-name-background {
     margin-left: 14%;
     margin-bottom: -7%;
@@ -335,6 +355,11 @@ export default class Spells extends Vue {
       -webkit-box-orient: vertical;
     }
 
+    .spell-name-windows,
+    .spell-description-windows {
+      margin-top: -2px;
+    }
+
     .spell-description-extended {
       margin-right: 9%;
     }
@@ -364,6 +389,10 @@ export default class Spells extends Vue {
 
     .spell-description-extended {
       margin-right: 8.4%;
+    }
+
+    .spell-name-windows {
+      margin-top: -2px;
     }
   }
 

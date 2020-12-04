@@ -1,3 +1,5 @@
+import platform from "platform";
+
 export function preventNonNumericInput(
   event: KeyboardEvent,
   allowMinus: boolean = false
@@ -18,4 +20,8 @@ export function preventNonNumericPaste(
   if (!text.match(/^\d*$/) && (!allowMinus || text != "-")) {
     event.preventDefault();
   }
+}
+
+export function isWindows() {
+  return (platform?.os?.family || "").toLowerCase().indexOf("windows") !== -1;
 }

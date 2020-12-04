@@ -2,10 +2,10 @@
   <v-card-text>
     <h1>Storage</h1>
     <v-row>
-      <v-col cols="12" sm="12">
+      <v-col cols="12">
         <v-text-field label="File name" v-model="fileName" />
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="6">
         <v-btn
           dark
           x-large
@@ -18,13 +18,13 @@
           Save
         </v-btn>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="6">
         <v-btn dark x-large width="100%" @click="onLoad" :loading="isLoading">
           <v-icon dark left>mdi-database-export</v-icon>
           Load
         </v-btn>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="6">
         <v-btn
           dark
           x-large
@@ -36,7 +36,7 @@
           Export
         </v-btn>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="6">
         <input
           class="hidden"
           ref="fileInput"

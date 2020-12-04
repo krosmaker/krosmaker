@@ -21,12 +21,14 @@
       <div class="power-content">
         <PlainInput
           class="power-name"
+          :class="{ 'power-name-windows': isWindows }"
           :value="power.name"
           @input="onNameChange($event, index)"
           :limit="40"
         />
         <Description
           class="power-description"
+          :class="{ 'power-description-windows': isWindows }"
           @click.native="openPower(index)"
           :content="power.description"
         />
@@ -43,6 +45,7 @@ import { Component } from "vue-property-decorator";
 import { Power } from "~/assets/src/data/fighters";
 import { maxAbilitiesCount } from "~/assets/src/constants";
 import { TabId } from "~/store/sidebar";
+import { isWindows } from "~/assets/src/helpers";
 
 @Component
 export default class Powers extends Vue {
@@ -52,6 +55,10 @@ export default class Powers extends Vue {
 
   get isMinion(): boolean {
     return this.$store.state.krosmaster.type === "minion";
+  }
+
+  get isWindows(): boolean {
+    return isWindows();
   }
 
   onNameChange(name: string, index: number) {
@@ -118,6 +125,11 @@ export default class Powers extends Vue {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
+
+    .power-name-windows,
+    .power-description-windows {
+      margin-top: -2px;
+    }
   }
 }
 
@@ -142,6 +154,9 @@ export default class Powers extends Vue {
       margin-right: 8.9%;
       margin-top: -1px;
       margin-bottom: 4px;
+    }
+    .power-name-windows {
+      margin-top: -4px;
     }
   }
 }

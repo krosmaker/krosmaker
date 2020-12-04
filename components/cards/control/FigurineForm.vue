@@ -5,7 +5,7 @@
 
     <h3>Customize</h3>
     <v-row>
-      <v-col class="pa-0" cols="12" sm="6">
+      <v-col class="pa-0" cols="6">
         <v-slider
           class="fixed-label-slider"
           dense
@@ -15,7 +15,7 @@
           max="815"
         ></v-slider>
       </v-col>
-      <v-col class="pa-0" cols="12" sm="6">
+      <v-col class="pa-0" cols="6">
         <v-slider
           class="fixed-label-slider"
           dense
@@ -25,7 +25,7 @@
           max="160"
         ></v-slider>
       </v-col>
-      <v-col class="pa-0" cols="12" sm="12">
+      <v-col class="pa-0" cols="12">
         <v-slider
           class="fixed-label-slider"
           dense
@@ -35,7 +35,7 @@
           max="295"
         ></v-slider>
       </v-col>
-      <v-col class="crop-switch" cols="12" sm="12">
+      <v-col class="crop-switch" cols="12">
         <v-switch
           v-model="useCropped"
           class="mx-2"

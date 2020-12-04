@@ -15,7 +15,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row>
-            <v-col class="pa-0 pt-4" cols="12" sm="12">
+            <v-col class="pa-0 pt-4" cols="12">
               <v-text-field
                 dense
                 class="name-input"
@@ -26,7 +26,7 @@
                 required
               />
             </v-col>
-            <v-col class="pa-0" cols="12" sm="12">
+            <v-col class="pa-0" cols="12">
               <v-textarea
                 label="Description"
                 :value="power.description"
@@ -38,7 +38,7 @@
                 hint="Keywords converted to icons: AP, MP, HP, Injury, Injuries, Air, Earth, Fire and Water. Surround text with * to bold."
               />
             </v-col>
-            <v-col class="pa-1" cols="12" sm="12">
+            <v-col class="pa-1" cols="12">
               <v-card-actions>
                 <v-btn
                   color="red darken-1"

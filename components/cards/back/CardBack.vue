@@ -66,20 +66,21 @@ export default class CardBack extends Vue {
   }
 
   .watermark {
-    font-family: "Verdana";
+    font-family: "Helvetica Neue", "Verdana";
+    letter-spacing: 0.5px;
     color: #c39822;
     font-size: 10px;
     transform: rotate(-90deg);
     transform-origin: 0 0;
 
     position: absolute;
-    left: 96.1%;
-    top: 60%;
+    left: 96.5%;
+    top: 59%;
   }
 
   .watermark-minion {
-    left: 95.7%;
-    top: 62.5%;
+    left: 96%;
+    top: 62%;
   }
 }
 </style>

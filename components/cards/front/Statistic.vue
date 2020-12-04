@@ -8,7 +8,7 @@
   >
     <PlainInput
       class="statistic"
-      :class="type"
+      :class="[type, { 'statistic-windows': isWindows }]"
       v-model="value"
       number
       :limit="type === 'hp' ? 2 : 1"
@@ -21,6 +21,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import { isWindows } from "~/assets/src/helpers";
 
 @Component
 export default class Statistic extends Vue {
@@ -39,6 +40,10 @@ export default class Statistic extends Vue {
 
   get isMinion(): boolean {
     return this.$store.state.krosmaster.type === "minion";
+  }
+
+  get isWindows(): boolean {
+    return isWindows();
   }
 }
 </script>
@@ -61,6 +66,12 @@ $statistics: (
     font-size: 31px;
     font-weight: 900;
     width: 50px;
+  }
+
+  .statistic-windows {
+    font-size: 30px;
+    margin-top: -4px;
+    margin-bottom: 0.15em;
   }
 
   .hp {

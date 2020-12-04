@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-app-bar fixed app>
+    <v-app-bar fixed app clipped-left>
       <v-toolbar-title class="toolbar-title" v-text="'Krosmaker'" />
       <v-spacer></v-spacer>
       <v-btn icon href="https://twitter.com/krosmaker">
@@ -11,7 +11,13 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-container fill-height fill-width fluid>
+      <v-container
+        fill-height
+        fill-width
+        fluid
+        class="fade-in-container"
+        ref="container"
+      >
         <nuxt />
       </v-container>
     </v-main>
@@ -48,6 +54,11 @@ export default class DefaultLayout extends Vue {
   get hash(): string {
     return process.env.gitHash || "dev";
   }
+
+  mounted() {
+    const container = this.$refs.container as HTMLElement;
+    container.classList.add("displayed-container");
+  }
 }
 </script>
 
@@ -67,5 +78,14 @@ export default class DefaultLayout extends Vue {
   text-align: right;
   margin-top: -14px;
   padding-right: 4px;
+}
+
+.fade-in-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.displayed-container {
+  opacity: 1;
 }
 </style>
