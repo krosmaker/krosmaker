@@ -208,7 +208,7 @@ export default class Spells extends Vue {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-bottom: -3.75%;
+  margin-bottom: -5.2%;
 
   .spell-range-background {
     position: absolute;
@@ -321,14 +321,15 @@ export default class Spells extends Vue {
   .spell-content {
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
-    padding-bottom: 9px;
+    padding-bottom: 18px;
+    margin-top: 3px;
 
     .spell-name {
       font-family: "Helvetica Neue";
       color: #eeeeee;
       text-shadow: 2px 2px #111111;
       margin-left: 16.5%;
-      margin-top: 1px;
+      margin-top: -2px;
       margin-bottom: -1%;
       width: $card-width * 0.7;
       font-weight: 700;
@@ -345,19 +346,19 @@ export default class Spells extends Vue {
       line-height: 17px;
       margin-left: 16.5%;
       margin-right: 14%;
-      min-height: 37px;
+      min-height: 33px;
       padding-top: 1.2%;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
     }
 
     .spell-name-windows,
     .spell-description-windows {
-      margin-top: -2px;
+      margin-top: -4px;
     }
 
     .spell-description-extended {
@@ -371,12 +372,13 @@ export default class Spells extends Vue {
     width: $minion-card-width;
     background: url("~assets/img/front/descriptions/minion-background.png")
       bottom center no-repeat;
+    padding-bottom: 9px;
 
     .spell-name {
       width: $minion-card-width * 0.7;
       margin-left: 19.2%;
-      margin-top: 0px;
-      margin-bottom: 2px;
+      margin-top: -2px;
+      margin-bottom: 0px;
     }
 
     .spell-description {
@@ -385,6 +387,8 @@ export default class Spells extends Vue {
       margin-left: 19%;
       margin-bottom: 4px;
       margin-right: 19%;
+      min-height: 30px;
+      -webkit-line-clamp: 3;
     }
 
     .spell-description-extended {
@@ -392,7 +396,10 @@ export default class Spells extends Vue {
     }
 
     .spell-name-windows {
-      margin-top: -2px;
+      margin-top: -4px;
+    }
+    .spell-description-windows {
+      margin-bottom: 2px;
     }
   }
 

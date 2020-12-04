@@ -84,7 +84,7 @@ export default class Powers extends Vue {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-bottom: -3.75%;
+  margin-bottom: -5%;
 
   .power-name-background {
     margin-left: 4.7%;
@@ -94,11 +94,13 @@ export default class Powers extends Vue {
   .power-content {
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
-    padding-bottom: 9px;
+    padding-bottom: 18px;
+    margin-top: 2px;
 
     .power-name {
       font-family: "Helvetica Neue";
       margin-left: 9%;
+      margin-top: -2px;
       margin-bottom: -2px;
       color: #252525;
       width: $card-width * 0.8;
@@ -117,18 +119,18 @@ export default class Powers extends Vue {
       margin-left: 9%;
       margin-right: 9%;
       min-height: 25px;
-      padding-top: 1.1%;
+      padding-top: 0.9%;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
     }
 
     .power-name-windows,
     .power-description-windows {
-      margin-top: -2px;
+      margin-top: -4px;
     }
   }
 }
@@ -144,6 +146,7 @@ export default class Powers extends Vue {
     width: $minion-card-width;
     background: url("~assets/img/front/descriptions/minion-background.png")
       bottom center no-repeat;
+    padding-bottom: 9px;
 
     .power-name {
       margin-left: 10%;
@@ -152,11 +155,13 @@ export default class Powers extends Vue {
     .power-description {
       margin-left: 10%;
       margin-right: 8.9%;
-      margin-top: -1px;
       margin-bottom: 4px;
+      -webkit-line-clamp: 3;
     }
+
     .power-name-windows {
       margin-top: -4px;
+      margin-bottom: 2px;
     }
   }
 }
