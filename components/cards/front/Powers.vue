@@ -146,7 +146,7 @@ export default class Powers extends Vue {
     width: $minion-card-width;
     background: url("~assets/img/front/descriptions/minion-background.png")
       bottom center no-repeat;
-    padding-bottom: 9px;
+    padding-bottom: 5px;
 
     .power-name {
       margin-left: 10%;
@@ -156,12 +156,16 @@ export default class Powers extends Vue {
       margin-left: 10%;
       margin-right: 8.9%;
       margin-bottom: 4px;
+      padding-bottom: 1px;
       -webkit-line-clamp: 3;
     }
 
     .power-name-windows {
       margin-top: -4px;
       margin-bottom: 2px;
+    }
+    .power-description-windows {
+      padding-bottom: 3px;
     }
   }
 }

@@ -12,6 +12,9 @@ export default class Description extends Vue {
   @Prop({ type: String, required: true })
   content!: string;
 
+  @Prop({ type: Boolean, default: false })
+  addOffset!: boolean;
+
   private markers: Marker[] = [
     { keyword: "MP", class: "mp" },
     { keyword: "HP", class: "hp" },
@@ -52,6 +55,12 @@ export default class Description extends Vue {
         .map((marker) => this.createIcon(create, marker, partial));
       return element.length ? element[0] : partial;
     });
+    if (this.addOffset) {
+      return create("div", [
+        create("span", { attrs: { class: "description-offset" } }),
+        ...elements,
+      ]);
+    }
     return create("div", elements);
   }
 
@@ -77,6 +86,10 @@ export default class Description extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.description-offset {
+  margin-left: 39px;
+}
+
 .marker-icon {
   display: inline-block;
   vertical-align: middle;
