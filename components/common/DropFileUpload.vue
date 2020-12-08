@@ -10,17 +10,20 @@
     @dragleave="isDragged = false"
   >
     <v-icon small>mdi-upload</v-icon>
-    Click here or drag an image to upload.
+    {{ prompt }}
     <input ref="fileInput" type="file" accept="image/*" @change="onUpload" />
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class DropFileUpload extends Vue {
+  @Prop({ type: String, required: true })
+  prompt!: string;
+
   isDragged: boolean = false;
 
   private get fileInput(): HTMLInputElement {

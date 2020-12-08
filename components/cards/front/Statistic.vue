@@ -14,7 +14,9 @@
       :limit="type === 'hp' ? 2 : 1"
       :allowMinus="type !== 'hp'"
     />
-    <span class="statistic-label" :class="`${type}-label`">{{ type }}</span>
+    <span class="statistic-label" :class="`${type}-label`">
+      {{ $t("card." + type) }}
+    </span>
   </v-layout>
 </template>
 
@@ -94,6 +96,7 @@ $statistics: (
     margin-top: -1.4em;
     font-size: 10px;
     font-weight: 900;
+    letter-spacing: 0.5px;
   }
 }
 

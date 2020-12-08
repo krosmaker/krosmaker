@@ -50,7 +50,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ["nuxt-i18n"],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -83,4 +83,16 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+  /*
+   ** See https://i18n.nuxtjs.org/options-reference/
+   */
+  i18n: {
+    locales: [
+      { code: "en", iso: "en-US", file: "en.js" },
+      { code: "pl", iso: "pl-PL", file: "pl.js" },
+    ],
+    defaultLocale: "en",
+    lazy: true,
+    langDir: "locales/",
+  },
 };

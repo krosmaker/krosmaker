@@ -1,12 +1,15 @@
 <template>
   <v-card-text>
-    <h1>Artwork</h1>
-    <DropFileUpload @upload="onUpload" />
-    <h3>Customize</h3>
+    <h1>{{ $t("card.edit.artwork") }}</h1>
+    <DropFileUpload
+      @upload="onUpload"
+      :prompt="$t('card.edit.imageUploadPrompt')"
+    />
+    <h3>{{ $t("card.edit.customize") }}</h3>
     <v-switch
       v-model="useCropped"
       class="mx-2"
-      label="Enable cropping"
+      :label="$t('card.edit.enableCropping')"
     ></v-switch>
     <transition name="fade" mode="in-out">
       <v-container v-show="useCropped" class="cropper-container">

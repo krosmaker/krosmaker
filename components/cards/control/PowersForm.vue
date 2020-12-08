@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <h1>Powers</h1>
+    <h1>{{ $t("card.edit.powers") }}</h1>
 
     <v-expansion-panels
       class="pa-2 pt-4"
@@ -17,9 +17,9 @@
           <v-row>
             <v-col class="pa-0 pt-4" cols="12">
               <v-text-field
+                :label="$t('card.edit.ability.name')"
                 dense
                 class="name-input"
-                label="Name"
                 :value="power.name"
                 @input="onNameChange($event, index)"
                 maxlength="40"
@@ -28,14 +28,14 @@
             </v-col>
             <v-col class="pa-0" cols="12">
               <v-textarea
-                label="Description"
+                :label="$t('card.edit.ability.description')"
                 :value="power.description"
                 @input="onDescriptionChange($event, index)"
                 :rows="4"
                 no-resize
                 required
                 persistent-hint
-                hint="Keywords converted to icons: AP, MP, HP, Injury, Injuries, Air, Earth, Fire and Water. Surround text with * to bold."
+                :hint="$t('card.edit.ability.editHint')"
               />
             </v-col>
             <v-col class="pa-1" cols="12">
@@ -46,13 +46,13 @@
                   @click="showDeleteDialog = true"
                 >
                   <v-icon dark left>mdi-delete</v-icon>
-                  Delete
+                  {{ $t("common.delete") }}
                 </v-btn>
                 <v-spacer></v-spacer>
 
                 <v-btn text @click="moveUp(index)" :disabled="index === 0">
                   <v-icon dark left>mdi-chevron-up</v-icon>
-                  Up
+                  {{ $t("common.up") }}
                 </v-btn>
 
                 <v-btn
@@ -61,7 +61,7 @@
                   :disabled="index === powers.length - 1"
                 >
                   <v-icon dark left>mdi-chevron-down</v-icon>
-                  Down
+                  {{ $t("common.down") }}
                 </v-btn>
               </v-card-actions>
             </v-col>
@@ -80,15 +80,17 @@
 
     <v-dialog v-model="showDeleteDialog" max-width="400">
       <v-card>
-        <v-card-title class="headline">Confirm deletion</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("card.edit.ability.deletionHeader") }}
+        </v-card-title>
 
         <v-card-text>
-          <span>Do you really want to delete </span>
+          <span>{{ $t("card.edit.ability.deletionPrompt1") }} </span>
           <strong>{{
             activePower != null ? powers[activePower].name : ""
           }}</strong
           >?
-          <span> Entered data will be lost.</span>
+          <span> {{ $t("card.edit.ability.deletionPrompt2") }}</span>
         </v-card-text>
 
         <v-card-actions>
@@ -96,12 +98,12 @@
 
           <v-btn text @click="showDeleteDialog = false">
             <v-icon dark left>mdi-cancel</v-icon>
-            Cancel
+            {{ $t("common.cancel") }}
           </v-btn>
 
           <v-btn color="red darken-1" text @click="deletePower">
             <v-icon dark left>mdi-delete</v-icon>
-            Delete
+            {{ $t("common.delete") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -166,8 +168,10 @@ export default class PowersForm extends Vue {
     if (!this.isFull) {
       this.$store.commit("export/setDirty", true);
       this.$store.commit("krosmaster/addPower", {
-        name: "New power",
-        description: "Describe the power here.",
+        name: this.$i18n.t("card.edit.ability.newPowerName").toString(),
+        description: this.$i18n
+          .t("card.edit.ability.newPowerDescription")
+          .toString(),
       });
       this.activePower = this.powers.length - 1;
     }

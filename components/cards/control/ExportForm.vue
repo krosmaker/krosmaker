@@ -1,9 +1,9 @@
 <template>
   <v-card-text>
-    <h1>Storage</h1>
+    <h1>{{ $t("card.edit.storage") }}</h1>
     <v-row>
       <v-col cols="12">
-        <v-text-field label="File name" v-model="fileName" />
+        <v-text-field :label="$t('card.edit.fileName')" v-model="fileName" />
       </v-col>
       <v-col cols="6">
         <v-btn
@@ -15,13 +15,13 @@
           :loading="isSaving"
         >
           <v-icon dark left>mdi-database-import</v-icon>
-          Save
+          {{ $t("common.save") }}
         </v-btn>
       </v-col>
       <v-col cols="6">
         <v-btn dark x-large width="100%" @click="onLoad" :loading="isLoading">
           <v-icon dark left>mdi-database-export</v-icon>
-          Load
+          {{ $t("common.load") }}
         </v-btn>
       </v-col>
       <v-col cols="6">
@@ -33,7 +33,7 @@
           :loading="isExporting"
         >
           <v-icon dark left>mdi-download</v-icon>
-          Export
+          {{ $t("common.export") }}
         </v-btn>
       </v-col>
       <v-col cols="6">
@@ -46,18 +46,19 @@
         />
         <v-btn dark x-large width="100%" @click="onImport">
           <v-icon dark left>mdi-upload</v-icon>
-          Import
+          {{ $t("common.import") }}
         </v-btn>
       </v-col>
     </v-row>
 
     <v-dialog v-model="overrideDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">Warning</v-card-title>
+        <v-card-title class="headline">{{ $t("common.warning") }}</v-card-title>
 
         <v-card-text>
-          Krosmaster with file name <strong>{{ fileName }}</strong>
-          already exists. Do you want to override the card?
+          {{ $t("card.edit.overridePrompt1") }}
+          <strong>{{ fileName }}</strong>
+          {{ $t("card.edit.overridePrompt2") }}
         </v-card-text>
 
         <v-card-actions>
@@ -65,11 +66,11 @@
 
           <v-btn text @click="cancelSaving">
             <v-icon dark left>mdi-cancel</v-icon>
-            Cancel
+            {{ $t("common.cancel") }}
           </v-btn>
           <v-btn text color="warning" @click="saveKrosmaster">
             <v-icon dark left>mdi-file-replace</v-icon>
-            Override
+            {{ $t("common.override") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -77,38 +78,41 @@
 
     <v-dialog v-model="noDataDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">Nothing to load</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("card.edit.noDataHeader") }}
+        </v-card-title>
 
         <v-card-text>
-          You have not saved any Krosmasters yet or your browser data has been
-          removed.
+          {{ $t("card.edit.noDataPrompt") }}
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-
-          <v-btn text color="warning" @click="noDataDialog = false">OK</v-btn>
+          <v-btn text color="warning" @click="noDataDialog = false">
+            {{ $t("common.ok") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="loadingDialog" persistent max-width="600">
       <v-card>
-        <v-card-title class="headline">Load Krosmaster</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("card.edit.loadKrosmaster") }}
+        </v-card-title>
 
         <v-card-text>
-          Choose a Krosmaster to load. This will override the current card
-          settings.
+          {{ $t("card.edit.loadingPrompt") }}
         </v-card-text>
 
         <v-card>
           <v-card-title>
-            Krosmasters
+            {{ $t("card.edit.krosmasters") }}
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Search"
+              :label="$t('common.search')"
               single-line
               hide-details
             ></v-text-field>
@@ -119,6 +123,11 @@
             :search="search"
             :items-per-page="5"
             :height="240"
+            :no-results-text="$t('common.emptyTablePrompt')"
+            :footer-props="{
+              itemsPerPageText: '',
+              itemsPerPageOptions: [5, 10, 15],
+            }"
             dense
           >
             <template v-slot:[`item.delete`]="{ item }">
@@ -136,6 +145,13 @@
                 <v-icon dark>mdi-download-circle</v-icon>
               </v-btn>
             </template>
+            <template
+              slot="footer.page-text"
+              slot-scope="{ pageStart, pageStop, itemsLength }"
+            >
+              {{ pageStart }}-{{ pageStop }} {{ $t("common.of") }}
+              {{ itemsLength }}
+            </template>
           </v-data-table>
         </v-card>
 
@@ -143,7 +159,7 @@
           <v-spacer></v-spacer>
           <v-btn text @click="cancelLoading">
             <v-icon dark left>mdi-cancel</v-icon>
-            Cancel
+            {{ $t("common.cancel") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -151,10 +167,13 @@
 
     <v-dialog v-model="deleteDialog" persistent max-width="400">
       <v-card>
-        <v-card-title class="headline">Warning</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("common.warning") }}
+        </v-card-title>
 
         <v-card-text>
-          Do you really want to delete <strong>{{ krosmasterToDelete }}</strong
+          {{ $t("card.edit.deletePrompt") }}
+          <strong>{{ krosmasterToDelete }}</strong
           >?
         </v-card-text>
 
@@ -163,11 +182,11 @@
 
           <v-btn text @click="deleteDialog = false">
             <v-icon dark left>mdi-cancel</v-icon>
-            Cancel
+            {{ $t("common.cancel") }}
           </v-btn>
           <v-btn text color="error" @click="deleteKrosmaster">
             <v-icon dark left>mdi-delete</v-icon>
-            Delete
+            {{ $t("common.delete") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -175,11 +194,12 @@
 
     <v-dialog v-model="importWarningDialog" persistent max-width="450">
       <v-card>
-        <v-card-title class="headline">Warning</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("common.warning") }}
+        </v-card-title>
 
         <v-card-text>
-          The current card data has unsaved changes which will be lost if
-          another card is imported. Do you want to override the card?
+          {{ $t("card.edit.importOverridePrompt") }}
         </v-card-text>
 
         <v-card-actions>
@@ -187,15 +207,15 @@
 
           <v-btn text @click="importWarningDialog = false">
             <v-icon dark left>mdi-cancel</v-icon>
-            Cancel
+            {{ $t("common.cancel") }}
           </v-btn>
           <v-btn text color="warning" @click="acceptImportOverride">
             <v-icon dark left>mdi-upload</v-icon>
-            Override
+            {{ $t("common.override") }}
           </v-btn>
           <v-btn text color="success" @click="acceptImportSaveAndOverride">
             <v-icon dark left>mdi-database-import</v-icon>
-            Save first
+            {{ $t("card.edit.saveFirst") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -203,11 +223,12 @@
 
     <v-dialog v-model="loadWarningDialog" persistent max-width="450">
       <v-card>
-        <v-card-title class="headline">Warning</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("common.warning") }}
+        </v-card-title>
 
         <v-card-text>
-          The current card data has unsaved changes which will be lost if
-          another card is loaded. Do you want to override the card?
+          {{ $t("card.edit.loadOverridePrompt") }}
         </v-card-text>
 
         <v-card-actions>
@@ -215,15 +236,15 @@
 
           <v-btn text @click="loadWarningDialog = false">
             <v-icon dark left>mdi-cancel</v-icon>
-            Cancel
+            {{ $t("common.cancel") }}
           </v-btn>
           <v-btn text color="warning" @click="acceptLoadOverride">
             <v-icon dark left>mdi-upload</v-icon>
-            Override
+            {{ $t("common.override") }}
           </v-btn>
           <v-btn text color="success" @click="acceptLoadSaveAndOverride">
             <v-icon dark left>mdi-database-import</v-icon>
-            Save first
+            {{ $t("card.edit.saveFirst") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -231,10 +252,12 @@
 
     <v-dialog v-model="validationErrorDialog" persistent max-width="450">
       <v-card>
-        <v-card-title class="headline">Unable to import</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("card.edit.importErrorHeader") }}
+        </v-card-title>
 
-        <v-card-text>
-          {{ validationErrorMessage }}
+        <v-card-text v-if="validationErrorMessage">
+          {{ $t(validationErrorMessage) }}
         </v-card-text>
 
         <v-expansion-panels
@@ -244,7 +267,7 @@
         >
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Validation error messages
+              {{ $t("card.edit.validationErrorMessages") }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-card-text class="ma-0 pa-0 validation-error-messages-panel">
@@ -263,7 +286,7 @@
 
           <v-btn text @click="validationErrorDialog = false">
             <v-icon dark left>mdi-cancel</v-icon>
-            Close
+            {{ $t("common.close") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -280,12 +303,13 @@ import KrosmakerDatabase, { Krosmaster } from "~/assets/src/data/database";
 import EventBus from "~/assets/src/events/bus";
 import { validateKrosmasterData } from "~/assets/src/data/validation";
 import { ValidationError } from "fastest-validator";
+import { LocaleMessages } from "vue-i18n";
 
 @Component
 export default class KrosmasterName extends Vue {
   private database: KrosmakerDatabase = new KrosmakerDatabase();
 
-  fileName: string = "Enter file name";
+  fileName: string = this.$i18n.t("card.edit.defaultFileName").toString();
   isSaving: boolean = false;
   overrideDialog: boolean = false;
 
@@ -293,26 +317,26 @@ export default class KrosmasterName extends Vue {
   search: string = "";
   loadingHeaders = [
     {
-      text: "Krosmaster",
+      text: this.$i18n.t("card.edit.krosmaster"),
       align: "start",
       value: "name",
     },
     {
-      text: "Load",
+      text: this.$i18n.t("common.load"),
       sortable: false,
       filterable: false,
       value: "load",
       width: 15,
     },
     {
-      text: "Export",
+      text: this.$i18n.t("common.export"),
       sortable: false,
       filterable: false,
       value: "export",
       width: 15,
     },
     {
-      text: "Delete",
+      text: this.$i18n.t("common.delete"),
       sortable: false,
       filterable: false,
       value: "delete",
@@ -524,17 +548,13 @@ export default class KrosmasterName extends Vue {
               this.replaceKrosmaster(krosmaster);
             } else {
               this.showValidationErrorDialog(
-                "The selected file has invalid data. " +
-                  "The file is either corrupted or was modified manually. " +
-                  "If you want to attempt to fix the file, please try to go through the validation errors.",
+                "card.edit.invalidFileError",
                 validationErrors
               );
             }
           } catch (error) {
             console.error("Unable to decode imported file.", error);
-            this.showValidationErrorDialog(
-              "The selected file has invalid format. Please try another."
-            );
+            this.showValidationErrorDialog("card.edit.fileFormatError");
           }
         }
       };

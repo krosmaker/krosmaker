@@ -7,17 +7,17 @@
       <v-card>
         <v-card-actions class="headline">
           <v-btn text @click.stop="isFlipped = !isFlipped">
-            Flip
+            {{ $t("card.flip") }}
             <v-icon dark right>
               {{ isFlipped ? "mdi-redo" : "mdi-undo" }}
             </v-icon>
           </v-btn>
           <v-btn text @click.stop="download" :loading="isExporting">
             <v-icon dark right>mdi-download</v-icon>
-            Download
+            {{ $t("common.download") }}
           </v-btn>
           <v-btn text @click.stop="isRounded = !isRounded">
-            Round
+            {{ $t("card.round") }}
             <v-icon dark right>mdi-rounded-corner</v-icon>
           </v-btn>
         </v-card-actions>
@@ -29,36 +29,33 @@
     />
     <v-dialog v-model="warningDialog" persistent max-width="490">
       <v-card>
-        <v-card-title class="headline">Warning</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("common.warning") }}
+        </v-card-title>
 
         <v-card-text>
-          Card downloading is currently
-          <strong>not supported on every major browser.</strong> It works best
-          on Firefox and <em>should</em> work decently well on Chrome, but if
-          you experience any discrepancies between the website and the exported
-          image, cropping screenshots is your best bet.
+          {{ $t("card.downloadWarning1") }}
         </v-card-text>
 
         <v-card-text>
           <a href="https://support.mozilla.org/en-US/kb/firefox-screenshots">
-            Firefox Screenshots
-          </a>
-          will allow you to select the card area and download the cropped image
-          with just a few clicks. Some browsers might offer similar features via
-          extensions.
+            Firefox Screenshots</a
+          >
+          {{ $t("card.downloadWarning2") }}
         </v-card-text>
 
         <v-card-text>
-          Keep in mind that the border radius for the rounded cards is 18
-          pixels.
+          {{ $t("card.downloadWarning3") }}
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text @click="warningDialog = false">I understand</v-btn>
+          <v-btn text @click="warningDialog = false">
+            {{ $t("card.downloadWarningAccept") }}
+          </v-btn>
           <v-btn text @click="discardDownloadWarning" color="warning">
-            OK, don't show this again
+            {{ $t("card.downloadWarningIgnore") }}
           </v-btn>
         </v-card-actions>
       </v-card>

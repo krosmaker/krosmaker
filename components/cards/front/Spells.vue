@@ -346,7 +346,7 @@ export default class Spells extends Vue {
       line-height: 17px;
       margin-left: 9%;
       margin-right: 14%;
-      min-height: 33px;
+      min-height: 30px;
       padding-top: 1%;
       font-weight: 400;
       overflow: hidden;

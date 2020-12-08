@@ -1,18 +1,18 @@
 <template>
   <v-card-text>
-    <h1>Krosmaster</h1>
+    <h1>{{ $t("card.edit.krosmaster") }}</h1>
     <v-row>
       <v-col cols="12">
         <v-text-field
           v-model="content"
-          label="Name"
+          :label="$t('card.edit.name')"
           :maxlength="maxNameLength"
         />
       </v-col>
       <v-col cols="4">
         <v-text-field
           color="success"
-          label="MP"
+          :label="$t('card.edit.mp')"
           append-icon="mdi-rhombus"
           maxlength="1"
           v-model="mp"
@@ -23,7 +23,7 @@
       <v-col cols="4">
         <v-text-field
           color="error"
-          label="HP"
+          :label="$t('card.edit.hp')"
           append-icon="mdi-heart"
           maxlength="2"
           v-model="hp"
@@ -33,7 +33,7 @@
       </v-col>
       <v-col cols="4">
         <v-text-field
-          label="AP"
+          :label="$t('card.edit.ap')"
           append-icon="mdi-star"
           maxlength="1"
           v-model="ap"
@@ -42,14 +42,27 @@
         />
       </v-col>
       <v-col cols="12">
-        <v-radio-group v-model="type" row label="Rarity:">
-          <v-radio label="Elite" value="elite" color="amber" />
-          <v-radio label="Common" value="common" color="white" />
-          <v-radio label="Minion" value="minion" color="white" />
+        <v-radio-group v-model="type" row :label="$t('card.edit.rarity')">
+          <v-radio :label="$t('card.edit.elite')" value="elite" color="amber" />
+          <v-radio
+            :label="$t('card.edit.common')"
+            value="common"
+            color="white"
+          />
+          <v-radio
+            :label="$t('card.edit.minion')"
+            value="minion"
+            color="white"
+          />
         </v-radio-group>
       </v-col>
       <v-col cols="12">
-        <v-textarea label="Comment" v-model="comment" no-resize rows="5" />
+        <v-textarea
+          :label="$t('card.edit.comment')"
+          v-model="comment"
+          no-resize
+          rows="5"
+        />
       </v-col>
     </v-row>
   </v-card-text>

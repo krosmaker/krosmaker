@@ -3,10 +3,38 @@
     <v-app-bar fixed app clipped-left>
       <v-toolbar-title class="toolbar-title" v-text="'Krosmaker'" />
       <v-spacer></v-spacer>
-      <v-btn icon href="https://twitter.com/krosmaker">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <img :src="require(`~/assets/img/locale/${currentLocale}.png`)" />
+          </v-btn>
+        </template>
+        <v-list>
+          <nuxt-link
+            :to="switchLocalePath(locale.code)"
+            v-for="(locale, index) in locales"
+            :key="index"
+          >
+            <v-list-item>
+              <img :src="require(`~/assets/img/locale/${locale.code}.png`)" />
+            </v-list-item>
+          </nuxt-link>
+        </v-list>
+      </v-menu>
+      <v-btn
+        icon
+        href="https://twitter.com/krosmaker"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <v-icon>mdi-twitter</v-icon>
       </v-btn>
-      <v-btn icon href="https://github.com/czyzby/krosmaker/issues">
+      <v-btn
+        icon
+        href="https://github.com/czyzby/krosmaker/issues"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <v-icon>mdi-github</v-icon>
       </v-btn>
     </v-app-bar>
@@ -26,9 +54,7 @@
         <v-divider />
         <v-card-actions class="justify-center">
           <span class="font-weight-light caption">
-            The graphics from <strong>Krosmaster: Blast</strong> are copyrighted
-            by <strong>Ankama</strong> and published with their permission. This
-            website is not produced or affiliated with <strong>Ankama</strong>.
+            {{ $t("disclaimer") }}
           </span>
         </v-card-actions>
         <v-divider />
@@ -47,6 +73,17 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class DefaultLayout extends Vue {
+  get currentLocale() {
+    return this.$i18n.locale || { code: "en" };
+  }
+
+  get locales() {
+    const currentLocale = this.currentLocale;
+    return (this.$i18n.locales || []).filter(
+      (locale) => (locale as any).code !== currentLocale
+    );
+  }
+
   get version(): string {
     return process.env.version || "local";
   }
@@ -87,5 +124,9 @@ export default class DefaultLayout extends Vue {
 
 .displayed-container {
   opacity: 1;
+}
+
+.locale-select {
+  width: 50px !important;
 }
 </style>

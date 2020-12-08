@@ -1,45 +1,57 @@
 <template>
   <v-card-text>
-    <h1>Figurine</h1>
-    <DropFileUpload @upload="onUpload" />
+    <h1>{{ $t("card.edit.figurine") }}</h1>
+    <DropFileUpload
+      @upload="onUpload"
+      :prompt="$t('card.edit.imageUploadPrompt')"
+    />
 
-    <h3>Customize</h3>
+    <h3>{{ $t("card.edit.customize") }}</h3>
     <v-row>
       <v-col class="pa-0" cols="6">
         <v-slider
           class="fixed-label-slider"
           dense
-          label="X"
           v-model="offsetX"
           min="645"
           max="815"
-        ></v-slider>
+        >
+          <template v-slot:prepend>
+            <v-icon :color="sliderIconColor"> mdi-pan-horizontal </v-icon>
+          </template>
+        </v-slider>
       </v-col>
       <v-col class="pa-0" cols="6">
         <v-slider
           class="fixed-label-slider"
           dense
-          label="Y"
           v-model="offsetY"
           min="-140"
           max="160"
-        ></v-slider>
+        >
+          <template v-slot:prepend>
+            <v-icon :color="sliderIconColor"> mdi-pan-vertical </v-icon>
+          </template>
+        </v-slider>
       </v-col>
       <v-col class="pa-0" cols="12">
         <v-slider
           class="fixed-label-slider"
           dense
-          label="Size"
           v-model="height"
           min="55"
           max="295"
-        ></v-slider>
+        >
+          <template v-slot:prepend>
+            <v-icon :color="sliderIconColor"> mdi-resize </v-icon>
+          </template>
+        </v-slider>
       </v-col>
       <v-col class="crop-switch" cols="12">
         <v-switch
           v-model="useCropped"
           class="mx-2"
-          label="Enable cropping"
+          :label="$t('card.edit.enableCropping')"
         ></v-switch>
       </v-col>
     </v-row>
@@ -84,6 +96,7 @@ export default class FigurineForm extends Vue {
   invalidate: boolean = true;
   replaceImage: boolean = true;
   reloaded: boolean = true;
+  sliderIconColor: string = "#777777";
 
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
