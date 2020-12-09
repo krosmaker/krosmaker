@@ -31,25 +31,25 @@ export default {
     round: "Redondear",
 
     downloadWarning1: `
-      Actualmente, la descarga de las cartas no es compatible en todos los navegadores principales.
-      Funciona en Firefox y debería funcionar correctamente en Chrome,
-      pero si experimentas alguna discrepancia entre el sitio web y la imagen exportada,
-      siempre puedes hacer una captura de pantalla.
-    `,
+        Actualmente, la descarga de las cartas no es compatible en todos los navegadores principales.
+        Funciona en Firefox y debería funcionar correctamente en Chrome,
+        pero si experimentas alguna discrepancia entre el sitio web y la imagen exportada,
+        siempre puedes hacer una captura de pantalla.
+      `,
     // Firefox Screnshots (...)
     downloadWarning2: `
-      le permitirá seleccionar el área de la carta y descargar la imagen recortada
-      with just a few clicks. Some browsers might offer similar features via extensions.
-    `,
+        le permitirá seleccionar el área de la carta y descargar la imagen recortada
+        con solo unos clics. Algunos navegadores pueden ofrecer funciones similares a través de extensiones.
+      `,
     downloadWarning3:
       "Ten en cuenta que el radio de redondeo de las tarjetas es de 18 píxeles.",
     downloadWarningAccept: "Entendido",
-    downloadWarningIgnore: "De acuerdo, no mostrar de nuevo.",
+    downloadWarningIgnore: "De acuerdo, no mostrar de nuevo",
 
     edit: {
       // Artwork:
       artwork: "Arte",
-      customize: "Edutar",
+      customize: "Editar",
       enableCropping: "Habilitar recorte",
       imageUploadPrompt: "Pincha aqui o arrastra una imagen para subirla",
 
@@ -60,7 +60,7 @@ export default {
       elite: "Élite",
       common: "Comun",
       minion: "Invocación",
-      comment: "Comentar",
+      comment: "Comentario",
       ap: "PA",
       hp: "PV",
       mp: "PM",
@@ -86,10 +86,10 @@ export default {
         "Los datos de la carta actual tienen cambios no guardados que se perderán si se carga otra carta. ¿Quieres sobreescribir la carta?",
       importErrorHeader: "No se puede importar",
       invalidFileError: `
-        El archivo seleccionado tiene datos no válidos.
-        El archivo está dañado o se modificó manualmente.
-        Si desea intentar reparar el archivo, intente revisar los errores de validación.
-      `,
+            El archivo seleccionado tiene datos no válidos.
+            El archivo está dañado o se modificó manualmente.
+            Si desea intentar reparar el archivo, intente revisar los errores de validación.
+          `,
       fileFormatError:
         "El archivo seleccionado tiene un formato no válido. Intente con otro.",
       validationErrorMessages: "Error de validación",
