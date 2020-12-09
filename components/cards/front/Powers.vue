@@ -129,9 +129,11 @@ export default class Powers extends Vue {
       -webkit-box-orient: vertical;
     }
 
-    .power-name-windows,
-    .power-description-windows {
+    .power-name-windows {
       margin-top: -4px;
+    }
+    .power-description-windows {
+      margin-top: -1px;
     }
   }
 }
@@ -166,6 +168,7 @@ export default class Powers extends Vue {
       margin-bottom: 2px;
     }
     .power-description-windows {
+      margin-top: -2px;
       padding-bottom: 3px;
     }
   }
