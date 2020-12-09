@@ -49,6 +49,31 @@
         <nuxt />
       </v-container>
     </v-main>
+    <v-snackbar
+      v-for="(notification, index) in notifications"
+      :key="notification.id"
+      app
+      :value="notification.show"
+      :timeout="3000"
+      right
+      top
+      :color="notification.color + ' darken-4'"
+      @input="onNotificationHide(notification)"
+      :style="`margin-top: ${60 * index + 8}px;`"
+    >
+      {{ $t(notification.message, notification.parameters) }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          icon
+          v-bind="attrs"
+          @click="onNotificationHide(notification)"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-footer class="main-footer" dark height="auto">
       <v-card class="flex" flat tile>
         <v-divider />
@@ -71,6 +96,8 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import { Notification } from "~/store/notification";
+
 @Component
 export default class DefaultLayout extends Vue {
   get currentLocale() {
@@ -90,6 +117,18 @@ export default class DefaultLayout extends Vue {
 
   get hash(): string {
     return process.env.gitHash || "dev";
+  }
+
+  get notifications(): Notification[] {
+    return this.$store.state.notification.notifications;
+  }
+
+  onNotificationHide(notification: Notification) {
+    this.$store.commit("notification/hide", notification.id);
+    setTimeout(
+      () => this.$store.commit("notification/remove", notification.id),
+      300
+    );
   }
 
   mounted() {

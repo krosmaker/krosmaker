@@ -198,6 +198,9 @@ export default class FigurineForm extends Vue {
     this.$store.commit("figurine/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");
+    this.$store.commit("notification/add", {
+      message: "card.edit.notification.figurineUpload",
+    });
   }
 
   onCrop() {

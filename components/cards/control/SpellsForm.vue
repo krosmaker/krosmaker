@@ -364,10 +364,17 @@ export default class SpellsForm extends Vue {
   }
 
   deleteSpell() {
-    if (this.activeSpell != null) {
+    const spellId = this.activeSpell;
+    if (spellId != null) {
+      const name = this.spells[spellId].name;
       this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/removeSpell", this.activeSpell);
+      this.$store.commit("krosmaster/removeSpell", spellId);
       this.activeSpell = null;
+      this.$store.commit("notification/add", {
+        message: "card.edit.notification.delete",
+        parameters: { name },
+        color: "error",
+      });
     }
     this.showDeleteDialog = false;
   }

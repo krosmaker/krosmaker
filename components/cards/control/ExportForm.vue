@@ -123,6 +123,7 @@
             :search="search"
             :items-per-page="5"
             :height="240"
+            :no-data-text="$t('common.emptyTablePrompt')"
             :no-results-text="$t('common.emptyTablePrompt')"
             :footer-props="{
               itemsPerPageText: '',
@@ -387,6 +388,10 @@ export default class KrosmasterName extends Vue {
       this.isSaving = false;
       this.$store.commit("export/setDirty", false);
     });
+    this.$store.commit("notification/add", {
+      message: "card.edit.notification.save",
+      parameters: { name: krosmaster.id },
+    });
   }
 
   private serializeKrosmaster(): Krosmaster {
@@ -448,6 +453,10 @@ export default class KrosmasterName extends Vue {
       }
       this.loadingDialog = false;
       this.isLoading = false;
+      this.$store.commit("notification/add", {
+        message: "card.edit.notification.load",
+        parameters: { name: krosmaster?.id },
+      });
     });
   }
 
@@ -455,6 +464,10 @@ export default class KrosmasterName extends Vue {
     this.database.krosmasters.get(id).then((krosmaster) => {
       if (krosmaster != null) {
         this.exportKrosmasterFile(krosmaster);
+        this.$store.commit("notification/add", {
+          message: "card.edit.notification.export",
+          parameters: { name: krosmaster.id },
+        });
       }
     });
   }
@@ -478,18 +491,28 @@ export default class KrosmasterName extends Vue {
   }
 
   deleteKrosmaster() {
+    const name = this.krosmasterToDelete;
     this.krosmasterNames = this.krosmasterNames.filter(
-      (krosmaster) => krosmaster.name !== this.krosmasterToDelete
+      (krosmaster) => krosmaster.name !== name
     );
-    this.database.krosmasters.delete(this.krosmasterToDelete);
+    this.database.krosmasters.delete(name);
     this.krosmasterToDelete = "";
     this.deleteDialog = false;
+    this.$store.commit("notification/add", {
+      message: "card.edit.notification.delete",
+      parameters: { name },
+      color: "error",
+    });
   }
 
   onExport() {
     this.isExporting = true;
     const krosmaster = this.serializeKrosmaster();
     this.exportKrosmasterFile(krosmaster);
+    this.$store.commit("notification/add", {
+      message: "card.edit.notification.export",
+      parameters: { name: this.fileName },
+    });
   }
 
   private exportKrosmasterFile(krosmaster: Krosmaster) {
@@ -546,6 +569,9 @@ export default class KrosmasterName extends Vue {
             const validationErrors = validateKrosmasterData(krosmaster);
             if (validationErrors.length === 0) {
               this.replaceKrosmaster(krosmaster);
+              this.$store.commit("notification/add", {
+                message: "card.edit.notification.import",
+              });
             } else {
               this.showValidationErrorDialog(
                 "card.edit.invalidFileError",

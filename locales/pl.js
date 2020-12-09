@@ -127,6 +127,17 @@ export default {
         perTurn: "Na turę",
         perTarget: "Na cel",
       },
+
+      // Notifications:
+      notification: {
+        export: "Wyeksportowano {name}.",
+        import: "Wczytano kartę z pliku.",
+        delete: "Usunięto {name}.",
+        artworkUpload: "Wgrano ilustrację.",
+        figurineUpload: "Wgrano miniaturkę.",
+        load: "Wczytano {name}.",
+        save: "Zapisano {name}.",
+      },
     },
   },
 };

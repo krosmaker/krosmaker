@@ -138,6 +138,9 @@ export default class ArtworkForm extends Vue {
     this.$store.commit("background/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");
+    this.$store.commit("notification/add", {
+      message: "card.edit.notification.artworkUpload",
+    });
   }
 
   onCrop() {

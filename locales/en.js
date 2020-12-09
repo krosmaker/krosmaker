@@ -19,7 +19,7 @@ export default {
     close: "Close",
     up: "Up",
     down: "Down",
-    of: "Of",
+    of: "of",
     emptyTablePrompt: "No results found",
   },
   card: {
@@ -127,6 +127,17 @@ export default {
         none: "None",
         perTurn: "Per turn",
         perTarget: "Per target",
+      },
+
+      // Notifications:
+      notification: {
+        export: "{name} was exported.",
+        import: "Card configuration was imported.",
+        delete: "{name} was deleted.",
+        artworkUpload: "Artwork image was uploaded.",
+        figurineUpload: "Figurine image was uploaded.",
+        load: "{name} was loaded.",
+        save: "{name} was saved.",
       },
     },
   },

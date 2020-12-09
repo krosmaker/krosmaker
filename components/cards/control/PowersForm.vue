@@ -198,10 +198,17 @@ export default class PowersForm extends Vue {
   }
 
   deletePower() {
-    if (this.activePower != null) {
+    const powerId = this.activePower;
+    if (powerId != null) {
+      const name = this.powers[powerId].name;
       this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/removePower", this.activePower);
+      this.$store.commit("krosmaster/removePower", powerId);
       this.activePower = null;
+      this.$store.commit("notification/add", {
+        message: "card.edit.notification.delete",
+        parameters: { name },
+        color: "error",
+      });
     }
     this.showDeleteDialog = false;
   }
