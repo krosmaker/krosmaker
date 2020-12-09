@@ -50,3 +50,8 @@ $ npm run format
 
 For a detailed explanation of the project setup, check out
 [the Nuxt.js documentation](https://nuxtjs.org).
+
+## Contributors
+
+- [@czyzby](https://github.com/czyzby/) - development, Polish translation.
+- [Jesús Martínez](https://krosarchive.es/) - Spanish translation.
