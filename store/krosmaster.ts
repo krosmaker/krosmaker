@@ -22,12 +22,12 @@ export interface KrosmasterState {
 
 export const state: () => KrosmasterState = () => ({
   name: "",
-  type: "elite",
+  type: "common",
   comment: "",
 
-  mp: "3",
-  hp: "12",
-  ap: "2",
+  mp: "",
+  hp: "",
+  ap: "",
 
   spells: [],
   powers: [],

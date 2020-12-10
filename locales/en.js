@@ -67,8 +67,7 @@ export default {
 
       // Export:
       storage: "Storage",
-      fileName: "File name",
-      defaultFileName: "Enter file name",
+      customFileName: "Custom file name",
       overridePrompt1: "Krosmaster with file name",
       overridePrompt2: "already exists. Do you want to override the card?",
       noDataHeader: "Nothing to load",

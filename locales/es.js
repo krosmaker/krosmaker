@@ -67,8 +67,7 @@ export default {
 
       // Export:
       storage: "Almacenamiento",
-      fileName: "Nombre del archivo",
-      defaultFileName: "Introduce un nombre para el archivo",
+      customFileName: "Nombre del archivo",
       overridePrompt1: "El Krosmaster con el nombre de archivo",
       overridePrompt2: "ya existe. ¿Quieres sobreescribirlo?",
       noDataHeader: "Nada que cargar",

@@ -3,7 +3,10 @@
     <h1>{{ $t("card.edit.storage") }}</h1>
     <v-row>
       <v-col cols="12">
-        <v-text-field :label="$t('card.edit.fileName')" v-model="fileName" />
+        <v-text-field
+          :label="$t('card.edit.customFileName')"
+          v-model="fileName"
+        />
       </v-col>
       <v-col cols="6">
         <v-btn
@@ -11,7 +14,7 @@
           x-large
           width="100%"
           @click="onSave"
-          :disabled="!fileName"
+          :disabled="!currentKrosmasterId"
           :loading="isSaving"
         >
           <v-icon dark left>mdi-database-import</v-icon>
@@ -57,7 +60,7 @@
 
         <v-card-text>
           {{ $t("card.edit.overridePrompt1") }}
-          <strong>{{ fileName }}</strong>
+          <strong>{{ currentKrosmasterId }}</strong>
           {{ $t("card.edit.overridePrompt2") }}
         </v-card-text>
 
@@ -310,7 +313,7 @@ import { LocaleMessages } from "vue-i18n";
 export default class KrosmasterName extends Vue {
   private database: KrosmakerDatabase = new KrosmakerDatabase();
 
-  fileName: string = this.$i18n.t("card.edit.defaultFileName").toString();
+  fileName: string = "";
   isSaving: boolean = false;
   overrideDialog: boolean = false;
 
@@ -360,6 +363,10 @@ export default class KrosmasterName extends Vue {
   validationErrorMessage: string = "";
   validationErrors: ValidationError[] = [];
 
+  get currentKrosmasterId(): string {
+    return this.fileName || this.$store.state.krosmaster.name || "";
+  }
+
   get isDirty(): boolean {
     return this.$store.state.export.isDirty;
   }
@@ -367,13 +374,15 @@ export default class KrosmasterName extends Vue {
   onSave() {
     this.isSaving = true;
     const krosmaster = this.serializeKrosmaster();
-    this.database.krosmasters.get(this.fileName).then((krosmaster) => {
-      if (krosmaster == null) {
-        this.saveKrosmaster();
-      } else {
-        this.overrideDialog = true;
-      }
-    });
+    this.database.krosmasters
+      .get(this.currentKrosmasterId)
+      .then((krosmaster) => {
+        if (krosmaster == null) {
+          this.saveKrosmaster();
+        } else {
+          this.overrideDialog = true;
+        }
+      });
   }
 
   cancelSaving() {
@@ -396,8 +405,7 @@ export default class KrosmasterName extends Vue {
 
   private serializeKrosmaster(): Krosmaster {
     return {
-      id: this.fileName,
-
+      id: this.currentKrosmasterId,
       data: this.$store.state.krosmaster,
       background: this.$store.state.background,
       figurine: this.$store.state.figurine,
@@ -473,7 +481,7 @@ export default class KrosmasterName extends Vue {
   }
 
   private replaceKrosmaster(krosmaster: Krosmaster) {
-    this.fileName = krosmaster.id;
+    this.fileName = krosmaster.id === krosmaster.data.name ? "" : krosmaster.id;
     this.$store.commit("krosmaster/replace", krosmaster.data);
     this.$store.commit("background/replace", krosmaster.background);
     this.$store.commit("figurine/replace", krosmaster.figurine);
@@ -511,7 +519,7 @@ export default class KrosmasterName extends Vue {
     this.exportKrosmasterFile(krosmaster);
     this.$store.commit("notification/add", {
       message: "card.edit.notification.export",
-      parameters: { name: this.fileName },
+      parameters: { name: this.currentKrosmasterId },
     });
   }
 
@@ -522,7 +530,7 @@ export default class KrosmasterName extends Vue {
       new Blob([json], {
         type: "application/json",
       }),
-      `${krosmaster.id}.json`
+      `${krosmaster.id || "Krosmaker"}.json`
     );
 
     this.isExporting = false;

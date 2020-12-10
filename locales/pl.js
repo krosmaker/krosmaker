@@ -67,8 +67,7 @@ export default {
 
       // Export:
       storage: "Zapis",
-      fileName: "Nazwa pliku",
-      defaultFileName: "Wpisz nazwę",
+      customFileName: "Nazwa pliku",
       overridePrompt1: "Krosmaster o nazwie pliku",
       overridePrompt2: "już istnieje. Czy chcesz nadpisać kartę?",
       noDataHeader: "Brak danych",
