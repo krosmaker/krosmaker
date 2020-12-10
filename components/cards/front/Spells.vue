@@ -23,14 +23,14 @@
         v-if="spell.range.type === 'regular'"
       >
         <PlainInput
-          numeric
+          number
           :limit="1"
           :value="`${spell.range.value[0]}`"
           @input="onRangeFromChange($event, index)"
         />
         <span>-</span>
         <PlainInput
-          numeric
+          number
           :limit="1"
           :value="`${spell.range.value[1]}`"
           @input="onRangeToChange($event, index)"
@@ -39,11 +39,14 @@
 
       <div
         class="spell-limit"
-        :class="{ 'spell-limit-extended': spell.damage.element === 'none' }"
+        :class="{
+          'spell-limit-extended': spell.damage.element === 'none',
+          'spell-limit-windows': isWindows,
+        }"
         v-if="spell.limit.type !== 'none'"
       >
         <PlainInput
-          numeric
+          number
           :limit="1"
           :value="`${spell.limit.value}`"
           @input="onLimitChange($event, index)"
@@ -77,10 +80,10 @@
         v-if="spell.damage.element === 'water'"
       />
       <PlainInput
+        number
         class="spell-damage-value"
         :class="{ 'spell-damage-value-windows': isWindows }"
         v-if="spell.damage.element !== 'none'"
-        numeric
         :limit="1"
         :value="`${spell.damage.value}`"
         @input="onDamageChange($event, index)"
@@ -283,6 +286,16 @@ export default class Spells extends Vue {
 
   .spell-limit-extended {
     left: 83%;
+  }
+
+  .spell-limit-windows {
+    top: 21px;
+    .spell-limit-turn {
+      margin-bottom: 6px;
+    }
+    .spell-limit-target {
+      margin-bottom: 5px;
+    }
   }
 
   .spell-damage-background {
