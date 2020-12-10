@@ -98,7 +98,7 @@ export default {
       figurine: "Figura",
 
       // Powers, spells:
-      powers: "Poder(es)",
+      powers: "Poderes",
       spells: "Hechizos",
       ability: {
         name: "Nombre",

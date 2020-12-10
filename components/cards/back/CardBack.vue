@@ -52,7 +52,7 @@ export default class CardBack extends Vue {
 
   .artwork-minion {
     position: absolute;
-    top: 12px;
+    top: 13px;
     left: 17px;
     width: 368px;
     height: 233px;
