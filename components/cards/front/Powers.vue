@@ -84,7 +84,7 @@ export default class Powers extends Vue {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-top: 2px;
+  margin-top: 1px;
   margin-bottom: -5%;
 
   .power-name-background {
@@ -96,13 +96,13 @@ export default class Powers extends Vue {
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
     padding-bottom: 18px;
-    margin-top: 2px;
+    margin-top: 1px;
 
     .power-name {
       font-family: "Helvetica Neue";
       margin-left: 9%;
       margin-top: -2px;
-      margin-bottom: -2px;
+      margin-bottom: -1px;
       color: #252525;
       width: $card-width * 0.8;
       font-weight: 700;

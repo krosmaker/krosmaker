@@ -323,7 +323,7 @@ export default class Spells extends Vue {
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
     padding-bottom: 18px;
-    margin-top: 3px;
+    margin-top: 2px;
 
     .spell-name {
       font-family: "Helvetica Neue";
@@ -331,6 +331,7 @@ export default class Spells extends Vue {
       text-shadow: 2px 2px #111111;
       margin-left: 16.5%;
       margin-top: -2px;
+      margin-bottom: 1px;
       width: $card-width * 0.7;
       font-weight: 700;
       font-size: 19px;
@@ -380,7 +381,7 @@ export default class Spells extends Vue {
       width: $minion-card-width * 0.7;
       margin-left: 19.2%;
       margin-top: -2px;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .spell-description {
@@ -399,7 +400,7 @@ export default class Spells extends Vue {
 
     .spell-name-windows {
       margin-top: -4px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
     .spell-description-windows {
       padding-bottom: 2px;
