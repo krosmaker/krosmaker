@@ -1,7 +1,8 @@
 # Cards
 
 The card assets were extracted from the official Spanish translations PDF
-published by Ankama available at [BoardGameGeek](https://boardgamegeek.com/boardgame/256940/krosmaster-blast/files).
+published by Ankama available at
+[BoardGameGeek](https://boardgamegeek.com/boardgame/256940/krosmaster-blast/files).
 
 In order to extract the assets, perform the following steps:
 
@@ -129,7 +130,7 @@ resources:
    If you are exporting minion cards, add `minion` to the file name.
    This necessary for following scripts in order to correctly sort and extend
    backgrounds of the images.
-1. Run the [`background-adder.sh`](extras/background-adder.sh) script with
+1. Run the [`background-adder.js`](extras/background-adder.js) script with
    `node extras/background-adder.js path/to/folder` in the root folder of the
    project. Note that it requires the file names to contain keywords such as
    `minion`, `back`, `front` in order to match the image with the correct
