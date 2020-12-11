@@ -375,10 +375,15 @@ export default class Spells extends Vue {
     }
     .spell-description-windows {
       margin-top: -1px;
+      min-height: 33px;
     }
 
     .spell-description-extended {
       margin-right: 9%;
+      min-height: 25px;
+    }
+    .spell-description-windows.spell-description-extended {
+      min-height: 28px;
     }
   }
 }
@@ -409,6 +414,7 @@ export default class Spells extends Vue {
 
     .spell-description-extended {
       margin-right: 8.4%;
+      min-height: 28px;
     }
 
     .spell-name-windows {
@@ -417,6 +423,7 @@ export default class Spells extends Vue {
     }
     .spell-description-windows {
       padding-bottom: 2px;
+      min-height: 33px;
     }
   }
 
