@@ -30,10 +30,10 @@ fs.readdir(folder, (error, files) => {
     if (file.endsWith(".png")) {
       const background = getBackgroundForFile(file);
       if (!background) continue;
-      const image = path.join(folder, file).replace(/ /g, "\\ ");
+      const image = path.join(folder, file).replace(/([ \(\)])/g, "\\$1");
       const output = path
         .join(folder, "resized", file)
-        .replace(/ /g, "\\ ")
+        .replace(/([ \(\)])/g, "\\$1")
         .replace("front", "1-front")
         .replace("back", "2-back");
       console.log("Exporting", output);

@@ -85,7 +85,7 @@ export default class Powers extends Vue {
   padding: 0;
   margin: 0;
   margin-top: 2px;
-  margin-bottom: -5%;
+  margin-bottom: -5.2%;
 
   .power-name-background {
     margin-left: 4.7%;
