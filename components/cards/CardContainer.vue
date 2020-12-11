@@ -93,6 +93,11 @@ export default class CardContainer extends Vue {
     }
   }
 
+  get fileName(): string {
+    const store = this.$store.state;
+    return store.export.fileName || store.krosmaster.name || "Krosmaker";
+  }
+
   mounted() {
     window.addEventListener("beforeunload", (event) => {
       if (!this.$store.state.export.isDirty) {
@@ -123,7 +128,7 @@ export default class CardContainer extends Vue {
     const element = (side as Vue).$el as HTMLElement;
     toPng(element).then((dataUrl) => {
       var link = document.createElement("a");
-      link.download = `${this.$store.state.krosmaster.name} ${suffix}.png`;
+      link.download = `${this.fileName} ${suffix}.png`;
       link.href = dataUrl;
       link.click();
       link.remove();

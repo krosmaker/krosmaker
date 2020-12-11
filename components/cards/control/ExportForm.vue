@@ -313,7 +313,6 @@ import { LocaleMessages } from "vue-i18n";
 export default class KrosmasterName extends Vue {
   private database: KrosmakerDatabase = new KrosmakerDatabase();
 
-  fileName: string = "";
   isSaving: boolean = false;
   overrideDialog: boolean = false;
 
@@ -362,6 +361,14 @@ export default class KrosmasterName extends Vue {
   validationErrorDialog: boolean = false;
   validationErrorMessage: string = "";
   validationErrors: ValidationError[] = [];
+
+  get fileName(): string {
+    return this.$store.state.export.fileName;
+  }
+
+  set fileName(fileName: string) {
+    this.$store.commit("export/setFileName", fileName);
+  }
 
   get currentKrosmasterId(): string {
     return this.fileName || this.$store.state.krosmaster.name || "";
