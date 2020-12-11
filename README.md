@@ -2,13 +2,33 @@
 
 # Krosmaker
 
-**Krosmaker** is an online card creator tool for the **Krosmaster: Blast** board game.
-Create custom cards for your Krosmasters!
+[**Krosmaker**](https://krosmaker.github.io) is an online card creator tool for
+the **Krosmaster: Blast** board game. Create custom cards for your Krosmasters!
 
 ![Sample](.github/images/screenshot.png)
 
 You can find some of the cards created with **Krosmaker** on
 [Twitter](https://twitter.com/krosmaker).
+
+### Features
+
+**Krosmaker** allows to create custom Krosmaster and minion cards that closely
+resemble the original **Krosmastter: Blast** style. The card graphics were
+extracted from the official documents and published with Ankama's permission.
+
+Main features include:
+
+- Fighter cards editor:
+  - Full support for Krosmaster and minion cards.
+  - Figurine and artwork image editors with customizable croppers.
+  - Complete spells and powers editors.
+  - Image export _(on Firefox and Chrome)._
+  - JSON export allowing to save and load card configurations.
+  - Saving and loading cards using a local browser database.
+- Translations:
+  - English.
+  - Spanish.
+  - Polish.
 
 ## Running from sources
 
@@ -53,5 +73,9 @@ For a detailed explanation of the project setup, check out
 
 ## Contributors
 
-- [@czyzby](https://github.com/czyzby/) - development, Polish translation.
+- [@czyzby](https://github.com/czyzby/) - app development, Polish translation.
 - [Jesús Martínez](https://krosarchive.es/) - Spanish translation.
+
+The graphics and other assets from the **Krosmaster: Blast**
+are copyrighted by Ankama and published with their permission.
+This project is not produced by or affiliated with Ankama.

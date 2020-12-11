@@ -32,7 +32,7 @@ export default {
 
     downloadWarning1: `
         Actualmente, la descarga de las cartas no es compatible en todos los navegadores principales.
-        Funciona en Firefox y debería funcionar correctamente en Chrome,
+        Funciona en Firefox y Chrome,
         pero si experimentas alguna discrepancia entre el sitio web y la imagen exportada,
         siempre puedes hacer una captura de pantalla.
       `,

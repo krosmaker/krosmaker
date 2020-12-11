@@ -1,7 +1,7 @@
 export default {
   disclaimer: `
     Grafiki są własnością firmy Ankama i zostały opublikowane za ich pozwoleniem.
-    Ta strona nie jest tworzona ani powiązana z firmą Ankama.
+    Ta strona nie jest tworzona przez ani powiązana z firmą Ankama.
   `,
 
   common: {
@@ -32,7 +32,7 @@ export default {
 
     downloadWarning1: `
       Pobieranie kart obecnie nie jest wspierane na wszystkich przeglądarkach.
-      Działa najlepiej w przeglądarce Firefox i powinno działać na Chrome,
+      Działa najlepiej w przeglądarkach Firefox i Chrome,
       ale jeżeli wyeksportowany obraz różni się od oryginału na stronie,
       spróbuj własnoręcznie wyciąć kartę ze zrzutu ekranu.
     `,

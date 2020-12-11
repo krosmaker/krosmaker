@@ -1,7 +1,7 @@
 export default {
   disclaimer: `
     The graphics are copyrighted by Ankama and published with their permission.
-    This website is not produced or affiliated with Ankama.
+    This website is not produced by or affiliated with Ankama.
   `,
 
   common: {
@@ -32,9 +32,9 @@ export default {
 
     downloadWarning1: `
       Card downloading is currently not supported on every major browser.
-      It works best on Firefox and should work decently well on Chrome,
+      It works best on Firefox and Chrome,
       but if you experience any discrepancies between the website and the exported image,
-      cropping screenshots is your best bet.
+      cropping screenshots manually is your best bet.
     `,
     // Firefox Screnshots (...)
     downloadWarning2: `
