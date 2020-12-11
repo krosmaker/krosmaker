@@ -37,7 +37,13 @@ export default class Statistic extends Vue {
   set value(value: string) {
     const type = this.type.toUpperCase();
     this.$store.commit("export/setDirty", true);
-    this.$store.commit(`krosmaster/set${type}`, value);
+    if (
+      value === "" ||
+      (value === "-" && type !== "HP") ||
+      !isNaN(parseInt(value))
+    ) {
+      this.$store.commit(`krosmaster/set${type}`, value);
+    }
   }
 
   get isMinion(): boolean {
@@ -54,7 +60,7 @@ export default class Statistic extends Vue {
 $shadow-size: 5px;
 $statistics: (
   mp: #4d7015,
-  hp: #a91313,
+  hp: #d42637,
   ap: #2145ab,
 );
 

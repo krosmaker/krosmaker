@@ -1,11 +1,19 @@
 <template>
   <div class="name-container">
     <div class="name-shadow">{{ content }}</div>
+    <svg class="elite-name" v-if="isElite">
+      <linearGradient id="elite-name-gradient" gradientTransform="rotate(90)">
+        <stop offset="38%" stop-color="#eeeeee" />
+        <stop offset="41%" stop-color="#fabc38" />
+        <stop offset="43%" stop-color="#fdcc35" />
+        <stop offset="55%" stop-color="#cb883d" />
+      </linearGradient>
+      <text class="elite-name-text" x="0" y="24">{{ content }}</text>
+    </svg>
     <input
       class="name"
       :class="{
-        elite: showElite,
-        'elite-simplified': showSimplifiedElite,
+        elite: isElite,
         common: !isElite,
       }"
       type="text"
@@ -18,8 +26,6 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-
-import { isFirefox, isEdge } from "~/assets/src/helpers";
 
 @Component
 export default class FighterName extends Vue {
@@ -39,29 +45,6 @@ export default class FighterName extends Vue {
   get isExporting(): boolean {
     return this.$store.state.export.isExporting;
   }
-
-  get showElite(): boolean {
-    if (isFirefox()) {
-      return this.isElite;
-    } else if (isEdge()) {
-      // Edge does not support gradients at all:
-      return false;
-    } else {
-      // Gradient is not supported on export by browsers other than Firefox:
-      return this.isElite && !this.isExporting;
-    }
-  }
-
-  get showSimplifiedElite(): boolean {
-    if (isFirefox()) {
-      return false;
-    } else if (isEdge()) {
-      // Edge does not support gradients at all:
-      return this.isElite;
-    } else {
-      return this.isElite && this.isExporting;
-    }
-  }
 }
 </script>
 
@@ -71,6 +54,7 @@ export default class FighterName extends Vue {
   text-transform: uppercase;
   font-size: 22px;
   width: $card-width;
+  white-space: pre;
 
   .name {
     white-space: nowrap;
@@ -87,27 +71,33 @@ export default class FighterName extends Vue {
   }
 
   .elite {
-    background-image: linear-gradient(
-      #eee 38%,
-      #fabc38 41%,
-      #fdcc35 43%,
-      #cb883d 55%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  .elite-simplified {
-    color: #fabc38;
-  }
+  $shadow-color: #000000bb;
 
   .name-shadow {
-    color: #000;
-    text-shadow: 2px 2px 4px #000, 2px 2px 4px #000;
+    color: black;
+    -webkit-text-fill-color: transparent;
+    text-shadow: -1px -1px 1px $shadow-color, -1px -1px 2px $shadow-color,
+      1px 1px 2px $shadow-color, 1px 1px 3px $shadow-color;
     position: absolute;
+    left: 1px;
+    top: 1px;
+    user-select: none;
+  }
+
+  .elite-name {
+    position: absolute;
+    width: $card-width * 0.75;
+    height: 40px;
     left: 0;
     top: 0;
+
+    .elite-name-text {
+      fill: url(#elite-name-gradient);
+      user-select: none;
+    }
   }
 }
 </style>
