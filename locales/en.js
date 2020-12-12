@@ -77,7 +77,7 @@ export default {
       loadingPrompt:
         "Choose a Krosmaster to load. This will override the current card settings.",
       krosmasters: "Krosmasters",
-      deletePrompt: "Do you really want to delete",
+      deletePrompt: "Do you really want to delete {item}?",
       saveFirst: "Save first",
       importOverridePrompt:
         "The current card data has unsaved changes which will be lost if another card is imported. Do you want to override the card?",
@@ -105,8 +105,8 @@ export default {
         editHint:
           "Keywords converted to icons: AP, MP, HP, Injury, Injuries, Air, Earth, Fire and Water. Surround text with * to bold.",
         deletionHeader: "Confirm deletion",
-        deletionPrompt1: "Do you really want to delete",
-        deletionPrompt2: "Entered data will be lost.",
+        deletionPrompt:
+          "Do you really want to delete {item}? Entered data will be lost.",
         newPowerName: "New power",
         newPowerDescription: "Describe the power here.",
         newSpellName: "New spell",

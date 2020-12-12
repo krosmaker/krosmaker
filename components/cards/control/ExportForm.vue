@@ -176,9 +176,7 @@
         </v-card-title>
 
         <v-card-text>
-          {{ $t("card.edit.deletePrompt") }}
-          <strong>{{ krosmasterToDelete }}</strong
-          >?
+          {{ $t("card.edit.deletePrompt", { item: krosmasterToDelete }) }}
         </v-card-text>
 
         <v-card-actions>
@@ -196,7 +194,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="importWarningDialog" persistent max-width="450">
+    <v-dialog v-model="importWarningDialog" persistent max-width="500">
       <v-card>
         <v-card-title class="headline">
           {{ $t("common.warning") }}
@@ -225,7 +223,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="loadWarningDialog" persistent max-width="450">
+    <v-dialog v-model="loadWarningDialog" persistent max-width="500">
       <v-card>
         <v-card-title class="headline">
           {{ $t("common.warning") }}

@@ -119,11 +119,11 @@
               <v-card-actions>
                 <v-btn
                   color="red darken-1"
-                  text
+                  icon
+                  large
                   @click="showDeleteDialog = true"
                 >
-                  <v-icon dark left>mdi-delete</v-icon>
-                  {{ $t("common.delete") }}
+                  <v-icon dark>mdi-delete</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
 
@@ -162,12 +162,11 @@
         </v-card-title>
 
         <v-card-text>
-          <span>{{ $t("card.edit.ability.deletionPrompt1") }} </span>
-          <strong>{{
-            activeSpell != null ? spells[activeSpell].name : ""
-          }}</strong
-          >?
-          <span> {{ $t("card.edit.ability.deletionPrompt2") }}</span>
+          <span>{{
+            $t("card.edit.ability.deletionPrompt", {
+              item: activeSpell != null ? spells[activeSpell].name : "",
+            })
+          }}</span>
         </v-card-text>
 
         <v-card-actions>

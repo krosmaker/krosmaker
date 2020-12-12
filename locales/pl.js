@@ -77,7 +77,7 @@ export default {
       loadingPrompt:
         "Wybierz kartę do wczytania. Obecne dane karty zostaną nadpisane.",
       krosmasters: "Karty",
-      deletePrompt: "Czy na pewno chcesz usunąć",
+      deletePrompt: "Czy na pewno chcesz usunąć {item}?",
       saveFirst: "Najpierw zapisz",
       importOverridePrompt:
         "Obecna konfiguracja karty ma niezapisane zmiany, które zostaną utracone jeżeli inna karta zostanie wczytana. Czy chcesz nadpisać dane?",
@@ -104,8 +104,8 @@ export default {
         editHint:
           "Słowa kluczowe podmieniane na ikony: AP, MP, HP, obrażenia: Injury, Injuries, żywioły: Air, Earth, Fire, Water. Otocz tekst symbolami * aby pogrubić.",
         deletionHeader: "Potwierdzenie",
-        deletionPrompt1: "Czy naprawdę chcesz usunąć",
-        deletionPrompt2: "Wprowadzone dane zostaną utracone.",
+        deletionPrompt:
+          "Czy naprawdę chcesz usunąć {item}? Wprowadzone dane zostaną utracone.",
         newPowerName: "Nowa moc",
         newPowerDescription: "Tutaj opisz moc.",
         newSpellName: "Nowy czar",

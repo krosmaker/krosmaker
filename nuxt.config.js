@@ -89,6 +89,7 @@ export default {
   i18n: {
     locales: [
       { code: "en", iso: "en-US", file: "en.js" },
+      { code: "fr", iso: "fr-FR", file: "fr.js" },
       { code: "es", iso: "es-ES", file: "es.js" },
       { code: "pl", iso: "pl-PL", file: "pl.js" },
     ],

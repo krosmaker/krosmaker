@@ -105,8 +105,8 @@ export default {
         editHint:
           "Palabras clave convertidas en íconos: AP, MP, HP, Injury, Injuries, Air, Earth, Fire, Water. Coloca * antes y después de un texto para convertirlo en negritas.",
         deletionHeader: "Confirmar borrado",
-        deletionPrompt1: "¿Realmente quieres borrarlo?",
-        deletionPrompt2: "Los datos introducidos se perderán.",
+        deletionPrompt:
+          "¿Realmente quieres borrarlo? Los datos introducidos se perderán.",
         newPowerName: "Nuevo poder",
         newPowerDescription: "Describe el poder aquí.",
         newSpellName: "Nuevo hechizo",

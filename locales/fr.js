@@ -19,7 +19,7 @@ export default {
     close: "Fermer",
     up: "Monter",
     down: "Descendre",
-    of: "of",                             // -- SGe-GH :: Where does it appear? --
+    of: "sur",
     emptyTablePrompt: "Aucun résultat",
   },
   card: {
@@ -77,7 +77,7 @@ export default {
       loadingPrompt:
         "Choisissez un Krosmaster à charger. Cela écrasera les paramètres de la carte en cours d'édition.",
       krosmasters: "Krosmasters",
-      deletePrompt: "Etes-vous sûr de vouloir supprimer",   // -- SGe-GH :: In French, there is a mandatory space between the "?" punctuation mark and the word before it -- 
+      deletePrompt: "Etes-vous sûr de vouloir supprimer {item} ?",
       saveFirst: "Enregistrer d'abord",
       importOverridePrompt:
         "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous écraser la carte ?",
@@ -105,8 +105,8 @@ export default {
         editHint:
           "Mots-clés convertis en icones : PA, PM, PV, Blessure, Blessures, Air, Terre, Feu et Eau. Encadrer du texte avec * pour le mettre en gras.",
         deletionHeader: "Confirmation de suppression",
-        deletionPrompt1: "Etes-vous sûr de vouloir supprimer",   // -- SGe-GH :: In French, there is a mandatory space between the "?" punctuation mark and the word before it -- 
-        deletionPrompt2: "Les données saisies seront perdues.",
+        deletionPrompt:
+          "Etes-vous sûr de vouloir supprimer {item} ? Les données saisies seront perdues.",
         newPowerName: "Nouveau pouvoir",
         newPowerDescription: "Décrire ici les effets du pouvoir.",
         newSpellName: "Nouveau sort",
@@ -115,7 +115,7 @@ export default {
         damage: "Dégâts",
         limit: "Limite",
         element: {
-          none: "Aucun,
+          none: "Aucun",
           air: "Air",
           earth: "Terre",
           fire: "Feu",
