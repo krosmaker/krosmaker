@@ -75,6 +75,7 @@ For a detailed explanation of the project setup, check out
 
 - [@czyzby](https://github.com/czyzby/) - app development, Polish translation.
 - [Jesús Martínez](https://krosarchive.es/) - Spanish translation.
+- [@SGe-GH](https://github.com/SGe-GH) - French translation, testing.
 
 The graphics and other assets from the **Krosmaster: Blast**
 are copyrighted by Ankama and published with their permission.
