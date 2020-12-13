@@ -10,6 +10,8 @@ the **Krosmaster: Blast** board game. Create custom cards for your Krosmasters!
 You can find some of the cards created with **Krosmaker** on
 [Twitter](https://twitter.com/krosmaker).
 
+Need help? [See the wiki!](https://github.com/krosmaker/krosmaker/wiki)
+
 ### Features
 
 **Krosmaker** allows to create custom Krosmaster and minion cards that closely
@@ -27,6 +29,7 @@ Main features include:
   - Saving and loading cards using a local browser database.
 - Translations:
   - English.
+  - French.
   - Spanish.
   - Polish.
 

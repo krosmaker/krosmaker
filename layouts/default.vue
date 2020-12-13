@@ -23,6 +23,14 @@
       </v-menu>
       <v-btn
         icon
+        href="https://github.com/krosmaker/krosmaker/wiki/Tutorial"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <v-icon>mdi-help-circle</v-icon>
+      </v-btn>
+      <v-btn
+        icon
         href="https://twitter.com/krosmaker"
         target="_blank"
         rel="noopener noreferrer"
@@ -31,7 +39,7 @@
       </v-btn>
       <v-btn
         icon
-        href="https://github.com/czyzby/krosmaker/issues"
+        href="https://github.com/krosmaker/krosmaker"
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -7,18 +7,18 @@
       <v-card>
         <v-card-actions class="headline">
           <v-btn text @click.stop="isFlipped = !isFlipped">
-            {{ $t("card.flip") }}
-            <v-icon dark right>
+            <v-icon dark left>
               {{ isFlipped ? "mdi-redo" : "mdi-undo" }}
             </v-icon>
+            {{ $t("card.flip") }}
           </v-btn>
           <v-btn text @click.stop="download" :loading="isExporting">
-            <v-icon dark right>mdi-download</v-icon>
+            <v-icon dark left>mdi-download</v-icon>
             {{ $t("common.download") }}
           </v-btn>
           <v-btn text @click.stop="isRounded = !isRounded">
+            <v-icon dark left>mdi-rounded-corner</v-icon>
             {{ $t("card.round") }}
-            <v-icon dark right>mdi-rounded-corner</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
