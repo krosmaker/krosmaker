@@ -524,7 +524,7 @@ export default class KrosmasterName extends Vue {
     this.exportKrosmasterFile(krosmaster);
     this.$store.commit("notification/add", {
       message: "card.edit.notification.export",
-      parameters: { name: this.currentKrosmasterId },
+      parameters: { name: this.currentKrosmasterId || "Krosmaker" },
     });
   }
 

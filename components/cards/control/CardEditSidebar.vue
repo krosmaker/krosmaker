@@ -28,32 +28,32 @@
         <v-icon>mdi-content-save</v-icon>
       </v-tab>
       <v-tab-item>
-        <v-card flat>
+        <v-card flat class="edit-tab-container">
           <BasicDataForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <v-card flat>
+        <v-card flat class="edit-tab-container">
           <FigurineForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <v-card flat>
+        <v-card flat class="edit-tab-container">
           <ArtworkForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <v-card flat>
+        <v-card flat class="edit-tab-container">
           <SpellsForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <v-card flat>
+        <v-card flat class="edit-tab-container">
           <PowersForm />
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <v-card flat>
+        <v-card flat class="edit-tab-container">
           <ExportForm />
         </v-card>
       </v-tab-item>
@@ -114,6 +114,11 @@ export default class CardEditSidebar extends Vue {
 .sidebar {
   overflow-y: hidden;
   background-color: #1e1e1e !important;
+}
+
+.edit-tab-container {
+  overflow: auto;
+  max-height: calc(100vh - 150px);
 }
 
 .tabs {
