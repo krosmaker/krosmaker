@@ -15,15 +15,15 @@ Need help? [See the wiki!](https://github.com/krosmaker/krosmaker/wiki)
 ### Features
 
 **Krosmaker** allows to create custom Krosmaster and minion cards that closely
-resemble the original **Krosmastter: Blast** style. The card graphics were
+resemble the original **Krosmaster: Blast** style. The card graphics were
 extracted from the official documents and published with Ankama's permission.
 
 Main features include:
 
 - Fighter cards editor:
-  - Full support for Krosmaster and minion cards.
+  - Complete support for Krosmaster and minion cards.
   - Figurine and artwork image editors with customizable croppers.
-  - Complete spells and powers editors.
+  - Spells and powers editors.
   - Image export _(on Firefox and Chrome)._
   - JSON export allowing to save and load card configurations.
   - Saving and loading cards using a local browser database.

@@ -42,7 +42,7 @@ archive) and on other sites like BoardGameGeek.
 ## Minion artworks
 
 Minion images without any background are very difficult to find.
-They are oftem available only as high quality token scans at best.
+They are often available only as high quality token scans at best.
 A background remover is necessary to extract the minion artworks with
 a transparent background.
 
@@ -76,15 +76,15 @@ the following process:
 1. Add a new layer.
 1. Set the paintbrush tool size to **9**.
 1. Using the selection tool, select the outlines of the minion image.
-1. Use `Edit > Stroke selection` to paint over the slection with the
+1. Use `Edit > Stroke selection` to paint over the section with the
    paintbrush tool.
 1. Add any necessary details with the paintbrush tool.
 1. Use `Filters > Blur > Gaussian blur` with default settings twice.
-1. Set layer opacity to around **0.3.**.
+1. Set layer opacity to around **0.3**.
 1. Make the minion image layer transparent.
 1. Add at least 2 new layers.
 1. Paint a few white **1** pixel dots with the pencil tool on each layer.
-   They will form the star constelation painted over the outline.
+   They will form the star constellation painted over the outline.
    Avoid placing dots over inner elements like eyes.
 1. Use `Filters > Light and shadow > Sparkle` on each layer with slightly
    different settings. Use a random spike angle. Adjust the flare intensity,
@@ -106,12 +106,12 @@ The final result should consist of:
 - The background layer with the default minion artwork background image.
 - A transparent layer with the original minion image used for tracing
   (not rendered).
-- A blured outline layer representing the minion.
+- A blurred outline layer representing the minion.
 - A layer with stars placed over the outline.
-- A constelation layer with joins the stars with subtle lines drawn roughly
+- A constellation layer with joins the stars with subtle lines drawn roughly
   over the outline.
 
-The results are not exactly the same style as the originals, but they are
+The results are not exactly in the same style as the originals, but they are
 reasonably close.
 
 # PDF export

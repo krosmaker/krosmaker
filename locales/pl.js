@@ -51,7 +51,8 @@ export default {
       artwork: "Ilustracja",
       customize: "Ustawienia",
       enableCropping: "Włącz wycinanie",
-      imageUploadPrompt: "Kliknij tutaj albo przeciągnij obraz, aby wgrać.",
+      imageUploadPrompt:
+        "Kliknij tutaj albo przeciągnij plik, aby wgrać obraz.",
 
       // Basic data:
       krosmaster: "Krosmaster",

@@ -103,7 +103,7 @@ export default {
         name: "Nom",
         description: "Description",
         editHint:
-          "Mots-clés convertis en icones : PA, PM, PV, Blessure, Blessures, Air, Terre, Feu et Eau. Encadrer du texte avec * pour le mettre en gras.",
+          "Mots-clés convertis en icones : AP, MP, HP, Injury, Injuries, Air, Earth, Fire et Water. Encadrer du texte avec * pour le mettre en gras.",
         deletionHeader: "Confirmation de suppression",
         deletionPrompt:
           "Etes-vous sûr de vouloir supprimer {item} ? Les données saisies seront perdues.",
