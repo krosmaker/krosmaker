@@ -14,6 +14,7 @@ const krosmasterDataSchema: ValidationSchema = {
     name: { type: "string" },
     type: { type: "enum", values: ["common", "elite", "minion"] },
     comment: { type: "string", default: "" },
+    version: { type: "string", default: "" },
 
     mp: { type: "string", pattern: statisticPattern },
     hp: { type: "string", pattern: healthPattern },

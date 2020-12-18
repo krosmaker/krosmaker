@@ -60,6 +60,7 @@ export default {
       elite: "Elite",
       common: "Commune",
       minion: "Invocation",
+      version: "Version",
       comment: "Commentaire",
       ap: "PA",
       hp: "PV",

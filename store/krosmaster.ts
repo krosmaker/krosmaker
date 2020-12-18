@@ -11,6 +11,7 @@ export interface KrosmasterState {
   name: string;
   type: KrosmasterType;
   comment?: string;
+  version?: string;
 
   mp: string;
   hp: string;
@@ -24,6 +25,7 @@ export const state: () => KrosmasterState = () => ({
   name: "",
   type: "common",
   comment: "",
+  version: "",
 
   mp: "",
   hp: "",
@@ -36,8 +38,12 @@ export const state: () => KrosmasterState = () => ({
 export const mutations = {
   replace(state: KrosmasterState, newState: KrosmasterState) {
     Object.assign(state, newState);
+    // Clearing optional properties:
     if (!newState.comment) {
       state.comment = "";
+    }
+    if (!newState.version) {
+      state.version = "";
     }
   },
 
@@ -49,6 +55,9 @@ export const mutations = {
   },
   setComment(state: KrosmasterState, comment: string) {
     state.comment = comment;
+  },
+  setVersion(state: KrosmasterState, version: string) {
+    state.version = version;
   },
 
   setMP(state: KrosmasterState, mp: string) {

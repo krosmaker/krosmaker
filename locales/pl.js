@@ -36,7 +36,7 @@ export default {
       ale jeżeli wyeksportowany obraz różni się od oryginału na stronie,
       spróbuj własnoręcznie wyciąć kartę ze zrzutu ekranu.
     `,
-    // Firefox Screnshots (...)
+    // Firefox Screenshots (...)
     downloadWarning2: `
       pozwala na zaznaczenie karty i pobranie jej w prosty sposób.
       Niektóre przeglądarki oferują podobne możliwości dzięki rozszerzeniom.
@@ -61,6 +61,7 @@ export default {
       elite: "Elita",
       common: "Zwykły",
       minion: "Przyzwanie",
+      version: "Wersja",
       comment: "Komentarz",
       ap: "Punkty akcji",
       hp: "Punkty zdrowia",

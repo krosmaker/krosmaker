@@ -36,7 +36,7 @@ export default {
         pero si experimentas alguna discrepancia entre el sitio web y la imagen exportada,
         siempre puedes hacer una captura de pantalla.
       `,
-    // Firefox Screnshots (...)
+    // Firefox Screenshots (...)
     downloadWarning2: `
         le permitirá seleccionar el área de la carta y descargar la imagen recortada
         con solo unos clics. Algunos navegadores pueden ofrecer funciones similares a través de extensiones.
@@ -60,6 +60,7 @@ export default {
       elite: "Élite",
       common: "Comun",
       minion: "Invocación",
+      version: "Versión",
       comment: "Comentario",
       ap: "PA",
       hp: "PV",

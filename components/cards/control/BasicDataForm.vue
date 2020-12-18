@@ -57,6 +57,9 @@
         </v-radio-group>
       </v-col>
       <v-col cols="12">
+        <v-text-field v-model="version" :label="$t('card.edit.version')" />
+      </v-col>
+      <v-col cols="12">
         <v-textarea
           :label="$t('card.edit.comment')"
           v-model="comment"
@@ -97,6 +100,15 @@ export default class KrosmasterName extends Vue {
   set comment(comment: string) {
     this.$store.commit("export/setDirty", true);
     this.$store.commit("krosmaster/setComment", comment);
+  }
+
+  get version(): string {
+    return this.$store.state.krosmaster.version;
+  }
+
+  set version(version: string) {
+    this.$store.commit("export/setDirty", true);
+    this.$store.commit("krosmaster/setVersion", version);
   }
 
   get maxNameLength(): number {

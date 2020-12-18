@@ -8,6 +8,9 @@
     <div :class="{ watermark: true, 'watermark-minion': !isKrosmaster }">
       @Krosmaker
     </div>
+    <div :class="{ version: true, 'version-minion': !isKrosmaster }">
+      {{ version }}
+    </div>
   </div>
 </template>
 
@@ -26,6 +29,10 @@ export default class CardBack extends Vue {
 
   get isKrosmaster(): boolean {
     return this.$store.state.krosmaster.type !== "minion";
+  }
+
+  get version(): string {
+    return this.$store.state.krosmaster.version || "";
   }
 
   onCardClick() {
@@ -65,15 +72,19 @@ export default class CardBack extends Vue {
     border-radius: inherit;
   }
 
-  .watermark {
+  .watermark,
+  .version {
+    position: absolute;
     font-family: "Helvetica Neue", "Verdana";
     letter-spacing: 0.5px;
-    color: #c39822;
     font-size: 10px;
+  }
+
+  .watermark {
+    color: #c39822;
     transform: rotate(-90deg);
     transform-origin: 0 0;
 
-    position: absolute;
     left: 96.5%;
     top: 59%;
   }
@@ -81,6 +92,17 @@ export default class CardBack extends Vue {
   .watermark-minion {
     left: 96.3%;
     top: 62%;
+  }
+
+  .version {
+    color: #aa8213;
+    left: 91%;
+    bottom: 0.4%;
+  }
+
+  .version-minion {
+    left: 90%;
+    bottom: -0.6%;
   }
 }
 </style>

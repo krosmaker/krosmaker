@@ -212,7 +212,7 @@ export default class Spells extends Vue {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-bottom: -5.2%;
+  margin-bottom: -5.3%;
 
   .spell-range-background {
     position: absolute;
@@ -360,7 +360,7 @@ export default class Spells extends Vue {
       line-height: 17px;
       margin-left: 9%;
       margin-right: 14%;
-      min-height: 30px;
+      min-height: 29px;
       padding-top: 1%;
       font-weight: 400;
       overflow: hidden;
@@ -380,10 +380,10 @@ export default class Spells extends Vue {
 
     .spell-description-extended {
       margin-right: 9%;
-      min-height: 25px;
+      min-height: 22px;
     }
     .spell-description-windows.spell-description-extended {
-      min-height: 28px;
+      min-height: 26px;
     }
   }
 }

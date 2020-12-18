@@ -36,7 +36,7 @@ export default {
       but if you experience any discrepancies between the website and the exported image,
       cropping screenshots manually is your best bet.
     `,
-    // Firefox Screnshots (...)
+    // Firefox Screenshots (...)
     downloadWarning2: `
       will allow you to select the card area and download the cropped image
       with just a few clicks. Some browsers might offer similar features via extensions.
@@ -60,6 +60,7 @@ export default {
       elite: "Elite",
       common: "Common",
       minion: "Minion",
+      version: "Version",
       comment: "Comment",
       ap: "AP",
       hp: "HP",
