@@ -96,12 +96,11 @@ export default class CardBack extends Vue {
 
   .version {
     color: #aa8213;
-    left: 91%;
+    right: 4.5%;
     bottom: 0.4%;
   }
 
   .version-minion {
-    left: 90%;
     bottom: -0.6%;
   }
 }
