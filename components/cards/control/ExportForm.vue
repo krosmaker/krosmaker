@@ -134,6 +134,11 @@
             }"
             dense
           >
+            <template v-slot:[`item.name`]="{ item }">
+              <div class="name-column">
+                {{ item.name }}
+              </div>
+            </template>
             <template v-slot:[`item.delete`]="{ item }">
               <v-btn text color="error" @click="onDelete(item.name)">
                 <v-icon dark>mdi-delete</v-icon>
@@ -305,7 +310,6 @@ import KrosmakerDatabase, { Krosmaster } from "~/assets/src/data/database";
 import EventBus from "~/assets/src/events/bus";
 import { validateKrosmasterData } from "~/assets/src/data/validation";
 import { ValidationError } from "fastest-validator";
-import { LocaleMessages } from "vue-i18n";
 
 @Component
 export default class KrosmasterName extends Vue {
@@ -629,6 +633,15 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+.name-column {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .validation-error-messages-panel {

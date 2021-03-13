@@ -42,7 +42,13 @@ export default {
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
-  components: true,
+  components: [
+    "~/components/cards",
+    "~/components/cards/back",
+    "~/components/cards/control",
+    "~/components/cards/front",
+    "~/components/common",
+  ],
   /*
    ** Nuxt.js dev-modules
    */
