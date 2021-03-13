@@ -125,12 +125,12 @@
             :items="krosmasterNames"
             :search="search"
             :items-per-page="5"
-            :height="240"
+            :height="216"
             :no-data-text="$t('common.emptyTablePrompt')"
             :no-results-text="$t('common.emptyTablePrompt')"
             :footer-props="{
               itemsPerPageText: '',
-              itemsPerPageOptions: [5, 10, 15],
+              itemsPerPageOptions: [5, 10, 15, 20],
             }"
             dense
           >
