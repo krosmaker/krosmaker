@@ -391,10 +391,10 @@ export default class SpellContainer extends Vue {
 
     .spell-description-extended {
       margin-right: 9%;
-      min-height: 22px;
+      min-height: 24px;
     }
     .spell-description-windows.spell-description-extended {
-      min-height: 26px;
+      min-height: 28px;
     }
   }
 }

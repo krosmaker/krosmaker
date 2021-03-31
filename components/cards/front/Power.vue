@@ -133,7 +133,7 @@ export default class PowerContainer extends Vue {
       line-height: 17px;
       margin-left: 9%;
       margin-right: 9%;
-      min-height: 25px;
+      min-height: 27px;
       padding-top: 0.9%;
       font-weight: 400;
       overflow: hidden;
