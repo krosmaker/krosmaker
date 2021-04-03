@@ -29,11 +29,17 @@ export default class Description extends Vue {
     { keyword: "Water", class: "water" },
   ];
   private splitPattern = RegExp(
-    "(" +
+    "\\b(" +
       this.markers
         .map((marker) => `(?:[+-]?\\d* ?)?${marker.keyword}(?=\\b|$)`)
         .join("|") +
       "|\n|\\*.*?\\*)",
+    "g"
+  );
+  private textWithIconPattern = RegExp(
+    "^(?:[+-]?\\d* ?)(" +
+      this.markers.map((marker) => marker.keyword).join("|") +
+      ")$",
     "g"
   );
 
@@ -50,10 +56,13 @@ export default class Description extends Vue {
       if (partial.startsWith("*") && partial.endsWith("*"))
         return create("strong", partial.substring(1, partial.length - 1));
       // Handling icons:
-      const element = this.markers
-        .filter((marker) => partial.endsWith(marker.keyword))
-        .map((marker) => this.createIcon(create, marker, partial));
-      return element.length ? element[0] : partial;
+      if (partial.match(this.textWithIconPattern)) {
+        const element = this.markers
+          .filter((marker) => partial.endsWith(marker.keyword))
+          .map((marker) => this.createIcon(create, marker, partial));
+        return element.length ? element[0] : partial;
+      }
+      return partial;
     });
     if (this.addOffset) {
       return create("div", [
