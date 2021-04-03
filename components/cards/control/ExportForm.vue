@@ -52,6 +52,15 @@
           {{ $t("common.import") }}
         </v-btn>
       </v-col>
+      <v-col cols="12">
+        <v-divider></v-divider>
+      </v-col>
+      <v-col cols="6" offset="3">
+        <v-btn dark x-large width="100%" @click="onReset">
+          <v-icon dark left>mdi-refresh</v-icon>
+          {{ $t("common.reset") }}
+        </v-btn>
+      </v-col>
     </v-row>
 
     <v-dialog v-model="overrideDialog" persistent max-width="400">
@@ -298,6 +307,35 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="resetWarningDialog" persistent max-width="500">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("common.warning") }}
+        </v-card-title>
+
+        <v-card-text>
+          {{ $t("card.edit.resetOverridePrompt") }}
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="resetWarningDialog = false">
+            <v-icon dark left>mdi-cancel</v-icon>
+            {{ $t("common.cancel") }}
+          </v-btn>
+          <v-btn text color="warning" @click="resetCard">
+            <v-icon dark left>mdi-refresh</v-icon>
+            {{ $t("common.override") }}
+          </v-btn>
+          <v-btn text color="success" @click="acceptSaveAndReset">
+            <v-icon dark left>mdi-database-import</v-icon>
+            {{ $t("card.edit.saveFirst") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card-text>
 </template>
 
@@ -363,6 +401,8 @@ export default class KrosmasterName extends Vue {
   validationErrorDialog: boolean = false;
   validationErrorMessage: string = "";
   validationErrors: ValidationError[] = [];
+
+  resetWarningDialog: boolean = false;
 
   get fileName(): string {
     return this.$store.state.export.fileName;
@@ -494,7 +534,10 @@ export default class KrosmasterName extends Vue {
     this.$store.commit("krosmaster/replace", krosmaster.data);
     this.$store.commit("background/replace", krosmaster.background);
     this.$store.commit("figurine/replace", krosmaster.figurine);
+    this.doAfterCardChange();
+  }
 
+  private doAfterCardChange() {
     // Croppers need special treatment:
     EventBus.$emit("card-load");
 
@@ -612,6 +655,28 @@ export default class KrosmasterName extends Vue {
     this.validationErrorMessage = message;
     this.validationErrors = validationErrors;
     this.validationErrorDialog = true;
+  }
+
+  onReset() {
+    if (this.isDirty) {
+      this.resetWarningDialog = true;
+    } else {
+      this.resetCard();
+    }
+  }
+
+  resetCard() {
+    this.fileName = "";
+    this.$store.commit("krosmaster/reset");
+    this.$store.commit("background/reset");
+    this.$store.commit("figurine/reset");
+    this.doAfterCardChange();
+    this.resetWarningDialog = false;
+  }
+
+  acceptSaveAndReset() {
+    this.saveKrosmaster();
+    this.resetCard();
   }
 }
 </script>

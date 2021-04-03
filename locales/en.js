@@ -17,6 +17,7 @@ export default {
     download: "Download",
     override: "Override",
     close: "Close",
+    reset: "Reset",
     up: "Up",
     down: "Down",
     of: "of",
@@ -84,6 +85,8 @@ export default {
         "The current card data has unsaved changes which will be lost if another card is imported. Do you want to override the card?",
       loadOverridePrompt:
         "The current card data has unsaved changes which will be lost if another card is loaded. Do you want to override the card?",
+      resetOverridePrompt:
+        "The current card data has unsaved changes which will be lost. Do you want to override the card?",
       importErrorHeader: "Unable to import",
       invalidFileError: `
         The selected file has invalid data.

@@ -17,6 +17,7 @@ export default {
     download: "Télécharger",
     override: "Ecraser",
     close: "Fermer",
+    reset: "Réinitialiser",
     up: "Monter",
     down: "Descendre",
     of: "sur",
@@ -84,6 +85,8 @@ export default {
         "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous écraser la carte ?",
       loadOverridePrompt:
         "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous écraser la carte ?",
+      resetOverridePrompt:
+        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues. Voulez-vous écraser la carte ?",
       importErrorHeader: "Importation impossible",
       invalidFileError: `
         Les données du fichier sélectionné sont incorrectes.

@@ -38,4 +38,12 @@ export const mutations = {
       croppingData: cropper.getData(),
     };
   },
+
+  reset(state: BackgroundState) {
+    const defaultBackground = require("~/assets/img/back/default-background.png");
+    state.original = defaultBackground;
+    state.cropped = defaultBackground;
+    state.useCropped = true;
+    delete state.cropper;
+  },
 };

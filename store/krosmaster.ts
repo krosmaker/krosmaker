@@ -155,4 +155,18 @@ export const mutations = {
   ) {
     state.spells[update.index].limit.value = update.limit;
   },
+
+  reset(state: KrosmasterState) {
+    state.name = "";
+    state.type = "common";
+    state.comment = "";
+    state.version = "";
+
+    state.mp = "";
+    state.hp = "";
+    state.ap = "";
+
+    state.spells = [];
+    state.powers = [];
+  },
 };

@@ -53,4 +53,15 @@ export const mutations = {
       croppingData: cropper.getData(),
     };
   },
+
+  reset(state: FigurineState) {
+    const defaultFigurine = require("~/assets/img/front/default-figurine.png");
+    state.original = defaultFigurine;
+    state.cropped = defaultFigurine;
+    state.useCropped = true;
+    state.height = 175;
+    state.offsetX = 730;
+    state.offsetY = 10;
+    delete state.cropper;
+  },
 };

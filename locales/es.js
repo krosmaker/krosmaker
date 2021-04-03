@@ -17,6 +17,7 @@ export default {
     download: "Descargar",
     override: "Sobreescribir",
     close: "Cerrar",
+    reset: "Reiniciar",
     up: "Subir",
     down: "Bajar",
     of: "de",
@@ -84,6 +85,8 @@ export default {
         "Los datos de la carta actual tienen cambios no guardados que se perderán si se importa otra carta. ¿Quieres sobreescribir la carta?",
       loadOverridePrompt:
         "Los datos de la carta actual tienen cambios no guardados que se perderán si se carga otra carta. ¿Quieres sobreescribir la carta?",
+      resetOverridePrompt:
+        "Los datos de la carta actual tienen cambios no guardados que se perderán. ¿Quieres sobreescribir la carta?",
       importErrorHeader: "No se puede importar",
       invalidFileError: `
             El archivo seleccionado tiene datos no válidos.

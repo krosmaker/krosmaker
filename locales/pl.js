@@ -17,6 +17,7 @@ export default {
     download: "Pobierz",
     override: "Nadpisz",
     close: "Zamknij",
+    reset: "Resetuj",
     up: "Do góry",
     down: "Do dołu",
     of: "z",
@@ -82,9 +83,11 @@ export default {
       deletePrompt: "Czy na pewno chcesz usunąć {item}?",
       saveFirst: "Najpierw zapisz",
       importOverridePrompt:
-        "Obecna konfiguracja karty ma niezapisane zmiany, które zostaną utracone jeżeli inna karta zostanie wczytana. Czy chcesz nadpisać dane?",
+        "Obecna konfiguracja karty ma niezapisane zmiany, które zostaną utracone jeżeli inna karta zostanie zaimportowana. Czy chcesz nadpisać dane?",
       loadOverridePrompt:
         "Obecna konfiguracja karty ma niezapisane zmiany, które zostaną utracone jeżeli inna karta zostanie wczytana. Czy chcesz nadpisać dane?",
+      resetOverridePrompt:
+        "Obecna konfiguracja karty ma niezapisane zmiany, które zostaną utracone. Czy chcesz nadpisać dane?",
       importErrorHeader: "Wystąpił błąd",
       invalidFileError: `
         Wybrany plik karty jest nieprawidłowy.
