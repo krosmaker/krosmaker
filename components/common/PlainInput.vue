@@ -41,13 +41,21 @@ export default class PlainInput extends Vue {
 
   onKeyPress(event: KeyboardEvent) {
     if (this.number) {
-      preventNonNumericInput(event, this.allowMinus);
+      preventNonNumericInput(
+        event,
+        this.allowMinus && this.value === "",
+        this.value === "-"
+      );
     }
   }
 
   onPaste(event: ClipboardEvent) {
     if (this.number) {
-      preventNonNumericPaste(event, this.allowMinus);
+      preventNonNumericPaste(
+        event,
+        this.allowMinus && this.value === "",
+        this.value === "-"
+      );
     }
   }
 }

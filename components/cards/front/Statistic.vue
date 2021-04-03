@@ -12,7 +12,7 @@
       v-model="value"
       number
       :limit="type === 'hp' ? 2 : 1"
-      :allowMinus="type !== 'hp'"
+      :allowMinus="true"
     />
     <span class="statistic-label" :class="`${type}-label`">
       {{ $t("card." + type) }}
@@ -37,11 +37,7 @@ export default class Statistic extends Vue {
   set value(value: string) {
     const type = this.type.toUpperCase();
     this.$store.commit("export/setDirty", true);
-    if (
-      value === "" ||
-      (value === "-" && type !== "HP") ||
-      !isNaN(parseInt(value))
-    ) {
+    if (value === "" || value === "-" || !isNaN(parseInt(value))) {
       this.$store.commit(`krosmaster/set${type}`, value);
     }
   }

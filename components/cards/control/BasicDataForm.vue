@@ -16,8 +16,8 @@
           append-icon="mdi-rhombus"
           maxlength="1"
           v-model="mp"
-          @keydown="onKeyPress($event, true)"
-          @paste="onPaste($event, true)"
+          @keydown="onKeyPress"
+          @paste="onPaste"
         />
       </v-col>
       <v-col cols="4">
@@ -27,8 +27,8 @@
           append-icon="mdi-heart"
           maxlength="2"
           v-model="hp"
-          @keydown="onKeyPress($event, false)"
-          @paste="onPaste($event, false)"
+          @keydown="onHPKeyPress"
+          @paste="onPaste"
         />
       </v-col>
       <v-col cols="4">
@@ -37,8 +37,8 @@
           append-icon="mdi-star"
           maxlength="1"
           v-model="ap"
-          @keydown="onKeyPress($event, true)"
-          @paste="onPaste($event, true)"
+          @keydown="onKeyPress"
+          @paste="onPaste"
         />
       </v-col>
       <v-col cols="12">
@@ -169,12 +169,18 @@ export default class KrosmasterName extends Vue {
     this.$store.commit("krosmaster/setAP", ap);
   }
 
-  onKeyPress(event: KeyboardEvent, allowMinus: boolean) {
-    preventNonNumericInput(event, allowMinus);
+  onKeyPress(event: KeyboardEvent) {
+    preventNonNumericInput(event, true);
   }
 
-  onPaste(event: ClipboardEvent, allowMinus: boolean) {
-    preventNonNumericPaste(event, allowMinus);
+  onHPKeyPress(event: KeyboardEvent) {
+    const allowMinus = this.hp === "";
+    const isFull = this.hp === "-";
+    preventNonNumericInput(event, allowMinus, isFull);
+  }
+
+  onPaste(event: ClipboardEvent) {
+    preventNonNumericPaste(event, true);
   }
 }
 </script>
