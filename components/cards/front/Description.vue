@@ -28,7 +28,11 @@ export default class Description extends Vue {
     { keyword: "Fire", class: "fire" },
     { keyword: "Water", class: "water" },
 
-    { keyword: "Armour", class: "armour" },
+    { keyword: "Critical Symbol", class: "critical" },
+    { keyword: "Armour Symbol", class: "armour" },
+    { keyword: "Dodge Symbol", class: "dodge" },
+    { keyword: "Lock Symbol", class: "lock" },
+    { keyword: "Dofus Symbol", class: "dofus" },
   ];
   private splitPattern = RegExp(
     "(" +
@@ -202,12 +206,44 @@ export default class Description extends Vue {
   color: #2592bb;
 }
 
-.armour-icon {
-  background-image: url("~assets/img/front/descriptions/dice/armour.png");
-  width: 18px;
+.armour-icon,
+.critical-icon,
+.dodge-icon,
+.dofus-icon,
+.lock-icon {
   height: 20px;
   margin-bottom: -2px;
   margin-top: -5px;
   margin-left: 1px;
+}
+
+.armour-icon {
+  background-image: url("~assets/img/front/descriptions/dice/armour.png");
+  width: 18px;
+}
+
+.critical-icon {
+  background-image: url("~assets/img/front/descriptions/dice/critical.png");
+  width: 19px;
+  margin-right: -1px;
+}
+
+.dodge-icon {
+  background-image: url("~assets/img/front/descriptions/dice/dodge.png");
+  width: 16px;
+  margin-right: -1px;
+}
+
+.dofus-icon {
+  background-image: url("~assets/img/front/descriptions/dice/dofus.png");
+  width: 20px;
+  margin-left: -1px;
+  margin-right: -2px;
+}
+
+.lock-icon {
+  background-image: url("~assets/img/front/descriptions/dice/lock.png");
+  width: 20px;
+  margin-right: -1px;
 }
 </style>

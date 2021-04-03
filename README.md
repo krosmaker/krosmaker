@@ -77,6 +77,7 @@ For a detailed explanation of the project setup, check out
 ## Contributors
 
 - [@czyzby](https://github.com/czyzby/) - app development, Polish translation.
+- [Marsza](https://github.com/marszaa/) - recreated Krosmaster dice icons.
 - [Jesús Martínez](https://krosarchive.es/) - Spanish translation.
 - [@SGe-GH](https://github.com/SGe-GH) - French translation, testing.
 
