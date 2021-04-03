@@ -27,6 +27,8 @@ export default class Description extends Vue {
     { keyword: "Earth", class: "earth" },
     { keyword: "Fire", class: "fire" },
     { keyword: "Water", class: "water" },
+
+    { keyword: "Armour", class: "armour" },
   ];
   private splitPattern = RegExp(
     "\\b(" +
@@ -198,5 +200,14 @@ export default class Description extends Vue {
 
 .water-text {
   color: #2592bb;
+}
+
+.armour-icon {
+  background-image: url("~assets/img/front/descriptions/dice/armour.png");
+  width: 18px;
+  height: 20px;
+  margin-bottom: -2px;
+  margin-top: -5px;
+  margin-left: 1px;
 }
 </style>
