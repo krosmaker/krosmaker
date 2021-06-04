@@ -214,6 +214,7 @@ export default class Description extends Vue {
   margin-bottom: -2px;
   margin-top: -5px;
   margin-left: 1px;
+  margin-right: 1px;
 }
 
 .armour-icon {
