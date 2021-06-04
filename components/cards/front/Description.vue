@@ -132,7 +132,6 @@ export default class Description extends Vue {
   width: 20px;
   height: 18px;
   margin-top: -3px;
-  margin-right: -1px;
 }
 
 .hp-text {
