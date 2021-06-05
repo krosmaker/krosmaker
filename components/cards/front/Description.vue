@@ -119,7 +119,7 @@ export default class Description extends Vue {
   width: 19px;
   height: 19px;
   margin-top: -5px;
-  margin-left: -2px;
+  margin-left: -1px;
   margin-right: -2px;
 }
 
@@ -143,7 +143,6 @@ export default class Description extends Vue {
   width: 19px;
   height: 19px;
   margin-top: -5px;
-  margin-left: -1px;
   margin-right: -1px;
 }
 
