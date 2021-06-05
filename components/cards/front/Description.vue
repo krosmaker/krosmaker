@@ -124,6 +124,7 @@ export default class Description extends Vue {
 
 .mp-text {
   color: #507b36;
+  word-spacing: -1px;
 }
 
 .hp-icon {
@@ -147,18 +148,21 @@ export default class Description extends Vue {
 
 .ap-text {
   color: #1f548b;
+  word-spacing: -1px;
 }
 
 .injury-icon {
   background-image: url("~assets/img/front/descriptions/markers/injury.png");
   width: 15px;
   height: 20px;
+  margin-left: 1px;
   margin-bottom: -2px;
   margin-top: -5px;
 }
 
 .injury-text {
   color: #d30a1e;
+  word-spacing: -1px;
 }
 
 .air-icon,
