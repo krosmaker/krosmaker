@@ -30,8 +30,9 @@ convert image.ppm alpha.ppm -compose CopyOpacity -composite output.png
 
 ## Krosmaster figurines
 
-The figurine and minion images were collected from the archives of KrosFinder.
-Currently these assets are available via [KrosArchive](https://krosarchive.es/EN/seasons).
+The figurine and minion images were collected from the archives of
+the KrosFinder site. Currently these assets are available via
+[KrosArchive](https://krosarchive.es/EN/seasons).
 
 The figurine images available from KrosFinder are already scaled down
 to almost perfect size given the current quality of the card assets.
@@ -52,14 +53,16 @@ the results manually, and had a pretty accurate background removal algorithm
 in the first place.
 
 After the backgrounds were removed, Gimp was used to add a shadow outline
-(5 blur radius, 100% opacity) and a shadow image under the minion (60% opacity).
+(2.5 X and Y blur size, 100% opacity) and a shadow image under the minion
+(60% opacity).
 
 # Artworks
 
 ## Krosmasters
 
 The majority of the artworks were published by Ankama and can be found on
-various websites such as [Pinterest](https://id.pinterest.com/esther13456/krosmaster/).
+various websites such as
+[Pinterest](https://id.pinterest.com/esther13456/krosmaster/).
 
 While the same artworks are also available via KrosFinder archives, these
 are usually scaled down and of lower quality than the source material.
@@ -72,34 +75,54 @@ the following process:
 1. Open the [background](assets/img/background-minion.png) image.
 1. Add the minion image that will be traced as a separate layer.
 1. Adjust the minion image scale. It can be safely scaled up, as it will
-   not be a part of the final image.
-1. Add a new layer.
-1. Set the paintbrush tool size to **9**.
+   not be a part of the final image. The reference should take up most
+   of the canvas vertically, with around 10 to 15 pixels to the borders.
+1. Add a new layer: _outline_.
+1. Set the foreground color to `e5ccff`. (Alternatively, you can achieve
+   this color by using white and applying the `Colors > Colorize` tool
+   with hue set to **0.75**, saturation to **1**, and lightness to
+   **-0.1**.)
+1. Set the paintbrush tool size to **9** and brush to `Hardness 050`.
 1. Using the selection tool, select the outlines of the minion image.
 1. Use `Edit > Stroke selection` to paint over the section with the
    paintbrush tool.
-1. Add any necessary details with the paintbrush tool.
-1. Use `Filters > Blur > Gaussian blur` with default settings twice.
-1. Set layer opacity to around **0.3**.
+1. Add any necessary details with the paintbrush tool. You can adjust
+   the tool size as needed. Try to keep the image minimalistic.
+1. Use `Filters > Blur > Gaussian blur` with size X and Y set to **3.5**.
+1. Set layer opacity to **12.5**.
 1. Make the minion image layer transparent.
-1. Add at least 2 new layers.
+1. Add at least 2 new layers: _stars_.
 1. Paint a few white **1** pixel dots with the pencil tool on each layer.
    They will form the star constellation painted over the outline.
    Avoid placing dots over inner elements like eyes.
 1. Use `Filters > Light and shadow > Sparkle` on each layer with slightly
    different settings. Use a random spike angle. Adjust the flare intensity,
    spike length and spike density to make sure that each of the stars
-   appears different.
+   appears different. You can use spike length of **16** for 1 layer,
+   and **6** for the other. Undo and repeat the progress until finding
+   a satisfactory combination of stars.
 1. Merge the star layers.
-1. Use `Filters > Blur > Gaussian blur` with a radius of **1**.
-1. Set the star layer opacity to around **0.8**.
-1. Add a new layer.
-1. Set the dynamics of the paintbrush to `Pen generic` and its size to **2**.
+1. Set the paintbrush tool to **25-50** opacity, `Hardness 025` brush, and
+   around **25-40** size.
+1. Place a dot over the middle of each star with the paintbrush tool.
+   Adjust brush size and opacity appropriately to apply glow for each star
+   according to its size.
+1. Set the stars layer opacity to **80**.
+1. Add a new layer: _constellation_.
+1. Set the foreground color to `b9b8ff`. (Alternatively, you can achieve
+   this color by using white and applying the `Colors > Colorize` tool
+   with hue set to **0.67**, saturation to **1**, and lightness to
+   **-0.14**.)
+1. Set the dynamics of the paintbrush to `Pen generic`, its size to **7**,
+   the opacity back to **100**, and brush to `Harness 075`.
 1. Place a dot on one of the stars with the paintbrush tool. Shift-click on
-   the nearest star to connect the stars with a line. Place the line twice
-   if it appears too faint. Repeat until all stars all connected.
-1. Use `Filters > Blur > Gaussian blur` with a radius of **1**.
-1. Set the lines layer opacity to around **0.8**.
+   the nearest star to connect the stars with a line. You can also break the
+   lines on the outline of the image even if there is no star places, but
+   avoid more than one angle between two starts. Repeat until all stars all
+   connected.
+1. Set the constellation layer opacity to **20**.
+1. Use the eraser tool to dampen some of the constellation lines, especially
+   those outside of the figurine outline.
 
 The final result should consist of:
 
@@ -111,7 +134,7 @@ The final result should consist of:
 - A constellation layer with joins the stars with subtle lines drawn roughly
   over the outline.
 
-The results are not exactly in the same style as the originals, but they are
+The results are 100% in the same style as the originals, but they can be
 reasonably close.
 
 # PDF export
