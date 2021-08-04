@@ -216,24 +216,22 @@ export default class Description extends Vue {
   margin-bottom: -2px;
   margin-top: -5px;
   margin-left: 1px;
-  margin-right: 1px;
+  margin-right: -1px;
 }
 
 .armour-icon {
   background-image: url("~assets/img/front/descriptions/dice/armour.png");
-  width: 18px;
+  width: 20px;
 }
 
 .critical-icon {
   background-image: url("~assets/img/front/descriptions/dice/critical.png");
   width: 19px;
-  margin-right: -1px;
 }
 
 .dodge-icon {
   background-image: url("~assets/img/front/descriptions/dice/dodge.png");
   width: 16px;
-  margin-right: -1px;
 }
 
 .dofus-icon {
@@ -246,6 +244,5 @@ export default class Description extends Vue {
 .lock-icon {
   background-image: url("~assets/img/front/descriptions/dice/lock.png");
   width: 20px;
-  margin-right: -1px;
 }
 </style>
