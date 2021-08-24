@@ -321,7 +321,7 @@ export default class SpellContainer extends Vue {
     font-family: "Helvetica Neue";
     position: absolute;
     color: white;
-    top: 49px;
+    top: 48px;
     left: 465px;
     width: 32px;
     font-size: 32px;
