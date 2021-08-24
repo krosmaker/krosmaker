@@ -49,6 +49,8 @@ export default class FighterName extends Vue {
 </script>
 
 <style lang="scss" scoped>
+$name-width: 490px;
+
 .name-container {
   font-family: "Berlin Sans";
   text-transform: uppercase;
@@ -63,7 +65,7 @@ export default class FighterName extends Vue {
     position: absolute;
     left: 0;
     top: 0;
-    width: $card-width * 0.75;
+    width: $name-width;
   }
 
   .common {
@@ -89,7 +91,7 @@ export default class FighterName extends Vue {
 
   .elite-name {
     position: absolute;
-    width: $card-width * 0.75;
+    width: $name-width;
     height: 40px;
     left: 0;
     top: 0;

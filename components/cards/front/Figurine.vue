@@ -3,9 +3,9 @@
     :src="figurineImage"
     @click.stop="onClick"
     :style="{
-      left: offsetX / 10 + '%',
-      top: offsetY / 10 + '%',
-      height: height + 'px',
+      left: offsetX,
+      top: offsetY,
+      height: height,
     }"
   />
 </template>
@@ -18,17 +18,27 @@ import { TabId } from "~/store/sidebar";
 
 @Component
 export default class Figurine extends Vue {
-  get offsetX(): number {
-    const isMinion = this.$store.state.krosmaster.type === "minion";
-    return this.$store.state.figurine.offsetX - (isMinion ? 75 : 0);
+  get isMinion(): boolean {
+    return this.$store.state.krosmaster.type === "minion";
   }
 
-  get offsetY(): number {
-    return this.$store.state.figurine.offsetY;
+  get offsetX(): string {
+    const isMinion = this.isMinion;
+    const offset = this.$store.state.figurine.offsetX - (isMinion ? 75 : 0);
+    // For compatiblity with initial approach based on % units:
+    const multiplier = this.isMinion ? 0.402 : 0.52;
+    return Math.round(offset * multiplier) + "px";
   }
 
-  get height(): number {
-    return this.$store.state.figurine.height;
+  get offsetY(): string {
+    const offset = this.$store.state.figurine.offsetY;
+    // For compatiblity with initial approach based on % units:
+    const multiplier = this.isMinion ? 0.25 : 0.37;
+    return Math.round(offset * multiplier) + "px";
+  }
+
+  get height(): string {
+    return this.$store.state.figurine.height + "px";
   }
 
   get figurineImage(): string {

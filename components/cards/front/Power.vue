@@ -99,11 +99,11 @@ export default class PowerContainer extends Vue {
   padding: 0;
   margin: 0;
   margin-top: 1px;
-  margin-bottom: -5.2%;
+  margin-bottom: -27px;
 
   .power-name-background {
-    margin-left: 4.7%;
-    margin-bottom: -7%;
+    margin-left: 25px;
+    margin-bottom: -36px;
   }
 
   .power-content {
@@ -112,15 +112,17 @@ export default class PowerContainer extends Vue {
     padding-bottom: 18px;
     margin-top: 1px;
 
+    $power-offset: 47px;
+
     .power-name {
       font-family: "Helvetica Neue";
-      margin-left: 9%;
+      margin-left: $power-offset;
       margin-top: -2px;
       margin-bottom: -1px;
       color: #252525;
-      width: $card-width * 0.8;
-      font-weight: 700;
+      width: 420px;
       font-size: 19px;
+      font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
     }
@@ -131,10 +133,10 @@ export default class PowerContainer extends Vue {
       color: #303030;
       font-size: 14px;
       line-height: 17px;
-      margin-left: 9%;
-      margin-right: 9%;
+      margin-left: $power-offset;
+      margin-right: $power-offset;
       min-height: 27px;
-      padding-top: 0.9%;
+      padding-top: 5px;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -154,10 +156,12 @@ export default class PowerContainer extends Vue {
 
 .minion-power-container {
   .power-name-background {
-    margin-left: 2.8%;
-    margin-bottom: -9.2%;
+    margin-left: 15px;
+    margin-bottom: -48px;
     padding-bottom: 2px;
   }
+
+  $minion-power-offset: 40px;
 
   .power-content {
     width: $minion-card-width;
@@ -166,12 +170,12 @@ export default class PowerContainer extends Vue {
     padding-bottom: 5px;
 
     .power-name {
-      margin-left: 10%;
+      margin-left: $minion-power-offset;
     }
 
     .power-description {
-      margin-left: 10%;
-      margin-right: 8.9%;
+      margin-left: $minion-power-offset;
+      margin-right: 36px;
       margin-bottom: 4px;
       padding-bottom: 1px;
       -webkit-line-clamp: 3;

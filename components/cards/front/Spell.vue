@@ -223,12 +223,12 @@ export default class SpellContainer extends Vue {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-bottom: -5.3%;
+  margin-bottom: -28px;
 
   .spell-range-background {
     position: absolute;
     top: 24px;
-    left: 5.5%;
+    left: 29px;
     border-radius: 5px;
     width: 50px;
     height: 50px;
@@ -238,7 +238,7 @@ export default class SpellContainer extends Vue {
     font-family: "Helvetica Neue";
     position: absolute;
     top: 54px;
-    left: 4.9%;
+    left: 26px;
     font-size: 18px;
     font-weight: 700;
     display: inline;
@@ -260,7 +260,7 @@ export default class SpellContainer extends Vue {
     font-family: "Helvetica Neue";
     position: absolute;
     top: 24px;
-    left: 80%;
+    left: 416px;
     font-size: 22px;
     font-weight: bold;
     display: inline;
@@ -296,7 +296,7 @@ export default class SpellContainer extends Vue {
   }
 
   .spell-limit-extended {
-    left: 83%;
+    left: 432px;
   }
 
   .spell-limit-windows {
@@ -312,7 +312,7 @@ export default class SpellContainer extends Vue {
   .spell-damage-background {
     position: absolute;
     top: 42px;
-    left: 86%;
+    left: 448px;
   }
 
   $spell-damage-shadow: #222233;
@@ -321,8 +321,8 @@ export default class SpellContainer extends Vue {
     font-family: "Helvetica Neue";
     position: absolute;
     color: white;
-    top: 48px;
-    left: 89.3%;
+    top: 49px;
+    left: 465px;
     width: 32px;
     font-size: 32px;
     font-weight: bold;
@@ -339,8 +339,8 @@ export default class SpellContainer extends Vue {
   }
 
   .spell-name-background {
-    margin-left: 14%;
-    margin-bottom: -7%;
+    margin-left: 73px;
+    margin-bottom: -37px;
   }
 
   .spell-content {
@@ -353,15 +353,17 @@ export default class SpellContainer extends Vue {
       font-family: "Helvetica Neue";
       color: #eeeeee;
       text-shadow: 2px 2px #111111;
-      margin-left: 16.5%;
+      margin-left: 86px;
       margin-top: -2px;
       margin-bottom: 1px;
-      width: $card-width * 0.7;
+      width: 360px;
       font-weight: 700;
       font-size: 19px;
       white-space: nowrap;
       overflow: hidden;
     }
+
+    $spell-offset: 47px;
 
     .spell-description {
       cursor: pointer;
@@ -369,10 +371,10 @@ export default class SpellContainer extends Vue {
       color: #303030;
       font-size: 14px;
       line-height: 17px;
-      margin-left: 9%;
-      margin-right: 14%;
+      margin-left: $spell-offset;
+      margin-right: 73px;
       min-height: 29px;
-      padding-top: 1%;
+      padding-top: 5px;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -383,6 +385,9 @@ export default class SpellContainer extends Vue {
 
     .spell-name-windows {
       margin-top: -4px;
+      font-weight: 400;
+      letter-spacing: 0.75px;
+      text-shadow: 2.4px 2px #111111;
     }
     .spell-description-windows {
       margin-top: -1px;
@@ -390,7 +395,7 @@ export default class SpellContainer extends Vue {
     }
 
     .spell-description-extended {
-      margin-right: 9%;
+      margin-right: $spell-offset;
       min-height: 24px;
     }
     .spell-description-windows.spell-description-extended {
@@ -407,8 +412,8 @@ export default class SpellContainer extends Vue {
     padding-bottom: 5px;
 
     .spell-name {
-      width: $minion-card-width * 0.7;
-      margin-left: 19.2%;
+      width: 280px;
+      margin-left: 77px;
       margin-top: -2px;
       margin-bottom: 5px;
     }
@@ -416,15 +421,15 @@ export default class SpellContainer extends Vue {
     .spell-description {
       padding-top: 4px;
       margin-top: -4px;
-      margin-left: 9.5%;
+      margin-left: 38px;
       margin-bottom: 4px;
-      margin-right: 19%;
+      margin-right: 76px;
       min-height: 30px;
       -webkit-line-clamp: 3;
     }
 
     .spell-description-extended {
-      margin-right: 8.4%;
+      margin-right: 33px;
       min-height: 28px;
     }
 
@@ -439,35 +444,39 @@ export default class SpellContainer extends Vue {
   }
 
   .spell-range-background {
-    left: 4%;
+    left: 21px;
   }
 
   .spell-range {
-    left: 3.4%;
+    left: 18px;
   }
 
   .spell-damage-background {
     top: 34px;
-    left: 62.5%;
+    left: 325px;
   }
 
   .spell-damage-value {
     top: 40px;
-    left: 65.8%;
+    left: 342px;
   }
 
   .spell-limit {
     top: 22px;
-    left: 55%;
+    left: 286px;
   }
 
   .spell-limit-extended {
-    left: 62%;
+    left: 323px;
   }
 
   .spell-name-background {
-    margin-left: 13%;
-    margin-bottom: -8.9%;
+    margin-left: 68px;
+    margin-bottom: -47px;
+  }
+
+  .spell-limit-windows {
+    margin-top: -2px;
   }
 }
 </style>

@@ -43,8 +43,10 @@ export default class Abilities extends Vue {
 </script>
 
 <style lang="scss" scoped>
+$abilities-height: 260px;
+
 .abilities-container {
   width: $card-width;
-  height: $card-height * 0.7;
+  height: $abilities-height;
 }
 </style>

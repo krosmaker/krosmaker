@@ -85,23 +85,23 @@ export default class CardBack extends Vue {
     transform: rotate(-90deg);
     transform-origin: 0 0;
 
-    left: 96.5%;
-    top: 59%;
+    left: 503px;
+    top: 220px;
   }
 
   .watermark-minion {
-    left: 96.3%;
-    top: 62%;
+    left: 387px;
+    top: 160px;
   }
 
   .version {
     color: #aa8213;
-    right: 4.5%;
-    bottom: 0.4%;
+    right: 24px;
+    bottom: 1px;
   }
 
   .version-minion {
-    bottom: -0.6%;
+    bottom: -2px;
   }
 }
 </style>

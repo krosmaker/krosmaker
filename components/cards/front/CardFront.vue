@@ -43,14 +43,14 @@ export default class CardFront extends Vue {
 
   .name {
     position: absolute;
-    left: 5%;
-    top: 4.8%;
+    left: 26px;
+    top: 17px;
   }
 
   .statistics {
     position: absolute;
-    left: 43.2%;
-    top: 20%;
+    left: 225px;
+    top: 75px;
   }
 
   .figurine {
@@ -59,23 +59,23 @@ export default class CardFront extends Vue {
 
   .abilities {
     position: absolute;
-    top: 30%;
+    top: 112px;
   }
 }
 
 .card-front-minion {
   .name {
-    left: 5.4%;
-    top: 9.5%;
+    left: 22px;
+    top: 24px;
   }
 
   .statistics {
-    left: 16.8%;
-    top: 30%;
+    left: 67px;
+    top: 77px;
   }
 
   .abilities {
-    top: 53%;
+    top: 136px;
   }
 }
 </style>

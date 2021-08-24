@@ -14,7 +14,10 @@
       :limit="type === 'hp' ? 2 : 1"
       :allowMinus="true"
     />
-    <span class="statistic-label" :class="`${type}-label`">
+    <span
+      class="statistic-label"
+      :class="[`${type}-label`, { 'statistic-label-windows': isWindows }]"
+    >
       {{ $t("card." + type) }}
     </span>
   </v-layout>
@@ -75,7 +78,8 @@ $statistics: (
   .statistic-windows {
     font-size: 30px;
     margin-top: -4px;
-    margin-bottom: 0.15em;
+    margin-bottom: 4px;
+    font-weight: 400;
   }
 
   .hp {
@@ -95,10 +99,14 @@ $statistics: (
 
   .statistic-label {
     text-transform: uppercase;
-    margin-top: -1.4em;
+    margin-top: -15px;
     font-size: 10px;
     font-weight: 900;
     letter-spacing: 0.5px;
+  }
+
+  .statistic-label-windows {
+    font-weight: 400;
   }
 }
 
@@ -108,9 +116,10 @@ $statistics: (
   }
 
   .statistic-label {
-    margin-top: -1.7em;
+    margin-top: -17px;
   }
 
-  margin-right: 1.05em;
+  margin-left: 1px;
+  margin-right: 16px;
 }
 </style>
