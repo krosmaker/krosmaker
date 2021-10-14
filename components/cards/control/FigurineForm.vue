@@ -183,7 +183,7 @@ export default class FigurineForm extends Vue {
   );
 
   private get cropper(): Cropper & Vue {
-    return (this.$refs.cropper as any) as Cropper & Vue;
+    return this.$refs.cropper as any as Cropper & Vue;
   }
 
   get aspectRatio(): number {

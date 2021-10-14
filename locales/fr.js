@@ -15,7 +15,8 @@ export default {
     warning: "Avertissement",
     search: "Rechercher",
     download: "Télécharger",
-    override: "Ecraser",
+    override: "Écraser",
+    discard: "Jeter",
     close: "Fermer",
     reset: "Réinitialiser",
     up: "Monter",
@@ -82,11 +83,11 @@ export default {
       deletePrompt: "Etes-vous sûr de vouloir supprimer {item} ?",
       saveFirst: "Enregistrer d'abord",
       importOverridePrompt:
-        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous écraser la carte ?",
+        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous jeter les modifications ? ",
       loadOverridePrompt:
-        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous écraser la carte ?",
+        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues si une autre carte est importée. Voulez-vous jeter les modifications ? ",
       resetOverridePrompt:
-        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues. Voulez-vous écraser la carte ?",
+        "Les données de la carte en cours d'édition comportent des modifications non enregistrées qui seront perdues. Voulez-vous jeter les modifications ? ",
       importErrorHeader: "Importation impossible",
       invalidFileError: `
         Les données du fichier sélectionné sont incorrectes.

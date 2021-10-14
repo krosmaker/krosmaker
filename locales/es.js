@@ -16,6 +16,7 @@ export default {
     search: "Buscar",
     download: "Descargar",
     override: "Sobreescribir",
+    discard: "Descartar",
     close: "Cerrar",
     reset: "Reiniciar",
     up: "Subir",
@@ -82,11 +83,11 @@ export default {
       deletePrompt: "¿Realmente quieres borrarlo?",
       saveFirst: "Guardar primero",
       importOverridePrompt:
-        "Los datos de la carta actual tienen cambios no guardados que se perderán si se importa otra carta. ¿Quieres sobreescribir la carta?",
+        "Los datos de la carta actual tienen cambios no guardados que se perderán si se importa otra carta. ¿Quieres descartar los cambios?",
       loadOverridePrompt:
-        "Los datos de la carta actual tienen cambios no guardados que se perderán si se carga otra carta. ¿Quieres sobreescribir la carta?",
+        "Los datos de la carta actual tienen cambios no guardados que se perderán si se carga otra carta. ¿Quieres descartar los cambios? ",
       resetOverridePrompt:
-        "Los datos de la carta actual tienen cambios no guardados que se perderán. ¿Quieres sobreescribir la carta?",
+        "Los datos de la carta actual tienen cambios no guardados que se perderán. ¿Quieres descartar los cambios?",
       importErrorHeader: "No se puede importar",
       invalidFileError: `
             El archivo seleccionado tiene datos no válidos.

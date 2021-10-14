@@ -6,7 +6,8 @@ import { Element, Limit, Range } from "~/assets/src/data/fighters";
 
 const statisticPattern = /^(-|[0-9]{0,1})$/g;
 const healthPattern = /^(-|[0-9]{0,2})$/g;
-const imagePattern = /(.*\.png)|(data:image\/(png|jpe?g);base64,([A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?)/g;
+const imagePattern =
+  /(.*\.png)|(data:image\/(png|jpe?g);base64,([A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?)/g;
 
 const krosmasterDataSchema: ValidationSchema = {
   type: "object",

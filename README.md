@@ -71,6 +71,11 @@ $ npm run generate
 $ npm run format
 ```
 
+Note that the project uses some outdated library versions with reported
+vulnerabilities. This is deliberate, as updating some dependencies breaks
+the project or the GUI. Do not attempt to upgrade frozen library versions
+without fixing the associated issues.
+
 For a detailed explanation of the project setup, check out
 [the Nuxt.js documentation](https://nuxtjs.org).
 

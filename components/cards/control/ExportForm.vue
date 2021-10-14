@@ -63,7 +63,7 @@
       </v-col>
     </v-row>
 
-    <v-dialog v-model="overrideDialog" persistent max-width="400">
+    <v-dialog v-model="overrideDialog" max-width="400">
       <v-card>
         <v-card-title class="headline">{{ $t("common.warning") }}</v-card-title>
 
@@ -208,7 +208,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="importWarningDialog" persistent max-width="500">
+    <v-dialog v-model="importWarningDialog" max-width="500">
       <v-card>
         <v-card-title class="headline">
           {{ $t("common.warning") }}
@@ -225,9 +225,9 @@
             <v-icon dark left>mdi-cancel</v-icon>
             {{ $t("common.cancel") }}
           </v-btn>
-          <v-btn text color="warning" @click="acceptImportOverride">
+          <v-btn text color="error" @click="acceptImportOverride">
             <v-icon dark left>mdi-upload</v-icon>
-            {{ $t("common.override") }}
+            {{ $t("common.discard") }}
           </v-btn>
           <v-btn text color="success" @click="acceptImportSaveAndOverride">
             <v-icon dark left>mdi-database-import</v-icon>
@@ -237,7 +237,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="loadWarningDialog" persistent max-width="500">
+    <v-dialog v-model="loadWarningDialog" max-width="500">
       <v-card>
         <v-card-title class="headline">
           {{ $t("common.warning") }}
@@ -254,9 +254,9 @@
             <v-icon dark left>mdi-cancel</v-icon>
             {{ $t("common.cancel") }}
           </v-btn>
-          <v-btn text color="warning" @click="acceptLoadOverride">
-            <v-icon dark left>mdi-upload</v-icon>
-            {{ $t("common.override") }}
+          <v-btn text color="error" @click="acceptLoadOverride">
+            <v-icon dark left>mdi-database-export</v-icon>
+            {{ $t("common.discard") }}
           </v-btn>
           <v-btn text color="success" @click="acceptLoadSaveAndOverride">
             <v-icon dark left>mdi-database-import</v-icon>
@@ -308,7 +308,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="resetWarningDialog" persistent max-width="500">
+    <v-dialog v-model="resetWarningDialog" max-width="500">
       <v-card>
         <v-card-title class="headline">
           {{ $t("common.warning") }}
@@ -325,9 +325,9 @@
             <v-icon dark left>mdi-cancel</v-icon>
             {{ $t("common.cancel") }}
           </v-btn>
-          <v-btn text color="warning" @click="resetCard">
+          <v-btn text color="error" @click="resetCard">
             <v-icon dark left>mdi-refresh</v-icon>
-            {{ $t("common.override") }}
+            {{ $t("common.discard") }}
           </v-btn>
           <v-btn text color="success" @click="acceptSaveAndReset">
             <v-icon dark left>mdi-database-import</v-icon>
@@ -430,6 +430,7 @@ export default class KrosmasterName extends Vue {
           this.saveKrosmaster();
         } else {
           this.overrideDialog = true;
+          this.isSaving = false;
         }
       });
   }
@@ -440,6 +441,7 @@ export default class KrosmasterName extends Vue {
   }
 
   saveKrosmaster() {
+    this.isSaving = true;
     this.overrideDialog = false;
     const krosmaster = this.serializeKrosmaster();
     this.database.krosmasters.put(krosmaster).then(() => {

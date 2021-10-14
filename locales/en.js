@@ -16,6 +16,7 @@ export default {
     search: "Search",
     download: "Download",
     override: "Override",
+    discard: "Discard",
     close: "Close",
     reset: "Reset",
     up: "Up",
@@ -82,11 +83,11 @@ export default {
       deletePrompt: "Do you really want to delete {item}?",
       saveFirst: "Save first",
       importOverridePrompt:
-        "The current card data has unsaved changes which will be lost if another card is imported. Do you want to override the card?",
+        "The current card data has unsaved changes which will be lost if another card is imported. Do you want to discard the changes?",
       loadOverridePrompt:
-        "The current card data has unsaved changes which will be lost if another card is loaded. Do you want to override the card?",
+        "The current card data has unsaved changes which will be lost if another card is loaded. Do you want to discard the changes?",
       resetOverridePrompt:
-        "The current card data has unsaved changes which will be lost. Do you want to override the card?",
+        "The current card data has unsaved changes which will be lost. Do you want to discard the changes?",
       importErrorHeader: "Unable to import",
       invalidFileError: `
         The selected file has invalid data.
