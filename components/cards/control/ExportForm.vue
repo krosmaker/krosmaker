@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <h1>{{ $t("card.edit.storage") }}</h1>
+    <h2 class="pa-3">{{ $t("card.edit.storage") }}</h2>
     <v-row>
       <v-col cols="12">
         <v-text-field

@@ -103,7 +103,7 @@ export default class PowerContainer extends Vue {
 
   .power-name-background {
     margin-left: 25px;
-    margin-bottom: -36px;
+    margin-bottom: -47px;
   }
 
   .power-content {
@@ -157,7 +157,7 @@ export default class PowerContainer extends Vue {
 .minion-power-container {
   .power-name-background {
     margin-left: 15px;
-    margin-bottom: -48px;
+    margin-bottom: -50px;
     padding-bottom: 2px;
   }
 

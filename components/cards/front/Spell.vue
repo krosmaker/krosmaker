@@ -340,7 +340,7 @@ export default class SpellContainer extends Vue {
 
   .spell-name-background {
     margin-left: 73px;
-    margin-bottom: -37px;
+    margin-bottom: -52px;
   }
 
   .spell-content {
@@ -472,7 +472,7 @@ export default class SpellContainer extends Vue {
 
   .spell-name-background {
     margin-left: 68px;
-    margin-bottom: -47px;
+    margin-bottom: -57px;
   }
 
   .spell-limit-windows {

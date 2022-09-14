@@ -184,5 +184,5 @@ const validator = new Validator({
 
 export function validateKrosmasterData(krosmaster: any): ValidationError[] {
   const errors = validator(krosmaster);
-  return errors === true ? [] : errors;
+  return errors === true ? [] : (errors as ValidationError[]);
 }

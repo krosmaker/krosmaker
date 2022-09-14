@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <h1>{{ $t("card.edit.powers") }}</h1>
+    <h2 class="pa-3">{{ $t("card.edit.powers") }}</h2>
 
     <v-expansion-panels
       class="pa-2 pt-4"
@@ -14,7 +14,7 @@
           {{ truncate(power.name, 21) }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-row>
+          <v-row class="pt-4">
             <v-col class="pa-0 pt-4" cols="12">
               <v-text-field
                 :label="$t('card.edit.ability.name')"
