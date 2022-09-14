@@ -13,8 +13,8 @@ import EventBus from "~/assets/src/events/bus";
 
 @Component
 export default class Abilities extends Vue {
-  maxAbilitiesHeight = 268;
-  maxAbilitiesOffset = 10;
+  maxAbilitiesHeight = 520;
+  maxAbilitiesOffset = 20;
 
   get isKrosmaster(): boolean {
     return this.$store.state.krosmaster.type !== "minion";
