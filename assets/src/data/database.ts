@@ -6,6 +6,7 @@ import { FigurineState } from "~/store/figurine";
 
 export interface Krosmaster {
   id: string;
+  dpi: number;
   data: KrosmasterState;
   background: BackgroundState;
   figurine: FigurineState;
@@ -16,8 +17,8 @@ export default class KrosmakerDatabase extends Dexie {
 
   constructor() {
     super("Krosmaker");
-    this.version(1).stores({
-      krosmasters: "id, data, background, figurine",
+    this.version(2).stores({
+      krosmasters: "id, dpi, data, background, figurine",
     });
 
     this.krosmasters = this.table("krosmasters");

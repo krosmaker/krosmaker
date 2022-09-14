@@ -457,6 +457,7 @@ export default class KrosmasterName extends Vue {
   private serializeKrosmaster(): Krosmaster {
     return {
       id: this.currentKrosmasterId,
+      dpi: 300,
       data: this.$store.state.krosmaster,
       background: this.$store.state.background,
       figurine: this.$store.state.figurine,
@@ -533,6 +534,11 @@ export default class KrosmasterName extends Vue {
 
   private replaceKrosmaster(krosmaster: Krosmaster) {
     this.fileName = krosmaster.id === krosmaster.data.name ? "" : krosmaster.id;
+    if (!krosmaster?.dpi) {
+      // Historic files expected assets in 150 DPI.
+      // Figurine heights have to be rescaled to support 300 DPI.
+      krosmaster.figurine.height *= 2;
+    }
     this.$store.commit("krosmaster/replace", krosmaster.data);
     this.$store.commit("background/replace", krosmaster.background);
     this.$store.commit("figurine/replace", krosmaster.figurine);

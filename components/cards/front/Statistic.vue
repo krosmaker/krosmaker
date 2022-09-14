@@ -56,7 +56,7 @@ export default class Statistic extends Vue {
 </script>
 
 <style lang="scss" scoped>
-$shadow-size: 5px;
+$shadow-size: 10px;
 $statistics: (
   mp: #4d7015,
   hp: #d42637,
@@ -70,21 +70,21 @@ $statistics: (
     text-align: center;
     -webkit-text-stroke: 1px white;
     color: white;
-    font-size: 31px;
+    font-size: 62px;
     font-weight: 900;
-    width: 50px;
+    width: 100px;
   }
 
   .statistic-windows {
-    font-size: 30px;
-    margin-top: -4px;
-    margin-bottom: 4px;
-    font-weight: 400;
+    font-size: 60px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    font-weight: 600;
   }
 
   .hp {
-    margin-left: -1px;
-    margin-right: 1px;
+    margin-left: -2px;
+    margin-right: 2px;
   }
 
   @each $statistic, $color in $statistics {
@@ -99,27 +99,27 @@ $statistics: (
 
   .statistic-label {
     text-transform: uppercase;
-    margin-top: -15px;
-    font-size: 10px;
+    margin-top: -30px;
+    font-size: 20px;
     font-weight: 900;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
   }
 
   .statistic-label-windows {
-    font-weight: 400;
+    font-weight: 600;
   }
 }
 
 .minion-statistic-container {
   .statistic {
-    font-size: 37px;
+    font-size: 74px;
   }
 
   .statistic-label {
-    margin-top: -17px;
+    margin-top: -34px;
   }
 
-  margin-left: 1px;
-  margin-right: 16px;
+  margin-left: 2px;
+  margin-right: 32px;
 }
 </style>

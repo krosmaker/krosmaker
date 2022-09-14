@@ -7,7 +7,7 @@
     />
     <img
       v-else
-      class="background"
+      class="background minion-background"
       src="~assets/img/front/background-minion.png"
     />
     <FighterName class="name" />
@@ -34,23 +34,31 @@ export default class CardFront extends Vue {
   border-radius: inherit;
 
   .background {
-    // Using an <img> instead of background-image to avoid artifacts.
     border-radius: inherit;
+    object-fit: none;
+    object-position: center;
     position: absolute;
     left: 0;
     top: 0;
+    width: $card-width;
+    height: $card-height;
+  }
+
+  .minion-background {
+    width: $minion-card-width;
+    height: $minion-card-height;
   }
 
   .name {
     position: absolute;
-    left: 26px;
-    top: 17px;
+    left: 52px;
+    top: 34px;
   }
 
   .statistics {
     position: absolute;
-    left: 225px;
-    top: 87px;
+    left: 437px;
+    top: 160px;
   }
 
   .figurine {
@@ -59,23 +67,23 @@ export default class CardFront extends Vue {
 
   .abilities {
     position: absolute;
-    top: 112px;
+    top: 280px;
   }
 }
 
 .card-front-minion {
   .name {
-    left: 22px;
-    top: 24px;
+    left: 44px;
+    top: 53px;
   }
 
   .statistics {
-    left: 67px;
-    top: 89px;
+    left: 114px;
+    top: 168px;
   }
 
   .abilities {
-    top: 136px;
+    top: 320px;
   }
 }
 </style>

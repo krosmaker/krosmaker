@@ -26,14 +26,14 @@ export default class Figurine extends Vue {
     const isMinion = this.isMinion;
     const offset = this.$store.state.figurine.offsetX - (isMinion ? 75 : 0);
     // For compatiblity with initial approach based on % units:
-    const multiplier = this.isMinion ? 0.402 : 0.52;
+    const multiplier = this.isMinion ? 0.8 : 1.04;
     return Math.round(offset * multiplier) + "px";
   }
 
   get offsetY(): string {
     const offset = this.$store.state.figurine.offsetY;
     // For compatiblity with initial approach based on % units:
-    const multiplier = this.isMinion ? 0.25 : 0.37;
+    const multiplier = this.isMinion ? 0.5 : 0.74;
     return Math.round(offset * multiplier) + "px";
   }
 

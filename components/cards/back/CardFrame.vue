@@ -1,7 +1,11 @@
 <template>
   <div>
     <img v-if="isKrosmaster" class="frame" src="~/assets/img/back/frame.png" />
-    <img v-else class="frame" src="~/assets/img/back/frame-minion.png" />
+    <img
+      v-else
+      class="frame minion-frame"
+      src="~/assets/img/back/frame-minion.png"
+    />
   </div>
 </template>
 
@@ -20,5 +24,14 @@ export default class BackgroundFrame extends Vue {
 <style lang="scss" scoped>
 .frame {
   border-radius: inherit;
+  object-fit: none;
+  object-position: center;
+  width: $card-width;
+  height: $card-height;
+}
+
+.minion-frame {
+  width: $minion-card-width;
+  height: $minion-card-height;
 }
 </style>
