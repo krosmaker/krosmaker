@@ -17,7 +17,7 @@ export const state: () => FigurineState = () => ({
   original: require("~/assets/img/front/default-figurine.png"),
   cropped: require("~/assets/img/front/default-figurine.png"),
   useCropped: true,
-  height: 175, // px
+  height: 350, // px
   offsetX: 730, // 73.0% left
   offsetY: 10, // 1.0% top
 });
@@ -59,7 +59,7 @@ export const mutations = {
     state.original = defaultFigurine;
     state.cropped = defaultFigurine;
     state.useCropped = true;
-    state.height = 175;
+    state.height = 350;
     state.offsetX = 730;
     state.offsetY = 10;
     delete state.cropper;

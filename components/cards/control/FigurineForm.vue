@@ -39,8 +39,8 @@
           class="fixed-label-slider"
           dense
           v-model="height"
-          min="55"
-          max="295"
+          min="110"
+          max="590"
         >
           <template v-slot:prepend>
             <v-icon :color="sliderIconColor"> mdi-resize </v-icon>

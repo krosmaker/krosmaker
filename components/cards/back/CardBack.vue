@@ -51,18 +51,18 @@ export default class CardBack extends Vue {
 
   .artwork {
     position: absolute;
-    top: 16px;
-    left: 23px;
-    width: 475px;
-    height: 337px;
+    top: 31px;
+    left: 44px;
+    width: 950px;
+    height: 675px;
   }
 
   .artwork-minion {
     position: absolute;
-    top: 13px;
-    left: 17px;
-    width: 368px;
-    height: 233px;
+    top: 27px;
+    left: 28px;
+    width: 735px;
+    height: 464px;
   }
 
   .frame {
@@ -77,31 +77,32 @@ export default class CardBack extends Vue {
     position: absolute;
     font-family: "Helvetica Neue", "Verdana";
     letter-spacing: 0.5px;
-    font-size: 10px;
   }
 
   .watermark {
+    font-size: 20px;
     color: #c39822;
     transform: rotate(-90deg);
     transform-origin: 0 0;
 
-    left: 503px;
-    top: 220px;
+    left: 1003px;
+    top: 440px;
   }
 
   .watermark-minion {
-    left: 387px;
-    top: 160px;
+    left: 764px;
+    top: 320px;
   }
 
   .version {
+    font-size: 18px;
     color: #aa8213;
-    right: 24px;
-    bottom: 1px;
+    right: 45px;
+    bottom: 2px;
   }
 
   .version-minion {
-    bottom: -2px;
+    bottom: -3px;
   }
 }
 </style>

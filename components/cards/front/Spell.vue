@@ -5,33 +5,33 @@
     :class="{ 'minion-spell-container': isMinion }"
     @click="selectSpell(index)"
   >
-    <img
-      class="spell-range-background"
-      src="~/assets/img/front/spells/ranges/special.png"
-      v-if="spell.range.type === 'special'"
-    />
-    <img
-      class="spell-range-background"
-      src="~/assets/img/front/spells/ranges/regular.png"
-      v-else
-    />
-    <div
-      class="spell-range"
-      :class="{ 'spell-range-windows': isWindows }"
-      v-if="spell.range.type === 'regular'"
-    >
-      <PlainInput
-        number
-        :limit="1"
-        :value="`${spell.range.value[0]}`"
-        @input="onRangeFromChange($event, index)"
+    <div class="spell-content">
+      <img
+        v-if="isMinion"
+        class="spell-name-background"
+        src="~/assets/img/front/spells/minion-header.png"
       />
-      <span>-</span>
+      <img
+        v-else
+        class="spell-name-background"
+        src="~/assets/img/front/spells/header.png"
+      />
       <PlainInput
-        number
-        :limit="1"
-        :value="`${spell.range.value[1]}`"
-        @input="onRangeToChange($event, index)"
+        class="spell-name"
+        :class="{ 'spell-name-windows': isWindows }"
+        :value="spell.name"
+        @input="onNameChange($event, index)"
+        :limit="40"
+      />
+      <Description
+        class="spell-description"
+        :class="{
+          'spell-description-extended': spell.damage.element === 'none',
+          'spell-description-windows': isWindows,
+        }"
+        :addOffset="true"
+        :content="spell.description"
+        @click.native="openSpell(index)"
       />
     </div>
 
@@ -85,32 +85,32 @@
     />
 
     <img
-      v-if="isMinion"
-      class="spell-name-background"
-      src="~/assets/img/front/spells/minion-header.png"
+      class="spell-range-background"
+      src="~/assets/img/front/spells/ranges/special.png"
+      v-if="spell.range.type === 'special'"
     />
     <img
+      class="spell-range-background"
+      src="~/assets/img/front/spells/ranges/regular.png"
       v-else
-      class="spell-name-background"
-      src="~/assets/img/front/spells/header.png"
     />
-    <div class="spell-content">
+    <div
+      class="spell-range"
+      :class="{ 'spell-range-windows': isWindows }"
+      v-if="spell.range.type === 'regular'"
+    >
       <PlainInput
-        class="spell-name"
-        :class="{ 'spell-name-windows': isWindows }"
-        :value="spell.name"
-        @input="onNameChange($event, index)"
-        :limit="40"
+        number
+        :limit="1"
+        :value="`${spell.range.value[0]}`"
+        @input="onRangeFromChange($event, index)"
       />
-      <Description
-        class="spell-description"
-        :class="{
-          'spell-description-extended': spell.damage.element === 'none',
-          'spell-description-windows': isWindows,
-        }"
-        :addOffset="true"
-        :content="spell.description"
-        @click.native="openSpell(index)"
+      <span>-</span>
+      <PlainInput
+        number
+        :limit="1"
+        :value="`${spell.range.value[1]}`"
+        @input="onRangeToChange($event, index)"
       />
     </div>
   </div>
@@ -223,96 +223,90 @@ export default class SpellContainer extends Vue {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-bottom: -28px;
+  margin-bottom: -6px;
 
   .spell-range-background {
     position: absolute;
-    top: 24px;
-    left: 29px;
-    border-radius: 5px;
-    width: 50px;
-    height: 50px;
+    top: 0px;
+    left: 58px;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
   }
 
   .spell-range {
     font-family: "Helvetica Neue";
     position: absolute;
-    top: 54px;
-    left: 26px;
-    font-size: 18px;
+    top: 60px;
+    left: 52px;
+    font-size: 36px;
     font-weight: 700;
     display: inline;
 
     > input {
       color: white;
       display: inline-block;
-      width: 9px;
-      margin-left: 6px;
-      margin-right: 6px;
+      width: 18px;
+      margin-left: 12px;
+      margin-right: 12px;
     }
   }
 
   .spell-range-windows {
-    margin-top: -3px;
+    margin-top: -6px;
   }
 
   .spell-limit {
     font-family: "Helvetica Neue";
     position: absolute;
-    top: 24px;
-    left: 416px;
-    font-size: 22px;
+    top: -3px;
+    left: 832px;
+    font-size: 44px;
     font-weight: bold;
     display: inline;
 
     input,
     span {
       display: inline-block;
-      margin-left: -1px;
-      margin-right: -2px;
+      margin-left: -2px;
+      margin-right: -4px;
     }
     input {
       color: white;
-      width: 12px;
+      width: 24px;
     }
     .spell-limit-turn {
       display: inline-block;
       vertical-align: middle;
       background-image: url("~assets/img/front/spells/limits/turn.png");
-      width: 13px;
-      height: 18px;
-      margin-left: 1px;
-      margin-bottom: 4px;
+      width: 30px;
+      height: 38px;
+      margin-left: 2px;
+      margin-bottom: 8px;
     }
     .spell-limit-target {
       display: inline-block;
       vertical-align: middle;
       background-image: url("~assets/img/front/spells/limits/target.png");
-      width: 19px;
-      height: 19px;
-      margin-bottom: 3px;
-      margin-left: -2px;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 6px;
+      margin-left: -4px;
     }
   }
 
   .spell-limit-extended {
-    left: 432px;
+    left: 864px;
   }
 
   .spell-limit-windows {
-    top: 21px;
-    .spell-limit-turn {
-      margin-bottom: 6px;
-    }
-    .spell-limit-target {
-      margin-bottom: 5px;
-    }
+    top: -9px;
   }
 
   .spell-damage-background {
     position: absolute;
-    top: 42px;
-    left: 448px;
+    top: 36px;
+    left: 896px;
   }
 
   $spell-damage-shadow: #222233;
@@ -322,84 +316,82 @@ export default class SpellContainer extends Vue {
     position: absolute;
     color: white;
     top: 48px;
-    left: 465px;
-    width: 32px;
-    font-size: 32px;
+    left: 930px;
+    width: 64px;
+    font-size: 64px;
     font-weight: bold;
     overflow: visible;
     caret-color: transparent;
     filter: drop-shadow(-1px -1px 0px $spell-damage-shadow)
       drop-shadow(1px -1px 0px $spell-damage-shadow)
       drop-shadow(-1px 1px 0px $spell-damage-shadow)
-      drop-shadow(1px 1px 0px $spell-damage-shadow);
+      drop-shadow(1px 1px 0px $spell-damage-shadow)
+      drop-shadow(0px 0px 1px $spell-damage-shadow)
+      drop-shadow(0px 0px 2px $spell-damage-shadow);
   }
 
   .spell-damage-value-windows {
-    margin-top: -5px;
-  }
-
-  .spell-name-background {
-    margin-left: 73px;
-    margin-bottom: -52px;
+    margin-top: -10px;
   }
 
   .spell-content {
+    position: relative;
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
-    padding-bottom: 18px;
-    margin-top: 2px;
+    padding-bottom: 36px;
+    top: 5px;
+
+    $spell-offset: 94px;
+
+    .spell-name-background {
+      position: absolute;
+      left: 146px;
+      top: -10px;
+    }
 
     .spell-name {
       font-family: "Helvetica Neue";
       color: #eeeeee;
-      text-shadow: 2px 2px #111111;
-      margin-left: 86px;
-      margin-top: -2px;
-      margin-bottom: 1px;
-      width: 360px;
+      text-shadow: 2.5px 2.5px #111111;
+      position: absolute;
+      left: 172px;
+      top: -4px;
+      width: 720px;
       font-weight: 700;
-      font-size: 19px;
+      font-size: 38px;
       white-space: nowrap;
       overflow: hidden;
     }
-
-    $spell-offset: 47px;
 
     .spell-description {
       cursor: pointer;
       font-family: "Helvetica Neue";
       color: #303030;
-      font-size: 14px;
-      line-height: 17px;
+      font-size: 28px;
+      line-height: 34px;
       margin-left: $spell-offset;
-      margin-right: 73px;
-      min-height: 29px;
-      padding-top: 5px;
+      margin-right: 146px;
+      padding-top: 66px;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
+      min-height: 116px;
     }
 
     .spell-name-windows {
-      margin-top: -4px;
-      font-weight: 400;
+      top: -8px;
       letter-spacing: 0.75px;
-      text-shadow: 2.4px 2px #111111;
     }
     .spell-description-windows {
-      margin-top: -1px;
-      min-height: 33px;
+      padding-top: 64px;
     }
 
     .spell-description-extended {
       margin-right: $spell-offset;
-      min-height: 24px;
-    }
-    .spell-description-windows.spell-description-extended {
-      min-height: 28px;
+      min-height: 70px;
     }
   }
 }
@@ -409,30 +401,30 @@ export default class SpellContainer extends Vue {
     width: $minion-card-width;
     background: url("~assets/img/front/descriptions/minion-background.png")
       bottom center no-repeat;
-    padding-bottom: 5px;
+    padding-bottom: 18px;
 
     .spell-name {
-      width: 280px;
-      margin-left: 77px;
-      margin-top: -2px;
-      margin-bottom: 5px;
+      width: 560px;
+      left: 154px;
+      top: -2px;
+    }
+
+    .spell-name-background {
+      left: 132px;
+      top: -14px;
     }
 
     .spell-description {
-      padding-top: 4px;
-      margin-top: -4px;
-      margin-left: 38px;
-      margin-bottom: 4px;
-      margin-right: 76px;
-      min-height: 30px;
+      margin-left: 76px;
+      margin-right: 152px;
       -webkit-line-clamp: 3;
+      padding-top: 64px;
+      min-height: 116px;
     }
 
     .spell-description-extended {
-      margin-right: 33px;
-      min-height: 28px;
+      margin-right: 76px;
     }
-
     .spell-name-windows {
       margin-top: -4px;
       margin-bottom: 6px;
@@ -444,39 +436,32 @@ export default class SpellContainer extends Vue {
   }
 
   .spell-range-background {
-    left: 21px;
+    left: 41px;
   }
 
   .spell-range {
-    left: 18px;
+    left: 35px;
   }
 
   .spell-damage-background {
-    top: 34px;
-    left: 325px;
+    top: 20px;
+    left: 644px;
   }
 
   .spell-damage-value {
-    top: 40px;
-    left: 342px;
+    top: 32px;
+    left: 678px;
   }
 
   .spell-limit {
-    top: 22px;
-    left: 286px;
+    left: 566px;
   }
 
   .spell-limit-extended {
-    left: 323px;
-  }
-
-  .spell-name-background {
-    margin-left: 68px;
-    margin-bottom: -57px;
-  }
-
-  .spell-limit-windows {
-    margin-top: -2px;
+    left: 646px;
+    .spell-limit-windows {
+      margin-top: -2px;
+    }
   }
 }
 </style>

@@ -5,18 +5,17 @@
     :class="{ 'minion-power-container': isMinion }"
     @click="selectPower(index)"
   >
-    <img
-      v-if="isMinion"
-      class="power-name-background"
-      src="~/assets/img/front/powers/minion-header.png"
-    />
-    <img
-      v-else
-      class="power-name-background"
-      src="~/assets/img/front/powers/header.png"
-    />
-
     <div class="power-content">
+      <img
+        v-if="isMinion"
+        class="power-name-background"
+        src="~/assets/img/front/powers/minion-header.png"
+      />
+      <img
+        v-else
+        class="power-name-background"
+        src="~/assets/img/front/powers/header.png"
+      />
       <PlainInput
         class="power-name"
         :class="{ 'power-name-windows': isWindows }"
@@ -26,7 +25,6 @@
       />
       <Description
         class="power-description"
-        :class="{ 'power-description-windows': isWindows }"
         @click.native="openPower(index)"
         :content="power.description"
       />
@@ -95,33 +93,35 @@ export default class PowerContainer extends Vue {
 
 <style lang="scss" scoped>
 .power-container {
+  position: relative;
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-top: 1px;
-  margin-bottom: -27px;
-
-  .power-name-background {
-    margin-left: 25px;
-    margin-bottom: -47px;
-  }
+  margin-top: 4px;
+  margin-bottom: -6px;
 
   .power-content {
+    position: relative;
     background: url("~assets/img/front/descriptions/background.png") bottom
       center no-repeat;
-    padding-bottom: 18px;
-    margin-top: 1px;
+    padding-bottom: 36px;
 
-    $power-offset: 47px;
+    $power-offset: 94px;
+
+    .power-name-background {
+      position: absolute;
+      left: 50px;
+      top: -10px;
+    }
 
     .power-name {
       font-family: "Helvetica Neue";
-      margin-left: $power-offset;
-      margin-top: -2px;
-      margin-bottom: -1px;
+      position: absolute;
+      left: $power-offset;
+      top: -2px;
       color: #252525;
-      width: 420px;
-      font-size: 19px;
+      width: 840px;
+      font-size: 38px;
       font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
@@ -131,12 +131,11 @@ export default class PowerContainer extends Vue {
       cursor: pointer;
       font-family: "Helvetica Neue";
       color: #303030;
-      font-size: 14px;
-      line-height: 17px;
+      font-size: 28px;
+      line-height: 34px;
       margin-left: $power-offset;
       margin-right: $power-offset;
-      min-height: 27px;
-      padding-top: 5px;
+      padding-top: 60px;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -148,46 +147,36 @@ export default class PowerContainer extends Vue {
     .power-name-windows {
       margin-top: -4px;
     }
-    .power-description-windows {
-      margin-top: -1px;
-    }
   }
 }
 
 .minion-power-container {
-  .power-name-background {
-    margin-left: 15px;
-    margin-bottom: -50px;
-    padding-bottom: 2px;
-  }
-
-  $minion-power-offset: 40px;
+  $minion-power-offset: 76px;
 
   .power-content {
     width: $minion-card-width;
     background: url("~assets/img/front/descriptions/minion-background.png")
       bottom center no-repeat;
-    padding-bottom: 5px;
+    padding-bottom: 18px;
 
     .power-name {
-      margin-left: $minion-power-offset;
+      left: $minion-power-offset;
+    }
+
+    .power-name-background {
+      left: 22px;
+      top: -30px;
     }
 
     .power-description {
       margin-left: $minion-power-offset;
-      margin-right: 36px;
+      margin-right: $minion-power-offset;
       margin-bottom: 4px;
-      padding-bottom: 1px;
       -webkit-line-clamp: 3;
     }
 
     .power-name-windows {
-      margin-top: -4px;
-      margin-bottom: 2px;
-    }
-    .power-description-windows {
-      margin-top: -2px;
-      padding-bottom: 3px;
+      margin-top: -6px;
     }
   }
 }

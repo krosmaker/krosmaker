@@ -8,7 +8,7 @@
         <stop offset="43%" stop-color="#fdcc35" />
         <stop offset="55%" stop-color="#cb883d" />
       </linearGradient>
-      <text class="elite-name-text" x="0" y="24">{{ content }}</text>
+      <text class="elite-name-text" x="0" y="48">{{ content }}</text>
     </svg>
     <input
       class="name"
@@ -49,12 +49,12 @@ export default class FighterName extends Vue {
 </script>
 
 <style lang="scss" scoped>
-$name-width: 490px;
+$name-width: 980px;
 
 .name-container {
   font-family: "Berlin Sans";
   text-transform: uppercase;
-  font-size: 22px;
+  font-size: 44px;
   width: $card-width;
   white-space: pre;
 
@@ -92,7 +92,7 @@ $name-width: 490px;
   .elite-name {
     position: absolute;
     width: $name-width;
-    height: 40px;
+    height: 80px;
     left: 0;
     top: 0;
 

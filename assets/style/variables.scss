@@ -1,9 +1,13 @@
 // Ref: https://github.com/nuxt-community/vuetify-module#customvariables
 
-// Current card assets configuration:
-$card-width: 521px;
-$card-height: 373px;
-$card-border-radius: 18px;
+// Width of a standard poker card representing roughly 88mm at 300 DPI.
+$card-width: 1038px;
+// Height of a standard poker card representing roughly 63mm at 300 DPI.
+$card-height: 744px;
+// Standard border radius of 3.175mm at 300 DPI.
+$card-border-radius: 37.5px;
 
-$minion-card-width: 402px;
-$minion-card-height: 258px;
+// Width of a European mini card representing roughly 67mm at 300 DPI.
+$minion-card-width: 792px;
+// Height of a European mini card representing roughly 44mm at 300 DPI.
+$minion-card-height: 519px;

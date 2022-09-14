@@ -145,7 +145,7 @@ export default class CardContainer extends Vue {
 
 <style lang="scss" scoped>
 .card-container {
-  perspective: 2000px;
+  perspective: 3000px;
   width: $card-width;
   height: $card-height;
   min-width: $card-width;

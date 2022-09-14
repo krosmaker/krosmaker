@@ -102,7 +102,7 @@ export default class Description extends Vue {
 
 <style lang="scss" scoped>
 .description-offset {
-  margin-left: 39px;
+  margin-left: 78px;
 }
 
 .marker-icon {
@@ -116,22 +116,22 @@ export default class Description extends Vue {
 
 .mp-icon {
   background-image: url("~assets/img/front/descriptions/markers/mp.png");
-  width: 19px;
-  height: 19px;
-  margin-top: -5px;
-  margin-right: -2px;
+  width: 38px;
+  height: 38px;
+  margin-top: -10px;
+  margin-right: -4px;
 }
 
 .mp-text {
   color: #507b36;
-  word-spacing: -1px;
+  word-spacing: -2px;
 }
 
 .hp-icon {
   background-image: url("~assets/img/front/descriptions/markers/hp.png");
-  width: 20px;
-  height: 18px;
-  margin-top: -3px;
+  width: 40px;
+  height: 36px;
+  margin-top: -8px;
 }
 
 .hp-text {
@@ -140,39 +140,39 @@ export default class Description extends Vue {
 
 .ap-icon {
   background-image: url("~assets/img/front/descriptions/markers/ap.png");
-  width: 19px;
-  height: 19px;
-  margin-top: -5px;
-  margin-right: -1px;
+  width: 38px;
+  height: 38px;
+  margin-top: -10px;
+  margin-right: -2px;
 }
 
 .ap-text {
   color: #1f548b;
-  word-spacing: -1px;
+  word-spacing: -2px;
 }
 
 .injury-icon {
   background-image: url("~assets/img/front/descriptions/markers/injury.png");
-  width: 15px;
-  height: 20px;
-  margin-left: 1px;
-  margin-bottom: -2px;
-  margin-top: -5px;
+  width: 30px;
+  height: 40px;
+  margin-left: 2px;
+  margin-bottom: -4px;
+  margin-top: -10px;
 }
 
 .injury-text {
   color: #d30a1e;
-  word-spacing: -1px;
+  word-spacing: -2px;
 }
 
 .air-icon,
 .earth-icon,
 .fire-icon,
 .water-icon {
-  width: 19px;
-  height: 19px;
-  margin-top: -4px;
-  margin-left: -1px;
+  width: 38px;
+  height: 38px;
+  margin-top: -8px;
+  margin-left: -2px;
 }
 
 .air-icon {
@@ -196,7 +196,7 @@ export default class Description extends Vue {
 }
 
 .fire-text {
-  color: #e36a21;
+  color: #d85e13;
 }
 
 .water-icon {
@@ -212,37 +212,37 @@ export default class Description extends Vue {
 .dodge-icon,
 .dofus-icon,
 .lock-icon {
-  height: 20px;
-  margin-bottom: -2px;
-  margin-top: -5px;
-  margin-left: 1px;
-  margin-right: -1px;
+  height: 40px;
+  margin-bottom: -4px;
+  margin-top: -10px;
+  margin-left: 2px;
+  margin-right: -2px;
 }
 
 .armour-icon {
   background-image: url("~assets/img/front/descriptions/dice/armour.png");
-  width: 20px;
+  width: 40px;
 }
 
 .critical-icon {
   background-image: url("~assets/img/front/descriptions/dice/critical.png");
-  width: 19px;
+  width: 38px;
 }
 
 .dodge-icon {
   background-image: url("~assets/img/front/descriptions/dice/dodge.png");
-  width: 16px;
+  width: 32px;
 }
 
 .dofus-icon {
   background-image: url("~assets/img/front/descriptions/dice/dofus.png");
-  width: 20px;
-  margin-left: -1px;
-  margin-right: -2px;
+  width: 40px;
+  margin-left: -2px;
+  margin-right: -4px;
 }
 
 .lock-icon {
   background-image: url("~assets/img/front/descriptions/dice/lock.png");
-  width: 20px;
+  width: 40px;
 }
 </style>
