@@ -50,7 +50,7 @@ export default class CardFront extends Vue {
   .statistics {
     position: absolute;
     left: 225px;
-    top: 75px;
+    top: 87px;
   }
 
   .figurine {
@@ -71,7 +71,7 @@ export default class CardFront extends Vue {
 
   .statistics {
     left: 67px;
-    top: 77px;
+    top: 89px;
   }
 
   .abilities {

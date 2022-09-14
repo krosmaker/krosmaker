@@ -91,9 +91,6 @@
           </span>
         </v-card-actions>
         <v-divider />
-        <v-card-actions class="justify-center">
-          <span>&copy;2020 — <strong>MJ</strong></span>
-        </v-card-actions>
         <div class="version">{{ version }}-{{ hash }}</div>
       </v-card>
     </v-footer>

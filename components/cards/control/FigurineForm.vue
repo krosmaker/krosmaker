@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <h1>{{ $t("card.edit.figurine") }}</h1>
+    <h2 class="pa-3">{{ $t("card.edit.figurine") }}</h2>
     <DropFileUpload
       @upload="onUpload"
       :prompt="$t('card.edit.imageUploadPrompt')"

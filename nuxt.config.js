@@ -28,7 +28,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: ["~assets/style/global.scss"],
+  css: [
+    "normalize.css/normalize.css",
+    "sanitize.css/sanitize.css",
+    "~assets/style/global.scss",
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
