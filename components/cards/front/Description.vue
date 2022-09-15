@@ -114,12 +114,20 @@ export default class Description extends Vue {
   font-weight: bold;
 }
 
-.mp-icon {
-  background-image: url("~assets/img/front/descriptions/markers/mp.png");
+.ap-icon,
+.mp-icon,
+.hp-icon {
   width: 38px;
   height: 38px;
   margin-top: -10px;
-  margin-right: -4px;
+  margin-right: -2px;
+  margin-left: -2px;
+}
+
+.mp-icon {
+  background-image: url("~assets/img/front/descriptions/markers/mp.png");
+  margin-right: -3px;
+  margin-left: -3px;
 }
 
 .mp-text {
@@ -129,9 +137,6 @@ export default class Description extends Vue {
 
 .hp-icon {
   background-image: url("~assets/img/front/descriptions/markers/hp.png");
-  width: 40px;
-  height: 36px;
-  margin-top: -8px;
 }
 
 .hp-text {
@@ -140,10 +145,6 @@ export default class Description extends Vue {
 
 .ap-icon {
   background-image: url("~assets/img/front/descriptions/markers/ap.png");
-  width: 38px;
-  height: 38px;
-  margin-top: -10px;
-  margin-right: -2px;
 }
 
 .ap-text {
