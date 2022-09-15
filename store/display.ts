@@ -62,6 +62,35 @@ export const state: () => DisplayState = () => ({
 });
 
 export const mutations = {
+  reload(state: DisplayState) {
+    state.mode = loadFromLocalStorage("display.mode", DisplayMode.PLAY);
+    state.targetKrosmasterWidth = loadFromLocalStorage(
+      "display.targetKrosmasterWidth",
+      state.targetKrosmasterWidth
+    );
+    state.targetKrosmasterHeight = loadFromLocalStorage(
+      "display.targetKrosmasterHeight",
+      state.targetKrosmasterHeight
+    );
+    state.targetMinionWidth = loadFromLocalStorage(
+      "display.targetMinionWidth",
+      state.targetMinionWidth
+    );
+    state.targetMinionHeight = loadFromLocalStorage(
+      "display.targetMinionHeight",
+      state.targetMinionHeight
+    );
+    state.bleedingOffset = loadFromLocalStorage(
+      "display.bleedingOffset",
+      state.bleedingOffset
+    );
+    state.roundedCorners = loadFromLocalStorage(
+      "display.roundedCorners",
+      state.roundedCorners
+    );
+    state.scale = loadFromLocalStorage("display.scale", state.scale);
+  },
+
   setMode(state: DisplayState, mode: DisplayMode) {
     state.mode = mode;
     saveInLocalStorage("display.mode", mode);

@@ -125,7 +125,7 @@ export default class DisplayForm extends Vue {
   }
 
   set tab(tab: number) {
-    this.$store.commit(`display/setMode`, tab);
+    this.$store.commit("display/setMode", tab);
   }
 
   get isKrosmaster(): boolean {
@@ -139,7 +139,7 @@ export default class DisplayForm extends Vue {
 
   set rounded(rounded: number | undefined) {
     const isRounded = rounded === 0;
-    this.$store.commit(`display/setRoundedCorners`, isRounded);
+    this.$store.commit("display/setRoundedCorners", isRounded);
   }
 
   get scale(): Scale {
@@ -147,7 +147,7 @@ export default class DisplayForm extends Vue {
   }
 
   set scale(scale: Scale) {
-    this.$store.commit(`display/setScale`, scale);
+    this.$store.commit("display/setScale", scale);
   }
 
   get width(): number {
@@ -191,7 +191,7 @@ export default class DisplayForm extends Vue {
   }
 
   set offset(offset: number) {
-    this.$store.commit(`display/setBleedingOffset`, offset);
+    this.$store.commit("display/setBleedingOffset", offset);
   }
 }
 </script>

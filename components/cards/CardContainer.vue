@@ -161,6 +161,7 @@ export default class CardContainer extends Vue {
   }
 
   mounted() {
+    this.$store.commit("display/reload");
     window.addEventListener("beforeunload", (event) => {
       if (!this.$store.state.export.isDirty) {
         return undefined;
