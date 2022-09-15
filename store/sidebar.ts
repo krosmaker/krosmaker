@@ -4,7 +4,8 @@ export enum TabId {
   ARTWORK = 2,
   SPELLS = 3,
   POWERS = 4,
-  EXPORT = 5,
+  DISPLAY = 5,
+  EXPORT = 6,
 }
 
 interface SidebarState {

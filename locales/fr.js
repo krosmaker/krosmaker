@@ -30,7 +30,7 @@ export default {
     mp: "PM",
 
     flip: "Retourner",
-    round: "Coins arrondis",
+    adjust: "Ajuster",
 
     downloadWarning1: `
       Le téléchargement de carte n'est actuellement pas pris en charge pour tous les navigateurs.
@@ -67,6 +67,17 @@ export default {
       ap: "PA",
       hp: "PV",
       mp: "PM",
+
+      // Display:
+      display: "Paramètres d'affichage",
+      play: "Jouer",
+      print: "Imprimer",
+      scale: "Échelle",
+      roundedCorners: "Coins arrondis",
+      targetCardSize: "Taille cible de la carte",
+      width: "Largeur",
+      height: "Taille",
+      offset: "Offset",
 
       // Export:
       storage: "Stockage",

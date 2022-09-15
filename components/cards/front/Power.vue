@@ -110,7 +110,7 @@ export default class PowerContainer extends Vue {
 
     .power-name-background {
       position: absolute;
-      left: 50px;
+      left: 43px;
       top: -10px;
     }
 
@@ -142,6 +142,7 @@ export default class PowerContainer extends Vue {
       display: -webkit-box;
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
+      min-height: 100px;
     }
 
     .power-name-windows {

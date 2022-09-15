@@ -30,7 +30,7 @@ export default {
     mp: "PR",
 
     flip: "Obróć",
-    round: "Zaokrąglij",
+    adjust: "Zmień rozmiar",
 
     downloadWarning1: `
       Pobieranie kart obecnie nie jest wspierane na wszystkich przeglądarkach.
@@ -68,6 +68,17 @@ export default {
       ap: "Punkty akcji",
       hp: "Punkty zdrowia",
       mp: "Punkty ruchu",
+
+      // Display:
+      display: "Wygląd",
+      play: "Do gry",
+      print: "Do druku",
+      scale: "Skala",
+      roundedCorners: "Zaokrąglij rogi",
+      targetCardSize: "Docelowy rozmiar",
+      width: "Szerokość",
+      height: "Wysokość",
+      offset: "Odstęp",
 
       // Export:
       storage: "Zapis",

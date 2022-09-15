@@ -1,7 +1,21 @@
 <template>
   <div class="d-flex flex-column flex-grow-1 align-center justify-center">
-    <v-flex class="card-container">
-      <Card ref="card" :is-flipped="isFlipped" :is-rounded="isRounded" />
+    <v-flex
+      class="card-container"
+      :class="{
+        'scale-small': isSmall,
+        'scale-medium': isMedium,
+      }"
+      :style="{
+        width: `${cardWidth}px`,
+        height: `${cardHeight}px`,
+        'min-width': `${cardWidth}px`,
+        'min-height': `${cardHeight}px`,
+        'max-width': `${cardWidth}px`,
+        'max-height': `${cardHeight}px`,
+      }"
+    >
+      <Card ref="card" :is-flipped="isFlipped" />
     </v-flex>
     <v-flex class="controls-panel" xs12 sm8 md6>
       <v-card>
@@ -16,9 +30,9 @@
             <v-icon dark left>mdi-download</v-icon>
             {{ $t("common.download") }}
           </v-btn>
-          <v-btn text @click.stop="isRounded = !isRounded">
-            <v-icon dark left>mdi-rounded-corner</v-icon>
-            {{ $t("card.round") }}
+          <v-btn text @click.stop="adjustDisplay">
+            <v-icon dark left>mdi-fit-to-screen</v-icon>
+            {{ $t("card.adjust") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -67,11 +81,19 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { toPng } from "html-to-image";
+import { saveAs } from "file-saver";
+import { TabId } from "~/store/sidebar";
+import { DisplayState, DisplayMode, Scale } from "~/store/display";
+import {
+  cardWidth,
+  cardHeight,
+  minionCardWidth,
+  minionCardHeight,
+} from "~/assets/src/constants";
 
 @Component
 export default class CardContainer extends Vue {
   isFlipped: boolean = false;
-  isRounded: boolean = true;
   warningDialog: boolean = false;
   wasWarned: boolean = this.isWarningSkipped;
 
@@ -98,6 +120,46 @@ export default class CardContainer extends Vue {
     return store.export.fileName || store.krosmaster.name || "Krosmaker";
   }
 
+  get isKrosmaster(): boolean {
+    return this.$store.state.krosmaster.type !== "minion";
+  }
+
+  get cardWidth(): number {
+    const display: DisplayState = this.$store.state.display;
+    if (this.isKrosmaster) {
+      return display.mode === DisplayMode.PRINT
+        ? display.targetKrosmasterWidth + display.bleedingOffset * 2
+        : cardWidth;
+    } else {
+      return display.mode === DisplayMode.PRINT
+        ? display.targetMinionWidth + display.bleedingOffset * 2
+        : minionCardWidth;
+    }
+  }
+
+  get cardHeight(): number {
+    const display: DisplayState = this.$store.state.display;
+    if (this.isKrosmaster) {
+      return display.mode === DisplayMode.PRINT
+        ? display.targetKrosmasterHeight + display.bleedingOffset * 2
+        : cardHeight;
+    } else {
+      return display.mode === DisplayMode.PRINT
+        ? display.targetMinionHeight + display.bleedingOffset * 2
+        : minionCardHeight;
+    }
+  }
+
+  get isSmall(): boolean {
+    const display: DisplayState = this.$store.state.display;
+    return display.mode === DisplayMode.PLAY && display.scale === Scale.SMALL;
+  }
+
+  get isMedium(): boolean {
+    const display: DisplayState = this.$store.state.display;
+    return display.mode === DisplayMode.PLAY && display.scale === Scale.MEDIUM;
+  }
+
   mounted() {
     window.addEventListener("beforeunload", (event) => {
       if (!this.$store.state.export.isDirty) {
@@ -110,10 +172,28 @@ export default class CardContainer extends Vue {
     });
   }
 
+  adjustDisplay() {
+    this.$store.commit("sidebar/setActiveTab", TabId.DISPLAY);
+    this.$store.commit("sidebar/setExpand", true);
+  }
+
   discardDownloadWarning() {
     this.wasWarned = true;
     this.isWarningSkipped = true;
     this.warningDialog = false;
+  }
+
+  getPixelRatio(): number {
+    const display: DisplayState = this.$store.state.display;
+    if (display.mode === DisplayMode.PRINT) return 1;
+    switch (display.scale) {
+      case Scale.LARGE:
+        return 1;
+      case Scale.MEDIUM:
+        return 0.75;
+      case Scale.SMALL:
+        return 0.5;
+    }
   }
 
   download() {
@@ -126,12 +206,8 @@ export default class CardContainer extends Vue {
     const side = this.isFlipped ? card.$refs.back : card.$refs.front;
     const suffix = this.isFlipped ? "back" : "front";
     const element = (side as Vue).$el as HTMLElement;
-    toPng(element).then((dataUrl) => {
-      var link = document.createElement("a");
-      link.download = `${this.fileName} ${suffix}.png`;
-      link.href = dataUrl;
-      link.click();
-      link.remove();
+    toPng(element, { pixelRatio: this.getPixelRatio() }).then((dataUrl) => {
+      saveAs(dataUrl, `${this.fileName} ${suffix}.png`);
       this.$store.commit("export/setExporting", false);
     });
   }
@@ -145,17 +221,19 @@ export default class CardContainer extends Vue {
 
 <style lang="scss" scoped>
 .card-container {
+  transition: transform 0.5s;
   perspective: 3000px;
-  width: $card-width;
-  height: $card-height;
-  min-width: $card-width;
-  min-height: $card-height;
-  max-width: $card-width;
-  max-height: $card-height;
-
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.scale-small {
+  transform: scale(0.5);
+}
+
+.scale-medium {
+  transform: scale(0.75);
 }
 
 .controls-panel {

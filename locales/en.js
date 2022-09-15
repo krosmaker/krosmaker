@@ -30,7 +30,7 @@ export default {
     mp: "MP",
 
     flip: "Flip",
-    round: "Round",
+    adjust: "Adjust",
 
     downloadWarning1: `
       Card downloading is currently not supported on every major browser.
@@ -67,6 +67,17 @@ export default {
       ap: "AP",
       hp: "HP",
       mp: "MP",
+
+      // Display:
+      display: "Display",
+      play: "Play",
+      print: "Print",
+      scale: "Scale",
+      roundedCorners: "Round corners",
+      targetCardSize: "Target card size",
+      width: "Width",
+      height: "Height",
+      offset: "Offset",
 
       // Export:
       storage: "Storage",
