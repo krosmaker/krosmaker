@@ -30,7 +30,7 @@ export default {
     mp: "PM",
 
     flip: "Girar",
-    round: "Redondear",
+    adjust: "Ajustar",
 
     downloadWarning1: `
         Actualmente, la descarga de las cartas no es compatible en todos los navegadores principales.
@@ -67,6 +67,17 @@ export default {
       ap: "PA",
       hp: "PV",
       mp: "PM",
+
+      // Display:
+      display: "Configuración de pantalla",
+      play: "Jugar",
+      print: "Imprimir",
+      scale: "Escala",
+      roundedCorners: "Esquinas redondas",
+      targetCardSize: "Tamaño de la tarjeta de destino",
+      width: "Ancho",
+      height: "Altura",
+      offset: "Offset",
 
       // Export:
       storage: "Almacenamiento",

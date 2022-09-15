@@ -1,12 +1,12 @@
-export const cardWidth: number = 521;
-export const cardHeight: number = 373;
-export const artworkWidth: number = 475;
-export const artworkHeight: number = 337;
+export const cardWidth: number = 1038;
+export const cardHeight: number = 744;
+export const artworkWidth: number = 950;
+export const artworkHeight: number = 675;
 
-export const minionCardWidth: number = 402;
-export const minionCardHeight: number = 258;
-export const minionArtworkWidth: number = 368;
-export const minionArtworkHeight: number = 233;
+export const minionCardWidth: number = 792;
+export const minionCardHeight: number = 519;
+export const minionArtworkWidth: number = 735;
+export const minionArtworkHeight: number = 466;
 
 export const maxAbilitiesCount: number = 3;
 export const maxMinionAbilitiesCount: number = 1;

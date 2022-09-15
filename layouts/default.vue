@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-app-bar fixed app clipped-left>
+    <v-app-bar fixed app clipped-left height="64">
       <v-toolbar-title class="toolbar-title" v-text="'Krosmaker'" />
       <v-spacer></v-spacer>
       <v-menu offset-y>

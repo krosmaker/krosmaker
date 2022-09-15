@@ -83,7 +83,7 @@ import {
 import { KrosmasterType } from "~/store/krosmaster";
 
 @Component
-export default class KrosmasterName extends Vue {
+export default class BasicDataForm extends Vue {
   get content(): string {
     return this.$store.state.krosmaster.name;
   }

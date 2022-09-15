@@ -78,9 +78,13 @@ import { Component } from "vue-property-decorator";
 import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
-import { cardWidth, cardHeight } from "~/assets/src/constants";
+import {
+  cardWidth,
+  cardHeight,
+  minionCardWidth,
+  minionCardHeight,
+} from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
-import { FigurineState } from "~/store/figurine";
 import { TabId } from "~/store/sidebar";
 
 @Component({
@@ -97,6 +101,10 @@ export default class FigurineForm extends Vue {
   replaceImage: boolean = true;
   reloaded: boolean = true;
   sliderIconColor: string = "#777777";
+
+  get isKrosmaster(): boolean {
+    return this.$store.state.krosmaster.type !== "minion";
+  }
 
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
@@ -187,7 +195,9 @@ export default class FigurineForm extends Vue {
   }
 
   get aspectRatio(): number {
-    return cardWidth / cardHeight;
+    return this.isKrosmaster
+      ? cardWidth / cardHeight
+      : minionCardWidth / minionCardHeight;
   }
 
   onUpload(image: string) {

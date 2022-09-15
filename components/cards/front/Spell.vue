@@ -345,7 +345,7 @@ export default class SpellContainer extends Vue {
 
     .spell-name-background {
       position: absolute;
-      left: 146px;
+      left: 144px;
       top: -10px;
     }
 
@@ -391,7 +391,7 @@ export default class SpellContainer extends Vue {
 
     .spell-description-extended {
       margin-right: $spell-offset;
-      min-height: 70px;
+      min-height: 104px;
     }
   }
 }

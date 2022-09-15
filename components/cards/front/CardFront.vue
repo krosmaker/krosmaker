@@ -1,19 +1,16 @@
 <template>
-  <div class="card-front" :class="{ 'card-front-minion': !isKrosmaster }">
-    <img
-      v-if="isKrosmaster"
+  <div class="card-front" :class="{ 'card-front-minion': isMinion }">
+    <CardBackground
       class="background"
-      src="~assets/img/front/background.png"
+      :image="require('~/assets/img/front/background.png')"
+      :minionImage="require('~/assets/img/front/background-minion.png')"
     />
-    <img
-      v-else
-      class="background minion-background"
-      src="~assets/img/front/background-minion.png"
-    />
-    <FighterName class="name" />
-    <Statistics class="statistics" />
-    <Figurine class="figurine" />
-    <Abilities class="abilities" />
+    <CardContentContainer>
+      <FighterName class="name" />
+      <Statistics class="statistics" />
+      <Figurine class="figurine" />
+      <Abilities class="abilities" />
+    </CardContentContainer>
   </div>
 </template>
 
@@ -23,8 +20,8 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class CardFront extends Vue {
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
+  get isMinion(): boolean {
+    return this.$store.state.krosmaster.type === "minion";
   }
 }
 </script>
@@ -34,19 +31,9 @@ export default class CardFront extends Vue {
   border-radius: inherit;
 
   .background {
-    border-radius: inherit;
-    object-fit: none;
-    object-position: center;
     position: absolute;
     left: 0;
     top: 0;
-    width: $card-width;
-    height: $card-height;
-  }
-
-  .minion-background {
-    width: $minion-card-width;
-    height: $minion-card-height;
   }
 
   .name {

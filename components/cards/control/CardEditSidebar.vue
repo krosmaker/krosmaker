@@ -3,7 +3,6 @@
     class="sidebar"
     permanent
     clipped
-    absolute
     :mini-variant="!expand"
     width="500"
     mini-variant-width="57"
@@ -25,6 +24,9 @@
         <v-icon>mdi-arm-flex</v-icon>
       </v-tab>
       <v-tab @click="onTabClick(5)">
+        <v-icon>mdi-fit-to-screen</v-icon>
+      </v-tab>
+      <v-tab @click="onTabClick(6)">
         <v-icon>mdi-content-save</v-icon>
       </v-tab>
       <v-tab-item>
@@ -54,6 +56,11 @@
       </v-tab-item>
       <v-tab-item>
         <v-card flat class="edit-tab-container">
+          <DisplayForm />
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat class="edit-tab-container">
           <ExportForm />
         </v-card>
       </v-tab-item>
@@ -63,8 +70,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-
+import { Component } from "vue-property-decorator";
 import { TabId } from "~/store/sidebar";
 
 @Component
@@ -102,16 +108,12 @@ export default class CardEditSidebar extends Vue {
 }
 </script>
 
-<style lang="scss">
-.sidebar {
-  > div {
-    overflow-y: hidden;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 .sidebar {
+  position: fixed;
+  top: 64px !important;
+  left: 0px !important;
+  max-height: calc(100vh - 64px);
   overflow-y: hidden;
   background-color: #1e1e1e !important;
 }

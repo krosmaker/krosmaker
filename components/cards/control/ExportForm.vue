@@ -350,7 +350,7 @@ import { validateKrosmasterData } from "~/assets/src/data/validation";
 import { ValidationError } from "fastest-validator";
 
 @Component
-export default class KrosmasterName extends Vue {
+export default class ExportForm extends Vue {
   private database: KrosmakerDatabase = new KrosmakerDatabase();
 
   isSaving: boolean = false;

@@ -1,16 +1,24 @@
 <template>
   <div class="card-back" @click.stop="onCardClick">
-    <img
-      :class="{ artwork: isKrosmaster, 'artwork-minion': !isKrosmaster }"
-      :src="cardImage"
+    <CardContentContainer>
+      <img
+        :class="{ artwork: isKrosmaster, 'artwork-minion': !isKrosmaster }"
+        :src="cardImage"
+      />
+    </CardContentContainer>
+    <CardBackground
+      class="frame"
+      :image="require('~/assets/img/back/frame.png')"
+      :minionImage="require('~/assets/img/back/frame-minion.png')"
     />
-    <CardFrame class="frame" />
-    <div :class="{ watermark: true, 'watermark-minion': !isKrosmaster }">
-      @Krosmaker
-    </div>
-    <div :class="{ version: true, 'version-minion': !isKrosmaster }">
-      {{ version }}
-    </div>
+    <CardContentContainer>
+      <div :class="{ watermark: true, 'watermark-minion': !isKrosmaster }">
+        @Krosmaker
+      </div>
+      <div :class="{ version: true, 'version-minion': !isKrosmaster }">
+        {{ version }}
+      </div>
+    </CardContentContainer>
   </div>
 </template>
 
@@ -59,17 +67,18 @@ export default class CardBack extends Vue {
 
   .artwork-minion {
     position: absolute;
-    top: 27px;
+    top: 28px;
     left: 28px;
     width: 735px;
-    height: 464px;
+    height: 466px;
   }
 
   .frame {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    border-radius: inherit;
   }
 
   .watermark,
