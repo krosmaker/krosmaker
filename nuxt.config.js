@@ -11,7 +11,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    titleTemplate: "%s - Krosmaker",
+    titleTemplate: "Krosmaker · %s",
     title: "Krosmaster: Blast Card Creator",
     meta: [
       { charset: "utf-8" },
@@ -19,8 +19,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content:
-          "A web-based tool that allows to create custom Krosmaster: Blast cards.",
+        content: "An online card creator for the Krosmaster: Blast board game.",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
