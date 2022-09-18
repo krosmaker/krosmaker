@@ -1,6 +1,6 @@
 <template>
   <img
-    v-if="isKrosmaster"
+    v-if="isRegularSize"
     class="background-image"
     :style="{ width: `${cardWidth}px`, height: `${cardHeight}px` }"
     :src="image"
@@ -8,8 +8,8 @@
   <img
     v-else
     class="background-image"
-    :style="{ width: `${minionCardWidth}px`, height: `${minionCardHeight}px` }"
-    :src="minionImage"
+    :style="{ width: `${smallCardWidth}px`, height: `${smallCardHeight}px` }"
+    :src="smallImage"
   />
 </template>
 
@@ -17,6 +17,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import { DisplayState, DisplayMode } from "~/store/display";
+import { CardType } from "~/store/card";
 import {
   cardWidth,
   cardHeight,
@@ -26,14 +27,17 @@ import {
 
 @Component
 export default class CardBackground extends Vue {
-  @Prop({ type: String })
+  @Prop({ type: String, default: "" })
   image!: string;
 
-  @Prop({ type: String })
-  minionImage!: string;
+  @Prop({ type: String, default: "" })
+  smallImage!: string;
 
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
+  get isRegularSize(): boolean {
+    return (
+      this.$store.state.card.type === CardType.FIGHTER &&
+      this.$store.state.krosmaster.type !== "minion"
+    );
   }
 
   get cardWidth(): number {
@@ -50,14 +54,14 @@ export default class CardBackground extends Vue {
       : cardHeight;
   }
 
-  get minionCardWidth(): number {
+  get smallCardWidth(): number {
     const display: DisplayState = this.$store.state.display;
     return display.mode === DisplayMode.PRINT
       ? display.targetMinionWidth + display.bleedingOffset * 2
       : minionCardWidth;
   }
 
-  get minionCardHeight(): number {
+  get smallCardHeight(): number {
     const display: DisplayState = this.$store.state.display;
     return display.mode === DisplayMode.PRINT
       ? display.targetMinionHeight + display.bleedingOffset * 2

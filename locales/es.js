@@ -49,6 +49,9 @@ export default {
     downloadWarningIgnore: "De acuerdo, no mostrar de nuevo",
 
     edit: {
+      editorUnavailable:
+        "Este editor no está disponible para el tipo de tarjeta carta.",
+
       // Artwork:
       artwork: "Arte",
       customize: "Editar",
@@ -56,17 +59,23 @@ export default {
       imageUploadPrompt: "Pincha aqui o arrastra una imagen para subirla",
 
       // Basic data:
-      krosmaster: "Krosmaster",
+      card: "Carta",
       name: "Nombre",
       rarity: "Rareza",
       elite: "Élite",
       common: "Comun",
       minion: "Invocación",
-      version: "Versión",
-      comment: "Comentario",
       ap: "PA",
       hp: "PV",
       mp: "PM",
+
+      favor: "Favor",
+      effect: "Efecto",
+      regular: "Regular",
+      superior: "Superior",
+
+      version: "Versión",
+      comment: "Comentario",
 
       // Display:
       display: "Configuración de pantalla",
@@ -84,15 +93,15 @@ export default {
       // Export:
       storage: "Almacenamiento",
       customFileName: "Nombre del archivo",
-      overridePrompt1: "El Krosmaster con el nombre de archivo",
+      overridePrompt1: "La carta con el nombre de archivo",
       overridePrompt2: "ya existe. ¿Quieres sobreescribirlo?",
       noDataHeader: "Nada que cargar",
       noDataPrompt:
-        "Todavía no ha guardado ningún Krosmaster o se ha eliminado la caché de su navegador.",
-      loadKrosmaster: "Cargar Krosmaster",
+        "Todavía no ha guardado ningún carta o se ha eliminado la caché de su navegador.",
+      loadCard: "Cargar",
       loadingPrompt:
-        "Elige un Krosmaster que cargar. Esto sobreescribirá los datos actuales.",
-      krosmasters: "Krosmasters",
+        "Elige la carta que cargar. Esto sobreescribirá los datos actuales.",
+      cards: "Cartas",
       deletePrompt: "¿Realmente quieres borrarlo?",
       saveFirst: "Guardar primero",
       importOverridePrompt:

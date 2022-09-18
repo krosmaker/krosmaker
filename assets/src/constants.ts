@@ -13,3 +13,6 @@ export const maxMinionAbilitiesCount: number = 1;
 
 export const abilitiesOffset: number = 272;
 export const abilitiesMargin: number = 13;
+
+export const defaultFileName: string = "Krosmaker";
+export const dpi: number = 300;

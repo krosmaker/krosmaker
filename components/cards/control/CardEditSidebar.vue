@@ -120,7 +120,7 @@ export default class CardEditSidebar extends Vue {
 
 .edit-tab-container {
   overflow: auto;
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - 100px);
 }
 
 .tabs {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="data-container"
-    :class="{ 'minion-data-container': isMinion }"
+    :class="{ 'small-data-container': isSmall }"
     :style="{ top: `${offsetY}px`, left: `${offsetX}px` }"
   >
     <slot />
@@ -12,6 +12,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { DisplayState, DisplayMode } from "~/store/display";
+import { CardType } from "~/store/card";
 import {
   cardWidth,
   cardHeight,
@@ -21,17 +22,20 @@ import {
 
 @Component
 export default class CardContentContainer extends Vue {
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
+  get isSmall(): boolean {
+    return (
+      this.$store.state.card.type === CardType.FAVOR ||
+      this.$store.state.krosmaster.type === "minion"
+    );
   }
 
   get offsetX(): number {
     const display: DisplayState = this.$store.state.display;
     if (display.mode === DisplayMode.PRINT) {
-      const width = this.isMinion
+      const width = this.isSmall
         ? display.targetMinionWidth
         : display.targetKrosmasterWidth;
-      const standardWidth = this.isMinion ? minionCardWidth : cardWidth;
+      const standardWidth = this.isSmall ? minionCardWidth : cardWidth;
       return display.bleedingOffset + (width - standardWidth) / 2;
     }
     return 0;
@@ -39,10 +43,10 @@ export default class CardContentContainer extends Vue {
   get offsetY(): number {
     const display: DisplayState = this.$store.state.display;
     if (display.mode === DisplayMode.PRINT) {
-      const height = this.isMinion
+      const height = this.isSmall
         ? display.targetMinionHeight
         : display.targetKrosmasterHeight;
-      const standardHeight = this.isMinion ? minionCardHeight : cardHeight;
+      const standardHeight = this.isSmall ? minionCardHeight : cardHeight;
       return display.bleedingOffset + (height - standardHeight) / 2;
     }
     return 0;
@@ -57,7 +61,7 @@ export default class CardContentContainer extends Vue {
   height: $card-height;
 }
 
-.minion-data-container {
+.small-data-container {
   width: $minion-card-width;
   height: $minion-card-height;
 }

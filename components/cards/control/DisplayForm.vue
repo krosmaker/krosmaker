@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <h2 class="pa-3">{{ $t("card.edit.display") }}</h2>
+    <FormHeader title="card.edit.display" />
     <v-row justify="center">
       <v-col cols="8" offset="2" class="align-center justify-center">
         <v-tabs v-model="tab">
@@ -37,7 +37,7 @@
               </v-col>
               <v-col cols="6">
                 <v-slider
-                  v-if="isKrosmaster"
+                  v-if="isRegularSize"
                   :label="$t('card.edit.width')"
                   thumb-label="always"
                   min="1030"
@@ -57,7 +57,7 @@
               </v-col>
               <v-col cols="6">
                 <v-slider
-                  v-if="isKrosmaster"
+                  v-if="isRegularSize"
                   :label="$t('card.edit.height')"
                   thumb-label="always"
                   min="730"
@@ -109,6 +109,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { DisplayState, Scale } from "~/store/display";
+import { CardType } from "~/store/card";
 
 @Component
 export default class DisplayForm extends Vue {
@@ -135,8 +136,11 @@ export default class DisplayForm extends Vue {
     this.$store.commit("display/setMode", tab);
   }
 
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
+  get isRegularSize(): boolean {
+    return (
+      this.$store.state.card.type === CardType.FIGHTER &&
+      this.$store.state.krosmaster.type !== "minion"
+    );
   }
 
   get isInvalidSize(): boolean {
@@ -163,13 +167,13 @@ export default class DisplayForm extends Vue {
 
   get width(): number {
     const display: DisplayState = this.$store.state.display;
-    return this.isKrosmaster
+    return this.isRegularSize
       ? display.targetKrosmasterWidth
       : display.targetMinionWidth;
   }
 
   set width(width: number) {
-    const mutation = this.isKrosmaster
+    const mutation = this.isRegularSize
       ? "setTargetKrosmasterWidth"
       : "setTargetMinionWidth";
     this.$store.commit(`display/${mutation}`, width);
@@ -177,24 +181,24 @@ export default class DisplayForm extends Vue {
 
   get height(): number {
     const display: DisplayState = this.$store.state.display;
-    return this.isKrosmaster
+    return this.isRegularSize
       ? display.targetKrosmasterHeight
       : display.targetMinionHeight;
   }
 
   set height(height: number) {
-    const mutation = this.isKrosmaster
+    const mutation = this.isRegularSize
       ? "setTargetKrosmasterHeight"
       : "setTargetMinionHeight";
     this.$store.commit(`display/${mutation}`, height);
   }
 
   get minHeight(): number {
-    return this.isKrosmaster ? 730 : 505;
+    return this.isRegularSize ? 730 : 505;
   }
 
   get maxHeight(): number {
-    return this.isKrosmaster ? 750 : 525;
+    return this.isRegularSize ? 750 : 525;
   }
 
   get offset(): number {
@@ -206,5 +210,3 @@ export default class DisplayForm extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

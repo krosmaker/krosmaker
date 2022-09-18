@@ -1,189 +1,190 @@
 <template>
   <v-card-text>
-    <h2 class="pa-3">{{ $t("card.edit.spells") }}</h2>
-
-    <v-expansion-panels
-      class="pa-2 pt-4"
-      accordion
-      hover
-      active-class="selected-spell"
-      v-model="activeSpell"
-    >
-      <v-expansion-panel v-for="(spell, index) in spells" :key="index">
-        <v-expansion-panel-header class="panel-header" ripple>
-          {{ truncate(spell.name, 21) }}
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-row class="pt-4">
-            <v-col class="pa-0 pt-4" cols="12">
-              <v-text-field
-                dense
-                class="name-input"
-                :label="$t('card.edit.ability.name')"
-                :value="spell.name"
-                @input="onNameChange($event, index)"
-                maxlength="40"
-                required
-              />
-            </v-col>
-            <v-col class="pa-0 pt-1 pb-1" cols="12">
-              <v-textarea
-                dense
-                :label="$t('card.edit.ability.description')"
-                :value="spell.description"
-                @input="onDescriptionChange($event, index)"
-                :rows="3"
-                no-resize
-                required
-                persistent-hint
-                :hint="$t('card.edit.ability.editHint')"
-              />
-            </v-col>
-            <v-col class="pa-0 pt-4 pr-2" cols="6">
-              <v-select
-                dense
-                :value="spell.range.type"
-                @input="onRangeTypeChange($event, index)"
-                :items="ranges"
-                :label="$t('card.edit.ability.range')"
-              ></v-select>
-            </v-col>
-            <v-col class="pa-0 pt-6 pl-2" cols="6">
-              <v-range-slider
-                class="range-slider"
-                :value="spell.range.value"
-                @input="onRangeChange($event, index)"
-                :disabled="spell.range.type === 'special'"
-                min="0"
-                max="9"
-                hide-details
-              >
-                <template v-slot:prepend>
-                  <span class="slider-label">{{ spell.range.value[0] }}</span>
-                </template>
-                <template v-slot:append>
-                  <span class="slider-label">{{ spell.range.value[1] }}</span>
-                </template>
-              </v-range-slider>
-            </v-col>
-            <v-col class="pa-0 pt-1 pr-2" cols="6">
-              <v-select
-                dense
-                :value="spell.damage.element"
-                @input="onElementChange($event, index)"
-                :items="elements"
-                :label="$t('card.edit.ability.damage')"
-                required
-              ></v-select>
-            </v-col>
-            <v-col class="pa-0 pt-1 pl-2" cols="6">
-              <v-slider
-                dense
-                :value="spell.damage.value"
-                @input="onDamageChange($event, index)"
-                min="0"
-                max="9"
-                hide-details
-                :disabled="spell.damage.element === 'none'"
-              >
-                <template v-slot:prepend>
-                  <span class="slider-label">{{ spell.damage.value }}</span>
-                </template>
-              </v-slider>
-            </v-col>
-            <v-col class="pa-0 pt-1 pr-2" cols="6">
-              <v-select
-                dense
-                :value="spell.limit.type"
-                @input="onLimitTypeChange($event, index)"
-                :items="limits"
-                :label="$t('card.edit.ability.limit')"
-              ></v-select>
-            </v-col>
-            <v-col class="pa-0 pt-1 pl-2" cols="6">
-              <v-slider
-                dense
-                :value="spell.limit.value"
-                @input="onLimitChange($event, index)"
-                min="1"
-                max="9"
-                hide-details
-                :disabled="spell.limit.type === 'none'"
-              >
-                <template v-slot:prepend>
-                  <span class="slider-label">{{ spell.limit.value }}</span>
-                </template>
-              </v-slider>
-            </v-col>
-            <v-col class="pa-1" cols="12">
-              <v-card-actions>
-                <v-btn
-                  color="red darken-1"
-                  icon
-                  large
-                  @click="showDeleteDialog = true"
+    <FormHeader title="card.edit.spells" />
+    <FighterOnlyForm>
+      <v-expansion-panels
+        class="pa-2 pt-4"
+        accordion
+        hover
+        active-class="selected-spell"
+        v-model="activeSpell"
+      >
+        <v-expansion-panel v-for="(spell, index) in spells" :key="index">
+          <v-expansion-panel-header class="panel-header" ripple>
+            {{ truncate(spell.name, 21) }}
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-row class="pt-4">
+              <v-col class="pa-0 pt-4" cols="12">
+                <v-text-field
+                  dense
+                  class="name-input"
+                  :label="$t('card.edit.ability.name')"
+                  :value="spell.name"
+                  @input="onNameChange($event, index)"
+                  maxlength="40"
+                  required
+                />
+              </v-col>
+              <v-col class="pa-0 pt-1 pb-1" cols="12">
+                <v-textarea
+                  dense
+                  :label="$t('card.edit.ability.description')"
+                  :value="spell.description"
+                  @input="onDescriptionChange($event, index)"
+                  :rows="3"
+                  no-resize
+                  required
+                  persistent-hint
+                  :hint="$t('card.edit.ability.editHint')"
+                />
+              </v-col>
+              <v-col class="pa-0 pt-4 pr-2" cols="6">
+                <v-select
+                  dense
+                  :value="spell.range.type"
+                  @input="onRangeTypeChange($event, index)"
+                  :items="ranges"
+                  :label="$t('card.edit.ability.range')"
+                ></v-select>
+              </v-col>
+              <v-col class="pa-0 pt-6 pl-2" cols="6">
+                <v-range-slider
+                  class="range-slider"
+                  :value="spell.range.value"
+                  @input="onRangeChange($event, index)"
+                  :disabled="spell.range.type === 'special'"
+                  min="0"
+                  max="9"
+                  hide-details
                 >
-                  <v-icon dark>mdi-delete</v-icon>
-                </v-btn>
-                <v-spacer></v-spacer>
-
-                <v-btn text @click="moveUp(index)" :disabled="index === 0">
-                  <v-icon dark left>mdi-chevron-up</v-icon>
-                  {{ $t("common.up") }}
-                </v-btn>
-
-                <v-btn
-                  text
-                  @click="moveDown(index)"
-                  :disabled="index === spells.length - 1"
+                  <template v-slot:prepend>
+                    <span class="slider-label">{{ spell.range.value[0] }}</span>
+                  </template>
+                  <template v-slot:append>
+                    <span class="slider-label">{{ spell.range.value[1] }}</span>
+                  </template>
+                </v-range-slider>
+              </v-col>
+              <v-col class="pa-0 pt-1 pr-2" cols="6">
+                <v-select
+                  dense
+                  :value="spell.damage.element"
+                  @input="onElementChange($event, index)"
+                  :items="elements"
+                  :label="$t('card.edit.ability.damage')"
+                  required
+                ></v-select>
+              </v-col>
+              <v-col class="pa-0 pt-1 pl-2" cols="6">
+                <v-slider
+                  dense
+                  :value="spell.damage.value"
+                  @input="onDamageChange($event, index)"
+                  min="0"
+                  max="9"
+                  hide-details
+                  :disabled="spell.damage.element === 'none'"
                 >
-                  <v-icon dark left>mdi-chevron-down</v-icon>
-                  {{ $t("common.down") }}
-                </v-btn>
-              </v-card-actions>
-            </v-col>
-          </v-row>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+                  <template v-slot:prepend>
+                    <span class="slider-label">{{ spell.damage.value }}</span>
+                  </template>
+                </v-slider>
+              </v-col>
+              <v-col class="pa-0 pt-1 pr-2" cols="6">
+                <v-select
+                  dense
+                  :value="spell.limit.type"
+                  @input="onLimitTypeChange($event, index)"
+                  :items="limits"
+                  :label="$t('card.edit.ability.limit')"
+                ></v-select>
+              </v-col>
+              <v-col class="pa-0 pt-1 pl-2" cols="6">
+                <v-slider
+                  dense
+                  :value="spell.limit.value"
+                  @input="onLimitChange($event, index)"
+                  min="1"
+                  max="9"
+                  hide-details
+                  :disabled="spell.limit.type === 'none'"
+                >
+                  <template v-slot:prepend>
+                    <span class="slider-label">{{ spell.limit.value }}</span>
+                  </template>
+                </v-slider>
+              </v-col>
+              <v-col class="pa-1" cols="12">
+                <v-card-actions>
+                  <v-btn
+                    color="red darken-1"
+                    icon
+                    large
+                    @click="showDeleteDialog = true"
+                  >
+                    <v-icon dark>mdi-delete</v-icon>
+                  </v-btn>
+                  <v-spacer></v-spacer>
 
-    <v-fade-transition>
-      <v-card class="d-flex justify-center pa-3" v-if="!isFull" flat>
-        <v-btn fab dark color="primary" @click="addSpell">
-          <v-icon dark>mdi-plus</v-icon>
-        </v-btn>
-      </v-card>
-    </v-fade-transition>
+                  <v-btn text @click="moveUp(index)" :disabled="index === 0">
+                    <v-icon dark left>mdi-chevron-up</v-icon>
+                    {{ $t("common.up") }}
+                  </v-btn>
 
-    <v-dialog v-model="showDeleteDialog" max-width="400">
-      <v-card>
-        <v-card-title class="headline">
-          {{ $t("card.edit.ability.deletionHeader") }}
-        </v-card-title>
+                  <v-btn
+                    text
+                    @click="moveDown(index)"
+                    :disabled="index === spells.length - 1"
+                  >
+                    <v-icon dark left>mdi-chevron-down</v-icon>
+                    {{ $t("common.down") }}
+                  </v-btn>
+                </v-card-actions>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
-        <v-card-text>
-          <span>{{
-            $t("card.edit.ability.deletionPrompt", {
-              item: activeSpell != null ? spells[activeSpell].name : "",
-            })
-          }}</span>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn text @click="showDeleteDialog = false">
-            <v-icon dark left>mdi-cancel</v-icon>
-            {{ $t("common.cancel") }}
+      <v-fade-transition>
+        <v-card class="d-flex justify-center pa-3" v-if="!isFull" flat>
+          <v-btn fab dark color="primary" @click="addSpell">
+            <v-icon dark>mdi-plus</v-icon>
           </v-btn>
+        </v-card>
+      </v-fade-transition>
 
-          <v-btn color="red darken-1" text @click="deleteSpell">
-            <v-icon dark left>mdi-delete</v-icon>
-            {{ $t("common.delete") }}
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      <v-dialog v-model="showDeleteDialog" max-width="400">
+        <v-card>
+          <v-card-title class="headline">
+            {{ $t("card.edit.ability.deletionHeader") }}
+          </v-card-title>
+
+          <v-card-text>
+            <span>{{
+              $t("card.edit.ability.deletionPrompt", {
+                item: activeSpell != null ? spells[activeSpell].name : "",
+              })
+            }}</span>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn text @click="showDeleteDialog = false">
+              <v-icon dark left>mdi-cancel</v-icon>
+              {{ $t("common.cancel") }}
+            </v-btn>
+
+            <v-btn color="red darken-1" text @click="deleteSpell">
+              <v-icon dark left>mdi-delete</v-icon>
+              {{ $t("common.delete") }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </FighterOnlyForm>
   </v-card-text>
 </template>
 
@@ -381,11 +382,6 @@ export default class SpellsForm extends Vue {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  padding: 0.6em;
-  padding-bottom: 1em;
-}
-
 .range-slider {
   margin-top: -8px;
 }
@@ -404,15 +400,5 @@ h1 {
   > button {
     background-color: #ffffff11;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

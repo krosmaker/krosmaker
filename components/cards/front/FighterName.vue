@@ -41,10 +41,6 @@ export default class FighterName extends Vue {
   get isElite(): boolean {
     return this.$store.state.krosmaster.type === "elite";
   }
-
-  get isExporting(): boolean {
-    return this.$store.state.export.isExporting;
-  }
 }
 </script>
 

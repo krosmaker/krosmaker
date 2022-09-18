@@ -1,62 +1,64 @@
 <template>
   <v-card-text>
-    <h2 class="pa-3">{{ $t("card.edit.figurine") }}</h2>
-    <DropFileUpload
-      @upload="onUpload"
-      :prompt="$t('card.edit.imageUploadPrompt')"
-    />
+    <FormHeader title="card.edit.figurine" />
+    <FighterOnlyForm>
+      <DropFileUpload
+        @upload="onUpload"
+        :prompt="$t('card.edit.imageUploadPrompt')"
+      />
 
-    <h3>{{ $t("card.edit.customize") }}</h3>
-    <v-row>
-      <v-col class="pa-0" cols="6">
-        <v-slider
-          class="fixed-label-slider"
-          dense
-          v-model="offsetX"
-          min="645"
-          max="815"
-        >
-          <template v-slot:prepend>
-            <v-icon :color="sliderIconColor"> mdi-pan-horizontal </v-icon>
-          </template>
-        </v-slider>
-      </v-col>
-      <v-col class="pa-0" cols="6">
-        <v-slider
-          class="fixed-label-slider"
-          dense
-          v-model="offsetY"
-          min="-140"
-          max="160"
-        >
-          <template v-slot:prepend>
-            <v-icon :color="sliderIconColor"> mdi-pan-vertical </v-icon>
-          </template>
-        </v-slider>
-      </v-col>
-      <v-col class="pa-0" cols="12">
-        <v-slider
-          class="fixed-label-slider"
-          dense
-          v-model="height"
-          min="110"
-          max="590"
-        >
-          <template v-slot:prepend>
-            <v-icon :color="sliderIconColor"> mdi-resize </v-icon>
-          </template>
-        </v-slider>
-      </v-col>
-      <v-col class="crop-switch" cols="12">
-        <v-switch
-          v-model="useCropped"
-          class="mx-2"
-          :label="$t('card.edit.enableCropping')"
-        ></v-switch>
-      </v-col>
-    </v-row>
+      <h3>{{ $t("card.edit.customize") }}</h3>
+      <v-row>
+        <v-col class="pa-0" cols="6">
+          <v-slider
+            class="fixed-label-slider"
+            dense
+            v-model="offsetX"
+            min="645"
+            max="815"
+          >
+            <template v-slot:prepend>
+              <v-icon :color="sliderIconColor"> mdi-pan-horizontal </v-icon>
+            </template>
+          </v-slider>
+        </v-col>
+        <v-col class="pa-0" cols="6">
+          <v-slider
+            class="fixed-label-slider"
+            dense
+            v-model="offsetY"
+            min="-140"
+            max="160"
+          >
+            <template v-slot:prepend>
+              <v-icon :color="sliderIconColor"> mdi-pan-vertical </v-icon>
+            </template>
+          </v-slider>
+        </v-col>
+        <v-col class="pa-0" cols="12">
+          <v-slider
+            class="fixed-label-slider"
+            dense
+            v-model="height"
+            min="110"
+            max="590"
+          >
+            <template v-slot:prepend>
+              <v-icon :color="sliderIconColor"> mdi-resize </v-icon>
+            </template>
+          </v-slider>
+        </v-col>
+        <v-col class="crop-switch" cols="12">
+          <v-switch
+            v-model="useCropped"
+            class="mx-2"
+            :label="$t('card.edit.enableCropping')"
+          ></v-switch>
+        </v-col>
+      </v-row>
+    </FighterOnlyForm>
     <v-fade-transition>
-      <v-container v-show="useCropped" class="cropper-container">
+      <v-container v-show="isFighter && useCropped" class="cropper-container">
         <vue-cropper
           ref="cropper"
           class="cropper"
@@ -86,6 +88,7 @@ import {
 } from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
 import { TabId } from "~/store/sidebar";
+import { CardType } from "~/store/card";
 
 @Component({
   watch: {
@@ -135,6 +138,10 @@ export default class FigurineForm extends Vue {
   set offsetY(offsetY: number) {
     this.$store.commit("export/setDirty", true);
     this.$store.commit("figurine/setOffsetY", offsetY);
+  }
+
+  get isFighter() {
+    return this.$store.state.card.type === CardType.FIGHTER;
   }
 
   get useCropped(): boolean {
@@ -247,11 +254,6 @@ export default class FigurineForm extends Vue {
 </style>
 
 <style lang="scss" scoped>
-h1 {
-  padding: 0.6em;
-  padding-bottom: 1em;
-}
-
 h3 {
   padding-top: 1.5em;
   padding-left: 0.8em;
@@ -267,16 +269,6 @@ h3 {
     min-height: 100px;
     max-height: 250px;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 
 .crop-switch {

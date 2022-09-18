@@ -49,6 +49,9 @@ export default {
     downloadWarningIgnore: "OK, nie pokazuj tego więcej",
 
     edit: {
+      editorUnavailable:
+        "Ten edytor nie jest dostępny przy wybranym typie karty.",
+
       // Artwork:
       artwork: "Ilustracja",
       customize: "Ustawienia",
@@ -57,17 +60,26 @@ export default {
         "Kliknij tutaj albo przeciągnij plik, aby wgrać obraz.",
 
       // Basic data:
-      krosmaster: "Krosmaster",
-      name: "Imię",
-      rarity: "Typ",
+      card: "Karta",
+      name: "Nazwa",
+      type: "Kategoria",
+
+      fighter: "Postać",
+      rarity: "Rodzaj",
       elite: "Elita",
-      common: "Zwykły",
+      common: "Zwykła",
       minion: "Przyzwanie",
-      version: "Wersja",
-      comment: "Komentarz",
       ap: "Punkty akcji",
       hp: "Punkty zdrowia",
       mp: "Punkty ruchu",
+
+      favor: "Przysługa",
+      effect: "Efekt",
+      regular: "Zwykła",
+      superior: "Znakomita",
+
+      version: "Wersja",
+      comment: "Komentarz",
 
       // Display:
       display: "Wygląd",
@@ -85,15 +97,15 @@ export default {
       // Export:
       storage: "Zapis",
       customFileName: "Nazwa pliku",
-      overridePrompt1: "Krosmaster o nazwie pliku",
+      overridePrompt1: "Karta o nazwie pliku",
       overridePrompt2: "już istnieje. Czy chcesz nadpisać kartę?",
       noDataHeader: "Brak danych",
       noDataPrompt:
         "Nie masz żadnych zapisanych kart albo dane przeglądarki zostały wyczyszczone.",
-      loadKrosmaster: "Wczytaj",
+      loadCard: "Wczytaj kartę",
       loadingPrompt:
         "Wybierz kartę do wczytania. Obecne dane karty zostaną nadpisane.",
-      krosmasters: "Karty",
+      cards: "Karty",
       deletePrompt: "Czy na pewno chcesz usunąć {item}?",
       saveFirst: "Najpierw zapisz",
       importOverridePrompt:

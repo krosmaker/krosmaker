@@ -5,10 +5,12 @@
     :class="{ 'is-rounded': isRounded }"
   >
     <template v-slot:front>
-      <CardFront ref="front" class="card-front" />
+      <CardFront class="card-front" ref="front" v-if="isFighter" />
+      <FavorFront class="card-front" ref="front" v-else-if="isFavor" />
     </template>
     <template v-slot:back>
-      <CardBack ref="back" class="card-back" />
+      <CardBack class="card-back" ref="back" v-if="isFighter" />
+      <FavorBack class="card-back" ref="back" v-else-if="isFavor" />
     </template>
   </Flippable>
 </template>
@@ -16,7 +18,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { DisplayState, DisplayMode, Scale } from "~/store/display";
+import { DisplayState, DisplayMode } from "~/store/display";
+import { CardType } from "~/store/card";
 
 /**
  * Displays a flippable Krosmaster card with a front and a back side.
@@ -26,23 +29,17 @@ export default class Card extends Vue {
   @Prop({ type: Boolean, default: false })
   isFlipped!: boolean;
 
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
-  }
-
   get isRounded(): boolean {
     const display: DisplayState = this.$store.state.display;
     return display.mode === DisplayMode.PLAY && display.roundedCorners;
   }
 
-  get isSmall(): boolean {
-    const display: DisplayState = this.$store.state.display;
-    return display.mode === DisplayMode.PLAY && display.scale === Scale.SMALL;
+  get isFighter(): boolean {
+    return this.$store.state.card.type === CardType.FIGHTER;
   }
 
-  get isMedium(): boolean {
-    const display: DisplayState = this.$store.state.display;
-    return display.mode === DisplayMode.PLAY && display.scale === Scale.MEDIUM;
+  get isFavor(): boolean {
+    return this.$store.state.card.type === CardType.FAVOR;
   }
 }
 </script>

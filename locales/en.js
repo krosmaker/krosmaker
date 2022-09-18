@@ -49,6 +49,9 @@ export default {
     downloadWarningIgnore: "OK, don't show this again",
 
     edit: {
+      editorUnavailable:
+        "This editor is not available for the chosen type of card.",
+
       // Artwork:
       artwork: "Artwork",
       customize: "Customize",
@@ -56,17 +59,26 @@ export default {
       imageUploadPrompt: "Click here or drag an image to upload.",
 
       // Basic data:
-      krosmaster: "Krosmaster",
+      card: "Card",
       name: "Name",
+      type: "Type",
+
+      fighter: "Fighter",
       rarity: "Rarity",
       elite: "Elite",
       common: "Common",
       minion: "Minion",
-      version: "Version",
-      comment: "Comment",
       ap: "AP",
       hp: "HP",
       mp: "MP",
+
+      favor: "Favor",
+      effect: "Effect",
+      regular: "Regular",
+      superior: "Superior",
+
+      version: "Version",
+      comment: "Comment",
 
       // Display:
       display: "Display",
@@ -84,15 +96,15 @@ export default {
       // Export:
       storage: "Storage",
       customFileName: "Custom file name",
-      overridePrompt1: "Krosmaster with file name",
+      overridePrompt1: "Card with the file name",
       overridePrompt2: "already exists. Do you want to override the card?",
       noDataHeader: "Nothing to load",
       noDataPrompt:
-        "You have not saved any Krosmasters yet or your browser cache has been removed.",
-      loadKrosmaster: "Load Krosmaster",
+        "You have not saved any cards yet or your browser cache has been removed.",
+      loadCard: "Load card",
       loadingPrompt:
-        "Choose a Krosmaster to load. This will override the current card settings.",
-      krosmasters: "Krosmasters",
+        "Choose a card to load. This will override the current card settings.",
+      cards: "Cards",
       deletePrompt: "Do you really want to delete {item}?",
       saveFirst: "Save first",
       importOverridePrompt:

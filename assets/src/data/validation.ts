@@ -3,6 +3,8 @@ import Validator, {
   ValidationSchema,
 } from "fastest-validator";
 import { Element, Limit, Range } from "~/assets/src/data/fighters";
+import { CardType } from "~/store/card";
+import { FavorType } from "~/store/favor";
 
 const statisticPattern = /^(-|[0-9]{0,1})$/g;
 const healthPattern = /^(-|[0-9]{0,2})$/g;
@@ -11,11 +13,10 @@ const imagePattern =
 
 const krosmasterDataSchema: ValidationSchema = {
   type: "object",
+  optional: true,
   props: {
     name: { type: "string" },
     type: { type: "enum", values: ["common", "elite", "minion"] },
-    comment: { type: "string", default: "" },
-    version: { type: "string", default: "" },
 
     mp: { type: "string", pattern: statisticPattern },
     hp: { type: "string", pattern: healthPattern },
@@ -106,6 +107,10 @@ const krosmasterDataSchema: ValidationSchema = {
         },
       },
     },
+
+    // Legacy properties:
+    comment: { type: "string", optional: true },
+    version: { type: "string", optional: true },
   },
   custom: (value: any, errors: ValidationError[], _: any, field: string) => {
     const maximumAbilitiesCount = value?.type === "minion" ? 1 : 3;
@@ -121,6 +126,7 @@ const krosmasterDataSchema: ValidationSchema = {
     return value;
   },
 };
+
 const cropperDataSchema: ValidationSchema = {
   type: "object",
   optional: true,
@@ -152,37 +158,114 @@ const cropperDataSchema: ValidationSchema = {
     },
   },
 };
-const krosmasterSchema: ValidationSchema = {
-  id: { type: "string" },
-  data: krosmasterDataSchema,
-  background: {
-    type: "object",
-    props: {
-      original: { type: "string", pattern: imagePattern },
-      cropped: { type: "string", pattern: imagePattern },
-      useCropped: { type: "boolean" },
-      cropper: cropperDataSchema,
+
+const favorSchema: ValidationSchema = {
+  type: "object",
+  optional: true,
+  props: {
+    type: { type: "enum", values: [FavorType.REGULAR, FavorType.SUPERIOR] },
+    name: { type: "string" },
+    effect: { type: "string" },
+  },
+};
+
+const basicDataSchema: ValidationSchema = {
+  type: "object",
+  // This object is only optional to support legacy JSON files.
+  optional: true,
+  props: {
+    type: { type: "enum", values: [CardType.FIGHTER, CardType.FAVOR] },
+    comment: { type: "string", default: "" },
+    version: { type: "string", default: "" },
+  },
+};
+
+const cardSchema: ValidationSchema = {
+  $$root: true,
+  type: "object",
+  props: {
+    id: { type: "string" },
+    card: basicDataSchema,
+    data: krosmasterDataSchema,
+    favor: favorSchema,
+    dpi: { type: "number", optional: true },
+    background: {
+      type: "object",
+      optional: true,
+      props: {
+        original: { type: "string", pattern: imagePattern },
+        cropped: { type: "string", pattern: imagePattern },
+        useCropped: { type: "boolean" },
+        cropper: cropperDataSchema,
+      },
+    },
+    figurine: {
+      type: "object",
+      optional: true,
+      props: {
+        original: { type: "string", pattern: imagePattern },
+        cropped: { type: "string", pattern: imagePattern },
+        useCropped: { type: "boolean" },
+        height: { type: "number" },
+        offsetX: { type: "number" },
+        offsetY: { type: "number" },
+        cropper: cropperDataSchema,
+      },
     },
   },
-  figurine: {
-    type: "object",
-    props: {
-      original: { type: "string", pattern: imagePattern },
-      cropped: { type: "string", pattern: imagePattern },
-      useCropped: { type: "boolean" },
-      height: { type: "number" },
-      offsetX: { type: "number" },
-      offsetY: { type: "number" },
-      cropper: cropperDataSchema,
-    },
+  custom: (value: any, errors: ValidationError[], _: any, field: string) => {
+    let cardType: CardType = CardType.FIGHTER;
+    const definedType = value.card?.type;
+    // Preventing from assigning invalid types:
+    if (definedType === CardType.FIGHTER) {
+      cardType = CardType.FIGHTER;
+    } else if (definedType === CardType.FAVOR) {
+      cardType = CardType.FAVOR;
+    }
+
+    switch (cardType) {
+      case CardType.FIGHTER:
+        if (!value.data) {
+          errors.push({
+            type: "missingProperty",
+            field: "data",
+            message: `Fighter cards must include a "data" property.`,
+          });
+        }
+        if (!value.figurine) {
+          errors.push({
+            type: "missingProperty",
+            field: "figurine",
+            message: `Fighter cards must include a "figurine" property.`,
+          });
+        }
+        if (!value.background) {
+          errors.push({
+            type: "missingProperty",
+            field: "background",
+            message: `Fighter cards must include a "background" property.`,
+          });
+        }
+        break;
+      case CardType.FAVOR:
+        if (!value.favor) {
+          errors.push({
+            type: "missingProperty",
+            field: "favor",
+            message: `Favor cards must include a "favor" property.`,
+          });
+        }
+        break;
+    }
+    return value;
   },
 };
 
 const validator = new Validator({
   useNewCustomCheckerFunction: true,
-}).compile(krosmasterSchema);
+}).compile(cardSchema);
 
-export function validateKrosmasterData(krosmaster: any): ValidationError[] {
-  const errors = validator(krosmaster);
+export function validateCardData(card: any): ValidationError[] {
+  const errors = validator(card);
   return errors === true ? [] : (errors as ValidationError[]);
 }

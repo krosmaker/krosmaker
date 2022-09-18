@@ -10,8 +10,6 @@ export type KrosmasterType = "common" | "elite" | "minion";
 export interface KrosmasterState {
   name: string;
   type: KrosmasterType;
-  comment?: string;
-  version?: string;
 
   mp: string;
   hp: string;
@@ -24,9 +22,6 @@ export interface KrosmasterState {
 export const state: () => KrosmasterState = () => ({
   name: "",
   type: "common",
-  comment: "",
-  version: "",
-
   mp: "",
   hp: "",
   ap: "",
@@ -38,13 +33,6 @@ export const state: () => KrosmasterState = () => ({
 export const mutations = {
   replace(state: KrosmasterState, newState: KrosmasterState) {
     Object.assign(state, newState);
-    // Clearing optional properties:
-    if (!newState.comment) {
-      state.comment = "";
-    }
-    if (!newState.version) {
-      state.version = "";
-    }
   },
 
   setName(state: KrosmasterState, name: string) {
@@ -52,12 +40,6 @@ export const mutations = {
   },
   setType(state: KrosmasterState, type: KrosmasterType) {
     state.type = type;
-  },
-  setComment(state: KrosmasterState, comment: string) {
-    state.comment = comment;
-  },
-  setVersion(state: KrosmasterState, version: string) {
-    state.version = version;
   },
 
   setMP(state: KrosmasterState, mp: string) {
@@ -159,8 +141,6 @@ export const mutations = {
   reset(state: KrosmasterState) {
     state.name = "";
     state.type = "common";
-    state.comment = "";
-    state.version = "";
 
     state.mp = "";
     state.hp = "";

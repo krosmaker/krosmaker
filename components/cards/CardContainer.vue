@@ -84,11 +84,13 @@ import { toPng } from "html-to-image";
 import { saveAs } from "file-saver";
 import { TabId } from "~/store/sidebar";
 import { DisplayState, DisplayMode, Scale } from "~/store/display";
+import { CardType } from "~/store/card";
 import {
   cardWidth,
   cardHeight,
   minionCardWidth,
   minionCardHeight,
+  defaultFileName,
 } from "~/assets/src/constants";
 
 @Component
@@ -117,16 +119,27 @@ export default class CardContainer extends Vue {
 
   get fileName(): string {
     const store = this.$store.state;
-    return store.export.fileName || store.krosmaster.name || "Krosmaker";
+    const fileName = store.export.fileName;
+    if (fileName) return fileName;
+    const cardType: CardType = store.card.type;
+    switch (cardType) {
+      case CardType.FIGHTER:
+        return store.krosmaster.name || defaultFileName;
+      case CardType.FAVOR:
+        return store.favor.name || defaultFileName;
+    }
   }
 
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
+  get isRegularSize(): boolean {
+    return (
+      this.$store.state.card.type === CardType.FIGHTER &&
+      this.$store.state.krosmaster.type !== "minion"
+    );
   }
 
   get cardWidth(): number {
     const display: DisplayState = this.$store.state.display;
-    if (this.isKrosmaster) {
+    if (this.isRegularSize) {
       return display.mode === DisplayMode.PRINT
         ? display.targetKrosmasterWidth + display.bleedingOffset * 2
         : cardWidth;
@@ -139,7 +152,7 @@ export default class CardContainer extends Vue {
 
   get cardHeight(): number {
     const display: DisplayState = this.$store.state.display;
-    if (this.isKrosmaster) {
+    if (this.isRegularSize) {
       return display.mode === DisplayMode.PRINT
         ? display.targetKrosmasterHeight + display.bleedingOffset * 2
         : cardHeight;

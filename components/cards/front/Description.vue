@@ -15,6 +15,9 @@ export default class Description extends Vue {
   @Prop({ type: Boolean, default: false })
   addOffset!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  enlargeIcons!: boolean;
+
   private markers: Marker[] = [
     { keyword: "MP", class: "mp" },
     { keyword: "HP", class: "hp" },
@@ -29,7 +32,8 @@ export default class Description extends Vue {
     { keyword: "Water", class: "water" },
 
     { keyword: "Critical Symbol", class: "critical" },
-    { keyword: "Armour Symbol", class: "armour" },
+    { keyword: "Armor Symbol", class: "armor" },
+    { keyword: "Armour Symbol", class: "armor" },
     { keyword: "Dodge Symbol", class: "dodge" },
     { keyword: "Lock Symbol", class: "lock" },
     { keyword: "Dofus Symbol", class: "dofus" },
@@ -70,13 +74,14 @@ export default class Description extends Vue {
       }
       return partial;
     });
+    const attributes = this.enlargeIcons ? { class: "large-icons" } : {};
     if (this.addOffset) {
-      return create("div", [
-        create("span", { attrs: { class: "description-offset" } }),
+      return create("div", attributes, [
+        create("span", { class: "description-offset" }),
         ...elements,
       ]);
     }
-    return create("div", elements);
+    return create("div", attributes, elements);
   }
 
   private createIcon(
@@ -208,7 +213,7 @@ export default class Description extends Vue {
   color: #2592bb;
 }
 
-.armour-icon,
+.armor-icon,
 .critical-icon,
 .dodge-icon,
 .dofus-icon,
@@ -220,8 +225,8 @@ export default class Description extends Vue {
   margin-right: -2px;
 }
 
-.armour-icon {
-  background-image: url("~assets/img/front/descriptions/dice/armour.png");
+.armor-icon {
+  background-image: url("~assets/img/front/descriptions/dice/armor.png");
   width: 40px;
 }
 
@@ -245,5 +250,105 @@ export default class Description extends Vue {
 .lock-icon {
   background-image: url("~assets/img/front/descriptions/dice/lock.png");
   width: 40px;
+}
+
+.large-icons {
+  .ap-icon,
+  .mp-icon,
+  .hp-icon {
+    width: 56px;
+    height: 56px;
+    margin-top: -12px;
+    margin-right: -3px;
+    margin-left: -3px;
+  }
+
+  .mp-icon {
+    background-image: url("~assets/img/front/descriptions/large/markers/mp.png");
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+
+  .hp-icon {
+    background-image: url("~assets/img/front/descriptions/large/markers/hp.png");
+  }
+
+  .ap-icon {
+    background-image: url("~assets/img/front/descriptions/large/markers/ap.png");
+  }
+
+  .injury-icon {
+    background-image: url("~assets/img/front/descriptions/large/markers/injury.png");
+    width: 45px;
+    height: 60px;
+    margin-left: 3px;
+    margin-bottom: -6px;
+    margin-top: -15px;
+  }
+
+  .air-icon,
+  .earth-icon,
+  .fire-icon,
+  .water-icon {
+    width: 56px;
+    height: 56px;
+    margin-top: -12px;
+    margin-left: -3px;
+  }
+
+  .air-icon {
+    background-image: url("~assets/img/front/descriptions/large/elements/air.png");
+  }
+
+  .earth-icon {
+    background-image: url("~assets/img/front/descriptions/large/elements/earth.png");
+  }
+
+  .fire-icon {
+    background-image: url("~assets/img/front/descriptions/large/elements/fire.png");
+  }
+
+  .water-icon {
+    background-image: url("~assets/img/front/descriptions/large/elements/water.png");
+  }
+
+  .armor-icon,
+  .critical-icon,
+  .dodge-icon,
+  .dofus-icon,
+  .lock-icon {
+    height: 60px;
+    margin-bottom: -6px;
+    margin-top: -15px;
+    margin-left: 3px;
+    margin-right: -3px;
+  }
+
+  .armor-icon {
+    background-image: url("~assets/img/front/descriptions/large/dice/armor.png");
+    width: 54px;
+  }
+
+  .critical-icon {
+    background-image: url("~assets/img/front/descriptions/large/dice/critical.png");
+    width: 57px;
+  }
+
+  .dodge-icon {
+    background-image: url("~assets/img/front/descriptions/large/dice/dodge.png");
+    width: 49px;
+  }
+
+  .dofus-icon {
+    background-image: url("~assets/img/front/descriptions/large/dice/dofus.png");
+    width: 60px;
+    margin-left: -3px;
+    margin-right: -6px;
+  }
+
+  .lock-icon {
+    background-image: url("~assets/img/front/descriptions/large/dice/lock.png");
+    width: 60px;
+  }
 }
 </style>

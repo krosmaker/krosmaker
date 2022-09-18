@@ -3,7 +3,7 @@
     <CardBackground
       class="background"
       :image="require('~/assets/img/front/background.png')"
-      :minionImage="require('~/assets/img/front/background-minion.png')"
+      :smallImage="require('~/assets/img/front/background-minion.png')"
     />
     <CardContentContainer>
       <FighterName class="name" />

@@ -49,6 +49,9 @@ export default {
     downloadWarningIgnore: "OK, ne plus afficher ce message",
 
     edit: {
+      editorUnavailable:
+        "Cet éditeur n'est pas disponible pour le type de carte choisi.",
+
       // Artwork:
       artwork: "Illustration",
       customize: "Personnalisation",
@@ -56,17 +59,26 @@ export default {
       imageUploadPrompt: "Cliquez ici ou faites glisser une image à charger.",
 
       // Basic data:
-      krosmaster: "Krosmaster",
+      card: "Carte",
       name: "Nom",
+      type: "Catégorie",
+
+      fighter: "Combattant",
       rarity: "Rareté",
       elite: "Elite",
       common: "Commune",
       minion: "Invocation",
-      version: "Version",
-      comment: "Commentaire",
       ap: "PA",
       hp: "PV",
       mp: "PM",
+
+      favor: "Faveur",
+      effect: "Effet",
+      regular: "Régulière",
+      superior: "Supérieure",
+
+      version: "Version",
+      comment: "Commentaire",
 
       // Display:
       display: "Paramètres d'affichage",
@@ -84,15 +96,15 @@ export default {
       // Export:
       storage: "Stockage",
       customFileName: "Nom de fichier personnalisé",
-      overridePrompt1: "Le fichier portant le nom du Krosmaster",
+      overridePrompt1: "Le fichier portant le nom",
       overridePrompt2: "est déjà présent. Voulez-vous écraser la carte ?",
       noDataHeader: "Aucune donnée à charger",
       noDataPrompt:
-        "Vous n'avez pas encore enregistré de Krosmaster ou le cache de votre navigateur a été supprimé.",
-      loadKrosmaster: "Charger un Krosmaster",
+        "Vous n'avez pas encore enregistré de cartes ou le cache de votre navigateur a été supprimé.",
+      loadCard: "Charger une carte",
       loadingPrompt:
-        "Choisissez un Krosmaster à charger. Cela écrasera les paramètres de la carte en cours d'édition.",
-      krosmasters: "Krosmasters",
+        "Choisissez une carte à charger. Cela écrasera les paramètres de la carte en cours d'édition.",
+      cards: "Cartes",
       deletePrompt: "Etes-vous sûr de vouloir supprimer {item} ?",
       saveFirst: "Enregistrer d'abord",
       importOverridePrompt:

@@ -9,7 +9,7 @@
     <CardBackground
       class="frame"
       :image="require('~/assets/img/back/frame.png')"
-      :minionImage="require('~/assets/img/back/frame-minion.png')"
+      :smallImage="require('~/assets/img/back/frame-minion.png')"
     />
     <CardContentContainer>
       <div :class="{ watermark: true, 'watermark-minion': !isKrosmaster }">
@@ -40,7 +40,7 @@ export default class CardBack extends Vue {
   }
 
   get version(): string {
-    return this.$store.state.krosmaster.version || "";
+    return this.$store.state.card.version || "";
   }
 
   onCardClick() {
@@ -100,7 +100,7 @@ export default class CardBack extends Vue {
 
   .watermark-minion {
     left: 764px;
-    top: 320px;
+    top: 315px;
   }
 
   .version {

@@ -1,18 +1,20 @@
 <template>
   <v-card-text>
-    <h2 class="pa-3">{{ $t("card.edit.artwork") }}</h2>
-    <DropFileUpload
-      @upload="onUpload"
-      :prompt="$t('card.edit.imageUploadPrompt')"
-    />
-    <h3>{{ $t("card.edit.customize") }}</h3>
-    <v-switch
-      v-model="useCropped"
-      class="mx-2"
-      :label="$t('card.edit.enableCropping')"
-    ></v-switch>
+    <FormHeader title="card.edit.artwork" />
+    <FighterOnlyForm>
+      <DropFileUpload
+        @upload="onUpload"
+        :prompt="$t('card.edit.imageUploadPrompt')"
+      />
+      <h3>{{ $t("card.edit.customize") }}</h3>
+      <v-switch
+        v-model="useCropped"
+        class="mx-2"
+        :label="$t('card.edit.enableCropping')"
+      ></v-switch>
+    </FighterOnlyForm>
     <v-fade-transition>
-      <v-container v-show="useCropped" class="cropper-container">
+      <v-container v-show="isFighter && useCropped" class="cropper-container">
         <vue-cropper
           ref="cropper"
           class="cropper"
@@ -41,8 +43,8 @@ import {
   minionArtworkHeight,
 } from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
-import { BackgroundState } from "~/store/background";
 import { TabId } from "~/store/sidebar";
+import { CardType } from "~/store/card";
 
 @Component({
   watch: {
@@ -64,6 +66,10 @@ export default class ArtworkForm extends Vue {
 
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
+  }
+
+  get isFighter() {
+    return this.$store.state.card.type === CardType.FIGHTER;
   }
 
   get useCropped(): boolean {
@@ -170,11 +176,6 @@ export default class ArtworkForm extends Vue {
 </style>
 
 <style lang="scss" scoped>
-h1 {
-  padding: 0.6em;
-  padding-bottom: 1em;
-}
-
 h3 {
   padding: 1.5em 0em 0em 0.8em;
 }
@@ -188,15 +189,5 @@ h3 {
     min-height: 200px;
     max-height: 400px;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

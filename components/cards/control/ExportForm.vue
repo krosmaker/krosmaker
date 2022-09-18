@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <h2 class="pa-3">{{ $t("card.edit.storage") }}</h2>
+    <FormHeader title="card.edit.storage" />
     <v-row>
       <v-col cols="12">
         <v-text-field
@@ -14,7 +14,7 @@
           x-large
           width="100%"
           @click="onSave"
-          :disabled="!currentKrosmasterId"
+          :disabled="!currentCardId"
           :loading="isSaving"
         >
           <v-icon dark left>mdi-database-import</v-icon>
@@ -69,7 +69,7 @@
 
         <v-card-text>
           {{ $t("card.edit.overridePrompt1") }}
-          <strong>{{ currentKrosmasterId }}</strong>
+          <strong>{{ currentCardId }}</strong>
           {{ $t("card.edit.overridePrompt2") }}
         </v-card-text>
 
@@ -80,7 +80,7 @@
             <v-icon dark left>mdi-cancel</v-icon>
             {{ $t("common.cancel") }}
           </v-btn>
-          <v-btn text color="warning" @click="saveKrosmaster">
+          <v-btn text color="warning" @click="saveCard">
             <v-icon dark left>mdi-file-replace</v-icon>
             {{ $t("common.override") }}
           </v-btn>
@@ -110,7 +110,7 @@
     <v-dialog v-model="loadingDialog" persistent max-width="600">
       <v-card>
         <v-card-title class="headline">
-          {{ $t("card.edit.loadKrosmaster") }}
+          {{ $t("card.edit.loadCard") }}
         </v-card-title>
 
         <v-card-text>
@@ -119,7 +119,7 @@
 
         <v-card>
           <v-card-title>
-            {{ $t("card.edit.krosmasters") }}
+            {{ $t("card.edit.cards") }}
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
@@ -131,7 +131,7 @@
           </v-card-title>
           <v-data-table
             :headers="loadingHeaders"
-            :items="krosmasterNames"
+            :items="cardNames"
             :search="search"
             :items-per-page="5"
             :height="216"
@@ -154,12 +154,12 @@
               </v-btn>
             </template>
             <template v-slot:[`item.load`]="{ item }">
-              <v-btn text color="success" @click="loadKrosmaster(item.name)">
+              <v-btn text color="success" @click="loadCard(item.name)">
                 <v-icon dark>mdi-database-import</v-icon>
               </v-btn>
             </template>
             <template v-slot:[`item.export`]="{ item }">
-              <v-btn text color="info" @click="exportKrosmaster(item.name)">
+              <v-btn text color="info" @click="exportCard(item.name)">
                 <v-icon dark>mdi-download-circle</v-icon>
               </v-btn>
             </template>
@@ -190,7 +190,7 @@
         </v-card-title>
 
         <v-card-text>
-          {{ $t("card.edit.deletePrompt", { item: krosmasterToDelete }) }}
+          {{ $t("card.edit.deletePrompt", { item: cardToDelete }) }}
         </v-card-text>
 
         <v-card-actions>
@@ -200,7 +200,7 @@
             <v-icon dark left>mdi-cancel</v-icon>
             {{ $t("common.cancel") }}
           </v-btn>
-          <v-btn text color="error" @click="deleteKrosmaster">
+          <v-btn text color="error" @click="deleteCard">
             <v-icon dark left>mdi-delete</v-icon>
             {{ $t("common.delete") }}
           </v-btn>
@@ -343,11 +343,13 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { saveAs } from "file-saver";
-
-import KrosmakerDatabase, { Krosmaster } from "~/assets/src/data/database";
-import EventBus from "~/assets/src/events/bus";
-import { validateKrosmasterData } from "~/assets/src/data/validation";
 import { ValidationError } from "fastest-validator";
+
+import KrosmakerDatabase, { Card } from "~/assets/src/data/database";
+import EventBus from "~/assets/src/events/bus";
+import { validateCardData } from "~/assets/src/data/validation";
+import { dpi } from "~/assets/src/constants";
+import { CardState, CardType } from "~/store/card";
 
 @Component
 export default class ExportForm extends Vue {
@@ -360,7 +362,7 @@ export default class ExportForm extends Vue {
   search: string = "";
   loadingHeaders = [
     {
-      text: this.$i18n.t("card.edit.krosmaster"),
+      text: this.$i18n.t("card.edit.card"),
       align: "start",
       value: "name",
     },
@@ -386,11 +388,11 @@ export default class ExportForm extends Vue {
       width: 15,
     },
   ];
-  krosmasterNames: Array<{ name: string }> = [];
+  cardNames: Array<{ name: string }> = [];
   loadingDialog: boolean = false;
   noDataDialog: boolean = false;
 
-  krosmasterToDelete: string = "";
+  cardToDelete: string = "";
   deleteDialog: boolean = false;
 
   isExporting: boolean = false;
@@ -412,8 +414,16 @@ export default class ExportForm extends Vue {
     this.$store.commit("export/setFileName", fileName);
   }
 
-  get currentKrosmasterId(): string {
-    return this.fileName || this.$store.state.krosmaster.name || "";
+  get currentCardId(): string {
+    const fileName = this.fileName;
+    if (fileName) return fileName;
+    const cardType: CardType = this.$store.state.card.type;
+    switch (cardType) {
+      case CardType.FIGHTER:
+        return this.$store.state.krosmaster.name || "";
+      case CardType.FAVOR:
+        return this.$store.state.favor.name || "";
+    }
   }
 
   get isDirty(): boolean {
@@ -422,17 +432,14 @@ export default class ExportForm extends Vue {
 
   onSave() {
     this.isSaving = true;
-    const krosmaster = this.serializeKrosmaster();
-    this.database.krosmasters
-      .get(this.currentKrosmasterId)
-      .then((krosmaster) => {
-        if (krosmaster == null) {
-          this.saveKrosmaster();
-        } else {
-          this.overrideDialog = true;
-          this.isSaving = false;
-        }
-      });
+    this.database.cards.get(this.currentCardId).then((card) => {
+      if (card == null) {
+        this.saveCard();
+      } else {
+        this.overrideDialog = true;
+        this.isSaving = false;
+      }
+    });
   }
 
   cancelSaving() {
@@ -440,28 +447,38 @@ export default class ExportForm extends Vue {
     this.overrideDialog = false;
   }
 
-  saveKrosmaster() {
+  saveCard() {
     this.isSaving = true;
     this.overrideDialog = false;
-    const krosmaster = this.serializeKrosmaster();
-    this.database.krosmasters.put(krosmaster).then(() => {
+    const card = this.serializeCard();
+    this.database.cards.put(card).then(() => {
       this.isSaving = false;
       this.$store.commit("export/setDirty", false);
     });
     this.$store.commit("notification/add", {
       message: "card.edit.notification.save",
-      parameters: { name: krosmaster.id },
+      parameters: { name: card.id },
     });
   }
 
-  private serializeKrosmaster(): Krosmaster {
-    return {
-      id: this.currentKrosmasterId,
-      dpi: 300,
-      data: this.$store.state.krosmaster,
-      background: this.$store.state.background,
-      figurine: this.$store.state.figurine,
+  private serializeCard(): Card {
+    const cardState: CardState = this.$store.state.card;
+    const card: Card = {
+      id: this.currentCardId,
+      dpi: dpi,
+      card: this.$store.state.card,
     };
+    switch (cardState.type) {
+      case CardType.FIGHTER:
+        card.data = this.$store.state.krosmaster;
+        card.background = this.$store.state.background;
+        card.figurine = this.$store.state.figurine;
+        break;
+      case CardType.FAVOR:
+        card.favor = this.$store.state.favor;
+        break;
+    }
+    return card;
   }
 
   cancelLoading() {
@@ -478,7 +495,7 @@ export default class ExportForm extends Vue {
   }
 
   acceptLoadSaveAndOverride() {
-    this.saveKrosmaster();
+    this.saveCard();
     this.acceptLoadOverride();
   }
 
@@ -489,12 +506,12 @@ export default class ExportForm extends Vue {
 
   showLoadingDialog() {
     this.isLoading = true;
-    this.database.krosmasters
+    this.database.cards
       .orderBy("id")
       .primaryKeys()
-      .then((krosmasterNames) => {
-        if (krosmasterNames && krosmasterNames.length) {
-          this.krosmasterNames = krosmasterNames.map((name) => {
+      .then((names) => {
+        if (names && names.length) {
+          this.cardNames = names.map((name) => {
             return { name };
           });
           this.loadingDialog = true;
@@ -505,43 +522,74 @@ export default class ExportForm extends Vue {
       });
   }
 
-  loadKrosmaster(id: string) {
+  loadCard(id: string) {
     this.isLoading = true;
-    this.database.krosmasters.get(id).then((krosmaster) => {
-      if (krosmaster != null) {
-        this.replaceKrosmaster(krosmaster);
+    this.database.cards.get(id).then((card) => {
+      if (card != null) {
+        this.replaceCard(card);
+        this.$store.commit("notification/add", {
+          message: "card.edit.notification.load",
+          parameters: { name: card?.id },
+        });
       }
       this.loadingDialog = false;
       this.isLoading = false;
-      this.$store.commit("notification/add", {
-        message: "card.edit.notification.load",
-        parameters: { name: krosmaster?.id },
-      });
     });
   }
 
-  exportKrosmaster(id: string) {
-    this.database.krosmasters.get(id).then((krosmaster) => {
-      if (krosmaster != null) {
-        this.exportKrosmasterFile(krosmaster);
+  exportCard(id: string) {
+    this.database.cards.get(id).then((card) => {
+      if (card != null) {
+        this.exportCardFile(card);
         this.$store.commit("notification/add", {
           message: "card.edit.notification.export",
-          parameters: { name: krosmaster.id },
+          parameters: { name: card.id },
         });
       }
     });
   }
 
-  private replaceKrosmaster(krosmaster: Krosmaster) {
-    this.fileName = krosmaster.id === krosmaster.data.name ? "" : krosmaster.id;
-    if (!krosmaster?.dpi) {
-      // Historic files expected assets in 150 DPI.
-      // Figurine heights have to be rescaled to support 300 DPI.
-      krosmaster.figurine.height *= 2;
+  private replaceCard(card: Card) {
+    let cardType: CardType;
+    if (!card.card) {
+      // Historic files do not define the card type.
+      cardType = CardType.FIGHTER;
+      const legacyCard = card.data as any;
+      this.$store.commit("card/replace", {
+        type: CardType.FIGHTER,
+        comment: legacyCard?.comment || "",
+        version: legacyCard?.version || "",
+      });
+      if (!card?.dpi && card.figurine) {
+        // Historic files expected assets in 150 DPI.
+        // Figurine heights have to be rescaled to support 300 DPI.
+        card.figurine.height *= 2;
+      }
+      // Removing legacy properties:
+      delete legacyCard.comment;
+      delete legacyCard.version;
+      delete legacyCard.isElite;
+    } else {
+      const cardState: CardState = card.card;
+      cardType = cardState.type;
+      this.$store.commit("card/replace", cardState);
     }
-    this.$store.commit("krosmaster/replace", krosmaster.data);
-    this.$store.commit("background/replace", krosmaster.background);
-    this.$store.commit("figurine/replace", krosmaster.figurine);
+
+    switch (cardType) {
+      case CardType.FIGHTER:
+        this.fileName = card.id === card.data?.name ? "" : card.id;
+        this.$store.commit("krosmaster/replace", card.data);
+        this.$store.commit("background/replace", card.background);
+        this.$store.commit("figurine/replace", card.figurine);
+        this.resetFavor();
+        break;
+      case CardType.FAVOR:
+        this.fileName = card.id === card.favor?.name ? "" : card.id;
+        this.$store.commit("favor/replace", card.favor);
+        this.resetKrosmaster();
+        break;
+    }
+
     this.doAfterCardChange();
   }
 
@@ -554,17 +602,15 @@ export default class ExportForm extends Vue {
   }
 
   onDelete(id: string) {
-    this.krosmasterToDelete = id;
+    this.cardToDelete = id;
     this.deleteDialog = true;
   }
 
-  deleteKrosmaster() {
-    const name = this.krosmasterToDelete;
-    this.krosmasterNames = this.krosmasterNames.filter(
-      (krosmaster) => krosmaster.name !== name
-    );
-    this.database.krosmasters.delete(name);
-    this.krosmasterToDelete = "";
+  deleteCard() {
+    const name = this.cardToDelete;
+    this.cardNames = this.cardNames.filter((card) => card.name !== name);
+    this.database.cards.delete(name);
+    this.cardToDelete = "";
     this.deleteDialog = false;
     this.$store.commit("notification/add", {
       message: "card.edit.notification.delete",
@@ -575,22 +621,22 @@ export default class ExportForm extends Vue {
 
   onExport() {
     this.isExporting = true;
-    const krosmaster = this.serializeKrosmaster();
-    this.exportKrosmasterFile(krosmaster);
+    const card = this.serializeCard();
+    this.exportCardFile(card);
     this.$store.commit("notification/add", {
       message: "card.edit.notification.export",
-      parameters: { name: this.currentKrosmasterId || "Krosmaker" },
+      parameters: { name: this.currentCardId || "Krosmaker" },
     });
   }
 
-  private exportKrosmasterFile(krosmaster: Krosmaster) {
-    const json = JSON.stringify(krosmaster, undefined, 2);
+  private exportCardFile(card: Card) {
+    const json = JSON.stringify(card, undefined, 2);
 
     saveAs(
       new Blob([json], {
         type: "application/json",
       }),
-      `${krosmaster.id || "Krosmaker"}.json`
+      `${card.id || "Krosmaker"}.json`
     );
 
     this.isExporting = false;
@@ -609,7 +655,7 @@ export default class ExportForm extends Vue {
   }
 
   acceptImportSaveAndOverride() {
-    this.saveKrosmaster();
+    this.saveCard();
     this.acceptImportOverride();
   }
 
@@ -633,10 +679,10 @@ export default class ExportForm extends Vue {
         const file = event?.target?.result as string | null;
         if (file) {
           try {
-            const krosmaster = JSON.parse(file);
-            const validationErrors = validateKrosmasterData(krosmaster);
+            const card = JSON.parse(file);
+            const validationErrors = validateCardData(card);
             if (validationErrors.length === 0) {
-              this.replaceKrosmaster(krosmaster);
+              this.replaceCard(card);
               this.$store.commit("notification/add", {
                 message: "card.edit.notification.import",
               });
@@ -675,15 +721,25 @@ export default class ExportForm extends Vue {
 
   resetCard() {
     this.fileName = "";
-    this.$store.commit("krosmaster/reset");
-    this.$store.commit("background/reset");
-    this.$store.commit("figurine/reset");
+    this.$store.commit("card/reset");
+    this.resetKrosmaster();
+    this.resetFavor();
     this.doAfterCardChange();
     this.resetWarningDialog = false;
   }
 
+  resetKrosmaster() {
+    this.$store.commit("krosmaster/reset");
+    this.$store.commit("background/reset");
+    this.$store.commit("figurine/reset");
+  }
+
+  resetFavor() {
+    this.$store.commit("favor/reset");
+  }
+
   acceptSaveAndReset() {
-    this.saveKrosmaster();
+    this.saveCard();
     this.resetCard();
   }
 }
@@ -699,11 +755,6 @@ tbody {
 </style>
 
 <style lang="scss" scoped>
-h1 {
-  padding: 0.6em;
-  padding-bottom: 1em;
-}
-
 .hidden {
   display: none;
 }
