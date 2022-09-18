@@ -22,11 +22,13 @@ Main features include:
 
 - Fighter cards editor:
   - Complete support for Krosmaster and minion cards.
-  - Figurine and artwork image editors with customizable croppers.
+  - Figurine and artwork image editors with customizable cropping.
   - Spells and powers editors.
   - Image export _(on Firefox and Chrome)._
   - JSON export allowing to save and load card configurations.
   - Saving and loading cards using a local browser database.
+  - Size adjustment with customizable bleed area for printing.
+  - 300 DPI support.
 - Translations:
   - English.
   - French.
@@ -39,8 +41,9 @@ Main features include:
 
 ### Docker
 
-The default [`Dockerfile`](Dockerfile) builds the application and serves the generated
-static resources with Nginx. It is recommended to run the application via Docker Compose:
+The default [`Dockerfile`](Dockerfile) builds the application and serves
+the generated static resources with Nginx. It is recommended to run
+the application via Docker Compose:
 
 ```bash
 $ docker-compose build
@@ -71,10 +74,9 @@ $ npm run generate
 $ npm run format
 ```
 
-Note that the project uses some outdated library versions with reported
-vulnerabilities. This is deliberate, as updating some dependencies breaks
-the project or the GUI. Do not attempt to upgrade frozen library versions
-without fixing the associated issues.
+Note that the project might use several outdated library versions.
+Before attempting to upgrade the dependencies, make sure that the
+newer versions do not break the UI or cause any compilation issues.
 
 For a detailed explanation of the project setup, check out
 [the Nuxt.js documentation](https://nuxtjs.org).
@@ -82,10 +84,10 @@ For a detailed explanation of the project setup, check out
 ## Contributors
 
 - [@czyzby](https://github.com/czyzby/) - app development, Polish translation.
-- [Marsza](https://github.com/marszaa/) - recreated Krosmaster dice icons.
+- [Marsza](https://github.com/marszaa/) - recreation of the Krosmaster dice icons.
 - [Jesús Martínez](https://krosarchive.es/) - Spanish translation.
 - [@SGe-GH](https://github.com/SGe-GH) - French translation, testing.
 
-The graphics and other assets from the **Krosmaster: Blast**
-are copyrighted by Ankama and published with their permission.
-This project is not produced by or affiliated with Ankama.
+> The graphics and other assets from the **Krosmaster: Blast**
+> are copyrighted by Ankama and published with their permission.
+> This project is not produced by or affiliated with Ankama.

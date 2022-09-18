@@ -1,4 +1,4 @@
-FROM node:14.15.0 AS builder
+FROM node:16.17.0 AS builder
 WORKDIR /usr/src/app
 
 # Installing dependencies:
@@ -10,6 +10,7 @@ COPY tsconfig.json nuxt.config.js ./
 # Copying assets:
 COPY static/ ./static/
 COPY assets/ ./assets/
+COPY locales/ ./locales/
 # Copying less frequently used source folders:
 COPY pages/ ./pages/
 COPY plugins/ ./plugins/
@@ -18,7 +19,10 @@ COPY layouts/ ./layouts/
 COPY store/ ./store/
 COPY components/ ./components/
 # Creating dummy .git folder:
-RUN mkdir .git
+RUN git init &&\
+    git config user.name "Krosmaker" &&\
+    git config user.email "noreply@krosmaker.github.io" &&\
+    git add nuxt.config.js && git commit -m "init"
 
 # Building app:
 RUN npm run generate
