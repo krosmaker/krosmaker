@@ -1,3 +1,4 @@
+import EventBus from "~/assets/src/events/bus";
 import {
   cardWidth,
   cardHeight,
@@ -25,6 +26,7 @@ export interface DisplayState {
   bleedingOffset: number;
   roundedCorners: boolean;
   scale: Scale;
+  isValid: boolean;
 }
 
 function loadFromLocalStorage<T>(key: string, defaultValue: T): T {
@@ -59,6 +61,7 @@ export const state: () => DisplayState = () => ({
   bleedingOffset: loadFromLocalStorage("display.bleedingOffset", 36),
   roundedCorners: loadFromLocalStorage("display.roundedCorners", true),
   scale: loadFromLocalStorage("display.scale", Scale.LARGE),
+  isValid: true,
 });
 
 export const mutations = {
@@ -89,10 +92,12 @@ export const mutations = {
       state.roundedCorners
     );
     state.scale = loadFromLocalStorage("display.scale", state.scale);
+    EventBus.$emit("abilityResize");
   },
 
   setMode(state: DisplayState, mode: DisplayMode) {
     state.mode = mode;
+    EventBus.$emit("abilityResize");
     saveInLocalStorage("display.mode", mode);
   },
 
@@ -105,6 +110,7 @@ export const mutations = {
     targetKrosmasterHeight: number
   ) {
     state.targetKrosmasterHeight = targetKrosmasterHeight;
+    EventBus.$emit("abilityResize");
     saveInLocalStorage(
       "display.targetKrosmasterHeight",
       targetKrosmasterHeight
@@ -132,5 +138,9 @@ export const mutations = {
   setScale(state: DisplayState, scale: Scale) {
     state.scale = scale;
     saveInLocalStorage("display.scale", scale);
+  },
+
+  setValid(state: DisplayState, isValid: boolean) {
+    state.isValid = isValid;
   },
 };

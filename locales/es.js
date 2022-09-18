@@ -78,6 +78,8 @@ export default {
       width: "Ancho",
       height: "Altura",
       offset: "Offset",
+      invalidSizeWarning:
+        "Las habilidades están fuera o cerca del final del área de impresión segura.",
 
       // Export:
       storage: "Almacenamiento",

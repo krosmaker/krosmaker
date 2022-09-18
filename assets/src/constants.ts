@@ -10,3 +10,6 @@ export const minionArtworkHeight: number = 466;
 
 export const maxAbilitiesCount: number = 3;
 export const maxMinionAbilitiesCount: number = 1;
+
+export const abilitiesOffset: number = 272;
+export const abilitiesMargin: number = 13;

@@ -90,6 +90,13 @@
                   >{{ width + offset * 2 }}✕{{ height + offset * 2 }} px</strong
                 >
               </v-col>
+              <v-col cols="12" class="mb-6">
+                <v-fade-transition>
+                  <v-alert v-if="isInvalidSize" dense outlined type="error">
+                    {{ $t("card.edit.invalidSizeWarning") }}
+                  </v-alert>
+                </v-fade-transition>
+              </v-col>
             </v-row>
           </v-tab-item>
         </v-tabs-items>
@@ -130,6 +137,10 @@ export default class DisplayForm extends Vue {
 
   get isKrosmaster(): boolean {
     return this.$store.state.krosmaster.type !== "minion";
+  }
+
+  get isInvalidSize(): boolean {
+    return !this.$store.state.display.isValid;
   }
 
   get rounded(): number | undefined {

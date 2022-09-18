@@ -70,13 +70,13 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
-    <transition name="fade">
+    <v-fade-transition>
       <v-card class="d-flex justify-center pa-3" v-if="!isFull" flat>
         <v-btn fab dark color="primary" @click="addPower">
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
       </v-card>
-    </transition>
+    </v-fade-transition>
 
     <v-dialog v-model="showDeleteDialog" max-width="400">
       <v-card>

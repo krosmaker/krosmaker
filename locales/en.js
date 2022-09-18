@@ -78,6 +78,8 @@ export default {
       width: "Width",
       height: "Height",
       offset: "Offset",
+      invalidSizeWarning:
+        "The abilities are outside or very near the end of the safe printing area.",
 
       // Export:
       storage: "Storage",

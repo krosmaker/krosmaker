@@ -27,6 +27,8 @@ export default class CardFront extends Vue {
 </script>
 
 <style lang="scss" scoped>
+$abilities-offset: 272px;
+
 .card-front {
   border-radius: inherit;
 
@@ -54,7 +56,7 @@ export default class CardFront extends Vue {
 
   .abilities {
     position: absolute;
-    top: 280px;
+    top: $abilities-offset;
   }
 }
 

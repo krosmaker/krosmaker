@@ -79,6 +79,8 @@ export default {
       width: "Szerokość",
       height: "Wysokość",
       offset: "Odstęp",
+      invalidSizeWarning:
+        "Zdolności postaci są poza lub blisko końca bezpiecznej strefy drukowania.",
 
       // Export:
       storage: "Zapis",

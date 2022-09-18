@@ -11,7 +11,7 @@
       class="mx-2"
       :label="$t('card.edit.enableCropping')"
     ></v-switch>
-    <transition name="fade" mode="in-out">
+    <v-fade-transition>
       <v-container v-show="useCropped" class="cropper-container">
         <vue-cropper
           ref="cropper"
@@ -24,7 +24,7 @@
         >
         </vue-cropper>
       </v-container>
-    </transition>
+    </v-fade-transition>
   </v-card-text>
 </template>
 

@@ -78,6 +78,8 @@ export default {
       width: "Largeur",
       height: "Taille",
       offset: "Offset",
+      invalidSizeWarning:
+        "Les capacités sont à l'extérieur ou près de la fin de la zone d'impression sécurisée.",
 
       // Export:
       storage: "Stockage",
