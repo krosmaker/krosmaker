@@ -47,9 +47,9 @@ export default {
    */
   components: [
     "~/components/cards",
-    "~/components/cards/back",
     "~/components/cards/control",
-    "~/components/cards/front",
+    "~/components/cards/favor",
+    "~/components/cards/fighter",
     "~/components/common",
   ],
   /*
