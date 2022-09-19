@@ -48,6 +48,7 @@ export default {
   components: [
     "~/components/cards",
     "~/components/cards/control",
+    "~/components/cards/challenge",
     "~/components/cards/favor",
     "~/components/cards/fighter",
     "~/components/common",

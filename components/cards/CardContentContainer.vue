@@ -23,9 +23,11 @@ import {
 @Component
 export default class CardContentContainer extends Vue {
   get isSmall(): boolean {
+    const cardType: CardType = this.$store.state.card.type;
     return (
-      this.$store.state.card.type === CardType.FAVOR ||
-      this.$store.state.krosmaster.type === "minion"
+      (cardType === CardType.FIGHTER &&
+        this.$store.state.krosmaster.type === "minion") ||
+      cardType === CardType.FAVOR
     );
   }
 

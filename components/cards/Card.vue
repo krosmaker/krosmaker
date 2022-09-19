@@ -5,12 +5,14 @@
     :class="{ 'is-rounded': isRounded }"
   >
     <template v-slot:front>
-      <CardFront class="card-front" ref="front" v-if="isFighter" />
+      <FighterFront class="card-front" ref="front" v-if="isFighter" />
       <FavorFront class="card-front" ref="front" v-else-if="isFavor" />
+      <ChallengeFront class="card-front" ref="front" v-else />
     </template>
     <template v-slot:back>
-      <CardBack class="card-back" ref="back" v-if="isFighter" />
+      <FighterBack class="card-back" ref="back" v-if="isFighter" />
       <FavorBack class="card-back" ref="back" v-else-if="isFavor" />
+      <ChallengeBack class="card-back" ref="back" v-else />
     </template>
   </Flippable>
 </template>

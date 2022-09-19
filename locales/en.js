@@ -77,6 +77,10 @@ export default {
       regular: "Regular",
       superior: "Superior",
 
+      challenge: "Challenge",
+      active: "Active",
+      passive: "Passive",
+
       version: "Version",
       comment: "Comment",
 

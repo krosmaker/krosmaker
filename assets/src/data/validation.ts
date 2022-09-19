@@ -169,12 +169,37 @@ const favorSchema: ValidationSchema = {
   },
 };
 
+const challengeSchema: ValidationSchema = {
+  type: "object",
+  optional: true,
+  props: {
+    name: { type: "string" },
+    powers: {
+      type: "array",
+      min: 3,
+      max: 3,
+      items: {
+        type: "object",
+        props: {
+          name: { type: "string" },
+          description: { type: "string" },
+          glyphs: { type: "number", integer: true, min: 0, max: 8 },
+          isActive: { type: "boolean" },
+        },
+      },
+    },
+  },
+};
+
 const basicDataSchema: ValidationSchema = {
   type: "object",
   // This object is only optional to support legacy JSON files.
   optional: true,
   props: {
-    type: { type: "enum", values: [CardType.FIGHTER, CardType.FAVOR] },
+    type: {
+      type: "enum",
+      values: [CardType.FIGHTER, CardType.FAVOR, CardType.CHALLENGE],
+    },
     comment: { type: "string", default: "" },
     version: { type: "string", default: "" },
   },
@@ -188,7 +213,8 @@ const cardSchema: ValidationSchema = {
     card: basicDataSchema,
     data: krosmasterDataSchema,
     favor: favorSchema,
-    dpi: { type: "number", optional: true },
+    challenge: challengeSchema,
+    dpi: { type: "number", integer: true, optional: true },
     background: {
       type: "object",
       optional: true,
@@ -215,12 +241,14 @@ const cardSchema: ValidationSchema = {
   },
   custom: (value: any, errors: ValidationError[], _: any, field: string) => {
     let cardType: CardType = CardType.FIGHTER;
-    const definedType = value.card?.type;
+    const definedType = value?.card?.type;
     // Preventing from assigning invalid types:
     if (definedType === CardType.FIGHTER) {
       cardType = CardType.FIGHTER;
     } else if (definedType === CardType.FAVOR) {
       cardType = CardType.FAVOR;
+    } else if (definedType === CardType.CHALLENGE) {
+      cardType = CardType.CHALLENGE;
     }
 
     switch (cardType) {
@@ -253,6 +281,15 @@ const cardSchema: ValidationSchema = {
             type: "missingProperty",
             field: "favor",
             message: `Favor cards must include a "favor" property.`,
+          });
+        }
+        break;
+      case CardType.CHALLENGE:
+        if (!value.challenge) {
+          errors.push({
+            type: "missingProperty",
+            field: "challenge",
+            message: `Challenge cards must include a "challenge" property.`,
           });
         }
         break;

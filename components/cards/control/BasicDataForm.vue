@@ -17,6 +17,11 @@
             color="white"
           />
           <v-radio :label="$t('card.edit.favor')" value="favor" color="white" />
+          <v-radio
+            :label="$t('card.edit.challenge')"
+            value="challenge"
+            color="white"
+          />
         </v-radio-group>
       </v-col>
       <v-col cols="12" v-if="isFighter" class="rarity">
@@ -130,11 +135,14 @@ export default class BasicDataForm extends Vue {
   }
 
   get name(): string {
+    const store = this.$store.state;
     switch (this.cardType) {
       case CardType.FIGHTER:
-        return this.$store.state.krosmaster.name;
+        return store.krosmaster.name;
       case CardType.FAVOR:
-        return this.$store.state.favor.name;
+        return store.favor.name;
+      case CardType.CHALLENGE:
+        return store.challenge.name;
     }
   }
 
@@ -147,12 +155,22 @@ export default class BasicDataForm extends Vue {
       case CardType.FAVOR:
         this.$store.commit("favor/setName", name);
         break;
+      case CardType.CHALLENGE:
+        this.$store.commit("challenge/setName", name);
+        break;
     }
   }
 
   set cardType(type: CardType) {
+    const previousType = this.cardType;
     this.$store.commit("export/setDirty", true);
+    this.$store.commit("sidebar/reset");
     this.$store.commit("card/setType", type);
+    if (type !== previousType && type !== CardType.FAVOR) {
+      this.$store.commit("background/reset", type);
+      // Updating cropper:
+      EventBus.$emit("card-load");
+    }
   }
 
   get isFighter(): boolean {
@@ -187,6 +205,8 @@ export default class BasicDataForm extends Vue {
         return this.$store.state.krosmaster.type === "minion" ? 20 : 30;
       case CardType.FAVOR:
         return 25;
+      case CardType.CHALLENGE:
+        return 30;
     }
   }
 
@@ -210,7 +230,7 @@ export default class BasicDataForm extends Vue {
     } else if (type !== "minion" && previousType === "minion") {
       this.$store.commit(
         "background/upload",
-        require("~/assets/img/back/default-background.png")
+        require("~/assets/img/back/background.png")
       );
       // Updating croppers:
       EventBus.$emit("card-load");

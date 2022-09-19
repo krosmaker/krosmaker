@@ -69,6 +69,9 @@ are usually scaled down and of lower quality than the source material.
 
 ## Minions
 
+> **Note:** the tutorial uses the original 150 DPI assets from a legacy
+> version of the tool.
+
 Minion background images were made (almost) from scratch in Gimp with
 the following process:
 
@@ -134,5 +137,5 @@ The final result should consist of:
 - A constellation layer with joins the stars with subtle lines drawn roughly
   over the outline.
 
-The results are 100% in the same style as the originals, but they can be
-reasonably close.
+The results are not 100% in the same style as the originals,
+but they can be reasonably close.

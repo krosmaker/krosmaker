@@ -51,7 +51,8 @@
       </v-tab-item>
       <v-tab-item>
         <v-card flat class="edit-tab-container">
-          <PowersForm />
+          <ChallengePowerForm v-if="isChallenge" />
+          <PowersForm v-else />
         </v-card>
       </v-tab-item>
       <v-tab-item>
@@ -71,6 +72,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { CardType } from "~/store/card";
 import { TabId } from "~/store/sidebar";
 
 @Component
@@ -89,6 +91,10 @@ export default class CardEditSidebar extends Vue {
 
   set expand(expand: boolean) {
     this.$store.commit("sidebar/setExpand", expand);
+  }
+
+  get isChallenge(): boolean {
+    return this.$store.state.card.type === CardType.CHALLENGE;
   }
 
   onTabClick(tab: TabId, tabName: string | null = null) {

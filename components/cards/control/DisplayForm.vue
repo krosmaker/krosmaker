@@ -137,9 +137,11 @@ export default class DisplayForm extends Vue {
   }
 
   get isRegularSize(): boolean {
+    const cardType: CardType = this.$store.state.card.type;
     return (
-      this.$store.state.card.type === CardType.FIGHTER &&
-      this.$store.state.krosmaster.type !== "minion"
+      (cardType === CardType.FIGHTER &&
+        this.$store.state.krosmaster.type !== "minion") ||
+      cardType === CardType.CHALLENGE
     );
   }
 

@@ -73,10 +73,14 @@ export default {
       hp: "Punkty zdrowia",
       mp: "Punkty ruchu",
 
-      favor: "Przysługa",
+      favor: "Bonus",
       effect: "Efekt",
-      regular: "Zwykła",
-      superior: "Znakomita",
+      regular: "Zwykły",
+      superior: "Znakomity",
+
+      challenge: "Wyzwanie",
+      active: "Akcja",
+      passive: "Efekt",
 
       version: "Wersja",
       comment: "Komentarz",

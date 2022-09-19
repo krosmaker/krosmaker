@@ -19,7 +19,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 @Component
-export default class CardFront extends Vue {
+export default class FighterFront extends Vue {
   get isMinion(): boolean {
     return this.$store.state.krosmaster.type === "minion";
   }

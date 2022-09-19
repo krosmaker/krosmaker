@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <FormHeader title="card.edit.artwork" />
-    <FighterOnlyForm>
+    <div v-if="hasBackground" class="ma-0 pa-0">
       <DropFileUpload
         @upload="onUpload"
         :prompt="$t('card.edit.imageUploadPrompt')"
@@ -12,9 +12,15 @@
         class="mx-2"
         :label="$t('card.edit.enableCropping')"
       ></v-switch>
-    </FighterOnlyForm>
+    </div>
+    <div v-else class="d-flex align-center justify-center pa-4 mt-4 mx-auto">
+      {{ $t("card.edit.editorUnavailable") }}
+    </div>
     <v-fade-transition>
-      <v-container v-show="isFighter && useCropped" class="cropper-container">
+      <v-container
+        v-show="hasBackground && useCropped"
+        class="cropper-container"
+      >
         <vue-cropper
           ref="cropper"
           class="cropper"
@@ -60,16 +66,22 @@ export default class ArtworkForm extends Vue {
   replaceImage: boolean = true;
   reloaded: boolean = true;
 
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
+  get isRegularSize(): boolean {
+    const cardType: CardType = this.$store.state.card.type;
+    return (
+      (cardType === CardType.FIGHTER &&
+        this.$store.state.krosmaster.type !== "minion") ||
+      cardType === CardType.CHALLENGE
+    );
+  }
+
+  get hasBackground(): boolean {
+    const cardType: CardType = this.$store.state.card.type;
+    return cardType === CardType.FIGHTER || cardType === CardType.CHALLENGE;
   }
 
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
-  }
-
-  get isFighter() {
-    return this.$store.state.card.type === CardType.FIGHTER;
   }
 
   get useCropped(): boolean {
@@ -83,7 +95,7 @@ export default class ArtworkForm extends Vue {
   }
 
   get aspectRatio(): number {
-    return this.isKrosmaster
+    return this.isRegularSize
       ? artworkWidth / artworkHeight
       : minionArtworkWidth / minionArtworkHeight;
   }

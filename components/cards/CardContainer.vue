@@ -127,16 +127,19 @@ export default class CardContainer extends Vue {
         return store.krosmaster.name || defaultFileName;
       case CardType.FAVOR:
         return store.favor.name || defaultFileName;
+      case CardType.CHALLENGE:
+        return store.challenge.name || defaultFileName;
     }
   }
 
   get isRegularSize(): boolean {
+    const cardType: CardType = this.$store.state.card.type;
     return (
-      this.$store.state.card.type === CardType.FIGHTER &&
-      this.$store.state.krosmaster.type !== "minion"
+      (cardType === CardType.FIGHTER &&
+        this.$store.state.krosmaster.type !== "minion") ||
+      cardType === CardType.CHALLENGE
     );
   }
-
   get cardWidth(): number {
     const display: DisplayState = this.$store.state.display;
     if (this.isRegularSize) {

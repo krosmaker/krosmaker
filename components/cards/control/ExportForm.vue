@@ -418,11 +418,14 @@ export default class ExportForm extends Vue {
     const fileName = this.fileName;
     if (fileName) return fileName;
     const cardType: CardType = this.$store.state.card.type;
+    const store = this.$store.state;
     switch (cardType) {
       case CardType.FIGHTER:
-        return this.$store.state.krosmaster.name || "";
+        return store.krosmaster.name || "";
       case CardType.FAVOR:
-        return this.$store.state.favor.name || "";
+        return store.favor.name || "";
+      case CardType.CHALLENGE:
+        return store.challenge.name || "";
     }
   }
 
@@ -462,20 +465,25 @@ export default class ExportForm extends Vue {
   }
 
   private serializeCard(): Card {
-    const cardState: CardState = this.$store.state.card;
+    const store = this.$store.state;
+    const cardState: CardState = store.card;
     const card: Card = {
       id: this.currentCardId,
       dpi: dpi,
-      card: this.$store.state.card,
+      card: cardState,
     };
     switch (cardState.type) {
       case CardType.FIGHTER:
-        card.data = this.$store.state.krosmaster;
-        card.background = this.$store.state.background;
-        card.figurine = this.$store.state.figurine;
+        card.data = store.krosmaster;
+        card.background = store.background;
+        card.figurine = store.figurine;
         break;
       case CardType.FAVOR:
-        card.favor = this.$store.state.favor;
+        card.favor = store.favor;
+        break;
+      case CardType.CHALLENGE:
+        card.challenge = store.challenge;
+        card.background = store.background;
         break;
     }
     return card;
@@ -577,16 +585,25 @@ export default class ExportForm extends Vue {
 
     switch (cardType) {
       case CardType.FIGHTER:
+        this.resetFavor();
+        this.resetChallenge();
         this.fileName = card.id === card.data?.name ? "" : card.id;
         this.$store.commit("krosmaster/replace", card.data);
         this.$store.commit("background/replace", card.background);
         this.$store.commit("figurine/replace", card.figurine);
-        this.resetFavor();
         break;
       case CardType.FAVOR:
+        this.resetKrosmaster();
+        this.resetChallenge();
         this.fileName = card.id === card.favor?.name ? "" : card.id;
         this.$store.commit("favor/replace", card.favor);
+        break;
+      case CardType.CHALLENGE:
         this.resetKrosmaster();
+        this.resetFavor();
+        this.fileName = card.id === card.challenge?.name ? "" : card.id;
+        this.$store.commit("challenge/replace", card.challenge);
+        this.$store.commit("background/replace", card.background);
         break;
     }
 
@@ -724,18 +741,23 @@ export default class ExportForm extends Vue {
     this.$store.commit("card/reset");
     this.resetKrosmaster();
     this.resetFavor();
+    this.resetChallenge();
     this.doAfterCardChange();
     this.resetWarningDialog = false;
   }
 
   resetKrosmaster() {
     this.$store.commit("krosmaster/reset");
-    this.$store.commit("background/reset");
+    this.$store.commit("background/reset", this.$store.state.card.type);
     this.$store.commit("figurine/reset");
   }
 
   resetFavor() {
     this.$store.commit("favor/reset");
+  }
+
+  resetChallenge() {
+    this.$store.commit("challenge/reset");
   }
 
   acceptSaveAndReset() {

@@ -5,6 +5,7 @@ import { BackgroundState } from "~/store/background";
 import { FigurineState } from "~/store/figurine";
 import { CardState } from "~/store/card";
 import { FavorState } from "~/store/favor";
+import { ChallengeState } from "~/store/challenge";
 
 export interface Card {
   id: string;
@@ -12,6 +13,7 @@ export interface Card {
   card: CardState;
   data?: KrosmasterState;
   favor?: FavorState;
+  challenge?: ChallengeState;
   background?: BackgroundState;
   figurine?: FigurineState;
 }
@@ -21,8 +23,9 @@ export default class KrosmakerDatabase extends Dexie {
 
   constructor() {
     super("Krosmaker");
-    this.version(3).stores({
-      krosmasters: "id, dpi, card, data, background, figurine",
+    this.version(4).stores({
+      krosmasters:
+        "id, dpi, card, data, favor, challenge, background, figurine",
     });
 
     this.cards = this.table("krosmasters");

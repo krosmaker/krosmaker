@@ -1,4 +1,5 @@
 import Cropper from "cropperjs";
+import { CardType } from "./card";
 
 export interface BackgroundState {
   original: string;
@@ -11,8 +12,8 @@ export interface BackgroundState {
 }
 
 export const state: () => BackgroundState = () => ({
-  original: require("~/assets/img/back/default-background.png"),
-  cropped: require("~/assets/img/back/default-background.png"),
+  original: require("~/assets/img/back/background.png"),
+  cropped: require("~/assets/img/back/background.png"),
   useCropped: true,
 });
 
@@ -39,8 +40,11 @@ export const mutations = {
     };
   },
 
-  reset(state: BackgroundState) {
-    const defaultBackground = require("~/assets/img/back/default-background.png");
+  reset(state: BackgroundState, cardType: CardType) {
+    const defaultBackground =
+      cardType === CardType.FIGHTER
+        ? require("~/assets/img/back/background.png")
+        : require("~/assets/img/challenge/background.png");
     state.original = defaultBackground;
     state.cropped = defaultBackground;
     state.useCropped = true;

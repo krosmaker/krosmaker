@@ -61,6 +61,9 @@ export default {
       // Basic data:
       card: "Carta",
       name: "Nombre",
+      type: "Tipo",
+
+      fighter: "Combatiente",
       rarity: "Rareza",
       elite: "Élite",
       common: "Comun",
@@ -73,6 +76,10 @@ export default {
       effect: "Efecto",
       regular: "Regular",
       superior: "Superior",
+
+      challenge: "Desafío",
+      active: "Activo",
+      passive: "Pasivo",
 
       version: "Versión",
       comment: "Comentario",

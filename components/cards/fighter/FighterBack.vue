@@ -29,7 +29,7 @@ import { Component } from "vue-property-decorator";
 import { TabId } from "~/store/sidebar";
 
 @Component
-export default class CardBack extends Vue {
+export default class FighterBack extends Vue {
   get cardImage(): string {
     const background = this.$store.state.background;
     return background.useCropped ? background.cropped : background.original;

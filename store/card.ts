@@ -1,6 +1,7 @@
 export enum CardType {
   FIGHTER = "fighter",
   FAVOR = "favor",
+  CHALLENGE = "challenge",
 }
 
 export interface CardState {
