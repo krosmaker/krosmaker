@@ -70,13 +70,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { CardType } from "~/store/card";
+
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import { TabId } from "~/store/sidebar";
 
 @Component
-export default class CardEditSidebar extends Vue {
+export default class CardEditSidebar extends AbstractForm {
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
   }
@@ -91,10 +91,6 @@ export default class CardEditSidebar extends Vue {
 
   set expand(expand: boolean) {
     this.$store.commit("sidebar/setExpand", expand);
-  }
-
-  get isChallenge(): boolean {
-    return this.$store.state.card.type === CardType.CHALLENGE;
   }
 
   onTabClick(tab: TabId, tabName: string | null = null) {

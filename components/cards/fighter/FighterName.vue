@@ -24,22 +24,19 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighterComponent";
+
 @Component
-export default class FighterName extends Vue {
+export default class FighterName extends AbstractFighterComponent {
   get content(): string {
-    return this.$store.state.krosmaster.name;
+    return this.fighterState.name;
   }
 
   set content(content: string) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setName", content);
-  }
-
-  get isElite(): boolean {
-    return this.$store.state.krosmaster.type === "elite";
+    this.setDirty();
+    this.commitToFighterStore("setName", content);
   }
 }
 </script>

@@ -4,12 +4,12 @@ import {
   Element,
   Range,
   Limit,
+  FighterType,
 } from "~/assets/src/data/fighters";
-export type KrosmasterType = "common" | "elite" | "minion";
 
-export interface KrosmasterState {
+export interface FighterState {
   name: string;
-  type: KrosmasterType;
+  type: FighterType;
 
   mp: string;
   hp: string;
@@ -19,9 +19,10 @@ export interface KrosmasterState {
   powers: Power[];
 }
 
-export const state: () => KrosmasterState = () => ({
+export const state: () => FighterState = () => ({
   name: "",
-  type: "common",
+  type: FighterType.COMMON,
+
   mp: "",
   hp: "",
   ap: "",
@@ -31,116 +32,107 @@ export const state: () => KrosmasterState = () => ({
 });
 
 export const mutations = {
-  replace(state: KrosmasterState, newState: KrosmasterState) {
+  replace(state: FighterState, newState: FighterState) {
     Object.assign(state, newState);
   },
 
-  setName(state: KrosmasterState, name: string) {
+  setName(state: FighterState, name: string) {
     state.name = name || "";
   },
-  setType(state: KrosmasterState, type: KrosmasterType) {
+  setType(state: FighterState, type: FighterType) {
     state.type = type;
   },
 
-  setMP(state: KrosmasterState, mp: string) {
+  setMP(state: FighterState, mp: string) {
     state.mp = mp;
   },
-  setHP(state: KrosmasterState, hp: string) {
+  setHP(state: FighterState, hp: string) {
     state.hp = hp;
   },
-  setAP(state: KrosmasterState, ap: string) {
+  setAP(state: FighterState, ap: string) {
     state.ap = ap;
   },
 
-  addPower(state: KrosmasterState, power: Power) {
+  addPower(state: FighterState, power: Power) {
     state.powers.push(power);
   },
-  removePower(state: KrosmasterState, index: number) {
+  removePower(state: FighterState, index: number) {
     state.powers.splice(index, 1);
   },
-  switchPowers(state: KrosmasterState, update: { from: number; to: number }) {
+  switchPowers(state: FighterState, update: { from: number; to: number }) {
     const { from, to } = update;
     const powers = state.powers;
     [powers[from], powers[to]] = [powers[to], powers[from]];
     state.powers = powers.slice();
   },
-  setPowerName(
-    state: KrosmasterState,
-    update: { index: number; name: string }
-  ) {
+  setPowerName(state: FighterState, update: { index: number; name: string }) {
     state.powers[update.index].name = update.name || "";
   },
   setPowerDescription(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; description: string }
   ) {
     state.powers[update.index].description = update.description || "";
   },
 
-  addSpell(state: KrosmasterState, spell: Spell) {
+  addSpell(state: FighterState, spell: Spell) {
     state.spells.push(spell);
   },
-  removeSpell(state: KrosmasterState, index: number) {
+  removeSpell(state: FighterState, index: number) {
     state.spells.splice(index, 1);
   },
-  switchSpells(state: KrosmasterState, update: { from: number; to: number }) {
+  switchSpells(state: FighterState, update: { from: number; to: number }) {
     const { from, to } = update;
     const spells = state.spells;
     [spells[from], spells[to]] = [spells[to], spells[from]];
     state.spells = spells.slice();
   },
-  setSpellName(
-    state: KrosmasterState,
-    update: { index: number; name: string }
-  ) {
+  setSpellName(state: FighterState, update: { index: number; name: string }) {
     state.spells[update.index].name = update.name || "";
   },
   setSpellDescription(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; description: string }
   ) {
     state.spells[update.index].description = update.description || "";
   },
   setSpellElement(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; element: Element }
   ) {
     state.spells[update.index].damage.element = update.element;
   },
   setSpellDamage(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; damage: number }
   ) {
     state.spells[update.index].damage.value = update.damage;
   },
   setSpellRangeType(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; range: Range }
   ) {
     state.spells[update.index].range.type = update.range;
   },
   setSpellRange(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; range: [number, number] }
   ) {
     state.spells[update.index].range.value = update.range;
   },
   setSpellLimitType(
-    state: KrosmasterState,
+    state: FighterState,
     update: { index: number; limit: Limit }
   ) {
     state.spells[update.index].limit.type = update.limit;
   },
-  setSpellLimit(
-    state: KrosmasterState,
-    update: { index: number; limit: number }
-  ) {
+  setSpellLimit(state: FighterState, update: { index: number; limit: number }) {
     state.spells[update.index].limit.value = update.limit;
   },
 
-  reset(state: KrosmasterState) {
+  reset(state: FighterState) {
     state.name = "";
-    state.type = "common";
+    state.type = FighterType.COMMON;
 
     state.mp = "";
     state.hp = "";

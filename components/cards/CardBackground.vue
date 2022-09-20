@@ -14,10 +14,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+
+import CardAwareComponent from "~/components/cards/CardAwareComponent";
 import { DisplayState, DisplayMode } from "~/store/display";
-import { CardType } from "~/store/card";
 import {
   cardWidth,
   cardHeight,
@@ -26,21 +26,12 @@ import {
 } from "~/assets/src/constants";
 
 @Component
-export default class CardBackground extends Vue {
+export default class CardBackground extends CardAwareComponent {
   @Prop({ type: String, default: "" })
   image!: string;
 
   @Prop({ type: String, default: "" })
   smallImage!: string;
-
-  get isRegularSize(): boolean {
-    const cardType: CardType = this.$store.state.card.type;
-    return (
-      (cardType === CardType.FIGHTER &&
-        this.$store.state.krosmaster.type !== "minion") ||
-      cardType === CardType.CHALLENGE
-    );
-  }
 
   get cardWidth(): number {
     const display: DisplayState = this.$store.state.display;

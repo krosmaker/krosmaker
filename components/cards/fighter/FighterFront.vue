@@ -6,24 +6,21 @@
       :smallImage="require('~/assets/img/front/background-minion.png')"
     />
     <CardContentContainer>
-      <FighterName class="name" />
-      <Statistics class="statistics" />
-      <Figurine class="figurine" />
-      <Abilities class="abilities" />
+      <FighterName class="name" :store="store" />
+      <Statistics class="statistics" :store="store" />
+      <Figurine class="figurine" :store="store" />
+      <Abilities class="abilities" :store="store" />
     </CardContentContainer>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighterComponent";
+
 @Component
-export default class FighterFront extends Vue {
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
-  }
-}
+export default class FighterFront extends AbstractFighterComponent {}
 </script>
 
 <style lang="scss" scoped>

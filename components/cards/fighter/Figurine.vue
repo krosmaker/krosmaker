@@ -11,28 +11,24 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractFighterComponent from "./AbstractFighterComponent";
 import { TabId } from "~/store/sidebar";
 
 @Component
-export default class Figurine extends Vue {
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
-  }
-
+export default class Figurine extends AbstractFighterComponent {
   get offsetX(): string {
     const isMinion = this.isMinion;
     const offset = this.$store.state.figurine.offsetX - (isMinion ? 75 : 0);
-    // For compatiblity with initial approach based on % units:
-    const multiplier = this.isMinion ? 0.8 : 1.04;
+    // For compatibility with initial approach based on % units:
+    const multiplier = isMinion ? 0.8 : 1.04;
     return Math.round(offset * multiplier) + "px";
   }
 
   get offsetY(): string {
     const offset = this.$store.state.figurine.offsetY;
-    // For compatiblity with initial approach based on % units:
+    // For compatibility with initial approach based on % units:
     const multiplier = this.isMinion ? 0.5 : 0.74;
     return Math.round(offset * multiplier) + "px";
   }

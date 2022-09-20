@@ -7,6 +7,11 @@ export default {
    */
   target: "static",
   /*
+   ** Server side rendering in development mode
+   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-ssr
+   */
+  ssr: false,
+  /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
    */

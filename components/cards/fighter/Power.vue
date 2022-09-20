@@ -33,16 +33,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
+import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighterComponent";
 import { Power } from "~/assets/src/data/fighters";
 import { TabId } from "~/store/sidebar";
-import { isWindows } from "~/assets/src/helpers";
 import EventBus from "~/assets/src/events/bus";
 
 @Component
-export default class PowerContainer extends Vue {
+export default class PowerContainer extends AbstractFighterComponent {
   @Prop({ type: Object, required: true })
   power!: Power;
   @Prop({ type: Number, required: true })
@@ -65,17 +64,9 @@ export default class PowerContainer extends Vue {
     EventBus.$emit("abilityResize");
   }
 
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
-  }
-
-  get isWindows(): boolean {
-    return isWindows();
-  }
-
   onNameChange(name: string, index: number) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setPowerName", { index, name });
+    this.setDirty();
+    this.commitToFighterStore("setPowerName", { index, name });
   }
 
   selectPower(index: number) {

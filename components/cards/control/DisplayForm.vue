@@ -106,13 +106,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
+
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import { DisplayState, Scale } from "~/store/display";
-import { CardType } from "~/store/card";
 
 @Component
-export default class DisplayForm extends Vue {
+export default class DisplayForm extends AbstractForm {
   scales: Array<object> = [
     {
       value: Scale.LARGE,
@@ -134,15 +134,6 @@ export default class DisplayForm extends Vue {
 
   set tab(tab: number) {
     this.$store.commit("display/setMode", tab);
-  }
-
-  get isRegularSize(): boolean {
-    const cardType: CardType = this.$store.state.card.type;
-    return (
-      (cardType === CardType.FIGHTER &&
-        this.$store.state.krosmaster.type !== "minion") ||
-      cardType === CardType.CHALLENGE
-    );
   }
 
   get isInvalidSize(): boolean {

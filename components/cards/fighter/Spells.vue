@@ -1,24 +1,28 @@
 <template>
-  <fragment>
+  <fragment v-if="isKrosmaster">
     <Spell
       v-for="(spell, index) in spells"
       :key="index"
       :index="index"
       :spell="spell"
+      :store="store"
     />
+  </fragment>
+  <fragment v-else-if="spells.length > 0">
+    <Spell :index="0" :spell="spells[0]" :store="store" />
   </fragment>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractFighterComponent from "./AbstractFighterComponent";
 import { Spell } from "~/assets/src/data/fighters";
 
 @Component
-export default class Spells extends Vue {
+export default class Spells extends AbstractFighterComponent {
   get spells(): Spell[] {
-    return this.$store.state.krosmaster.spells;
+    return this.fighterState.spells;
   }
 }
 </script>

@@ -42,6 +42,7 @@ import { Component } from "vue-property-decorator";
 import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import {
   artworkWidth,
   artworkHeight,
@@ -61,23 +62,13 @@ import { CardType } from "~/store/card";
     },
   },
 })
-export default class ArtworkForm extends Vue {
+export default class ArtworkForm extends AbstractForm {
   invalidate: boolean = true;
   replaceImage: boolean = true;
   reloaded: boolean = true;
 
-  get isRegularSize(): boolean {
-    const cardType: CardType = this.$store.state.card.type;
-    return (
-      (cardType === CardType.FIGHTER &&
-        this.$store.state.krosmaster.type !== "minion") ||
-      cardType === CardType.CHALLENGE
-    );
-  }
-
   get hasBackground(): boolean {
-    const cardType: CardType = this.$store.state.card.type;
-    return cardType === CardType.FIGHTER || cardType === CardType.CHALLENGE;
+    return this.isFighter || this.isChallenge;
   }
 
   get activeTab(): TabId {
@@ -89,7 +80,7 @@ export default class ArtworkForm extends Vue {
   }
 
   set useCropped(useCropped: boolean) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("background/setCropping", useCropped);
     this.restoreCropperSettings();
   }
@@ -140,7 +131,7 @@ export default class ArtworkForm extends Vue {
         this.reloaded = false;
       } else {
         const image = cropper.getCroppedCanvas().toDataURL("image/png");
-        this.$store.commit("export/setDirty", true);
+        this.setDirty();
         this.$store.commit("background/crop", image);
         this.$store.commit("background/setCropperData", cropper);
       }
@@ -152,7 +143,7 @@ export default class ArtworkForm extends Vue {
     // Cropper has to be displayed in order to calculate the correct height:
     this.useCropped = true;
 
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("background/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");

@@ -1,16 +1,17 @@
 <template>
   <v-layout class="statistics" row>
-    <Statistic class="statistic-container" type="mp" />
-    <Statistic class="statistic-container" type="hp" />
-    <Statistic class="statistic-container" type="ap" />
+    <Statistic class="statistic-container" type="mp" :store="store" />
+    <Statistic class="statistic-container" type="hp" :store="store" />
+    <Statistic class="statistic-container" type="ap" :store="store" />
   </v-layout>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
+import AbstractFighterComponent from "./AbstractFighterComponent";
 @Component
-export default class Statistics extends Vue {}
+export default class Statistics extends AbstractFighterComponent {}
 </script>
 
 <style lang="scss" scoped>

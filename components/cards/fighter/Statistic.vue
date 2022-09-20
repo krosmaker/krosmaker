@@ -24,33 +24,25 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { isWindows } from "~/assets/src/helpers";
+
+import AbstractFighterComponent from "./AbstractFighterComponent";
 
 @Component
-export default class Statistic extends Vue {
+export default class Statistic extends AbstractFighterComponent {
   @Prop({ type: String, required: true })
   type!: "mp" | "hp" | "ap";
 
   get value(): string {
-    return this.$store.state.krosmaster[this.type];
+    return this.fighterState[this.type];
   }
 
   set value(value: string) {
     const type = this.type.toUpperCase();
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     if (value === "" || value === "-" || !isNaN(parseInt(value))) {
-      this.$store.commit(`krosmaster/set${type}`, value);
+      this.commitToFighterStore(`set${type}`, value);
     }
-  }
-
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
-  }
-
-  get isWindows(): boolean {
-    return isWindows();
   }
 }
 </script>

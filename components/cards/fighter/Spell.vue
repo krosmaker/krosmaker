@@ -117,16 +117,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
+import AbstractFighterComponent from "./AbstractFighterComponent";
 import { Spell } from "~/assets/src/data/fighters";
 import { TabId } from "~/store/sidebar";
-import { isWindows } from "~/assets/src/helpers";
 import EventBus from "~/assets/src/events/bus";
 
 @Component
-export default class SpellContainer extends Vue {
+export default class SpellContainer extends AbstractFighterComponent {
   @Prop({ type: Object, required: true })
   spell!: Spell;
   @Prop({ type: Number, required: true })
@@ -149,34 +148,26 @@ export default class SpellContainer extends Vue {
     EventBus.$emit("abilityResize");
   }
 
-  get isMinion(): boolean {
-    return this.$store.state.krosmaster.type === "minion";
-  }
-
-  get isWindows(): boolean {
-    return isWindows();
-  }
-
   onNameChange(name: string, index: number) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setSpellName", { index, name });
+    this.setDirty();
+    this.commitToFighterStore("setSpellName", { index, name });
   }
 
   onLimitChange(value: string, index: number) {
     const limit = parseInt(value);
     if (value && !isNaN(limit)) {
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/setSpellLimit", { index, limit });
+      this.setDirty();
+      this.commitToFighterStore("setSpellLimit", { index, limit });
     }
   }
 
   onRangeFromChange(value: string, index: number) {
     const rangeFrom = parseInt(value);
     if (value && !isNaN(rangeFrom)) {
-      const range = this.$store.state.krosmaster.spells[index].range.value;
+      const range = this.fighterState.spells[index].range.value;
       const rangeTo = Math.max(range[1], rangeFrom);
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/setSpellRange", {
+      this.setDirty();
+      this.commitToFighterStore("setSpellRange", {
         index,
         range: [rangeFrom, rangeTo],
       });
@@ -186,10 +177,10 @@ export default class SpellContainer extends Vue {
   onRangeToChange(value: string, index: number) {
     const rangeTo = parseInt(value);
     if (value && !isNaN(rangeTo)) {
-      const range = this.$store.state.krosmaster.spells[index].range.value;
+      const range = this.fighterState.spells[index].range.value;
       const rangeFrom = Math.min(range[0], rangeTo);
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/setSpellRange", {
+      this.setDirty();
+      this.commitToFighterStore("setSpellRange", {
         index,
         range: [rangeFrom, rangeTo],
       });
@@ -199,8 +190,8 @@ export default class SpellContainer extends Vue {
   onDamageChange(value: string, index: number) {
     const damage = parseInt(value);
     if (value && !isNaN(damage)) {
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/setSpellDamage", { index, damage });
+      this.setDirty();
+      this.commitToFighterStore("setSpellDamage", { index, damage });
     }
   }
 

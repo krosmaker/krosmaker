@@ -1,13 +1,16 @@
 <template>
   <div class="abilities-container" ref="container">
-    <Spells />
-    <Powers />
+    <Spells :store="store" />
+    <Powers :store="store" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+
+import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighterComponent";
+import EventBus from "~/assets/src/events/bus";
 import {
   abilitiesMargin,
   abilitiesOffset,
@@ -15,15 +18,9 @@ import {
 } from "~/assets/src/constants";
 import { DisplayState, DisplayMode } from "~/store/display";
 
-import EventBus from "~/assets/src/events/bus";
-
 @Component
-export default class Abilities extends Vue {
+export default class Abilities extends AbstractFighterComponent {
   maxAbilitiesOffset = 25;
-
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
-  }
 
   get container(): HTMLElement {
     return this.$refs.container as HTMLElement;

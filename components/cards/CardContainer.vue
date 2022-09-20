@@ -82,6 +82,8 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { toPng } from "html-to-image";
 import { saveAs } from "file-saver";
+
+import CardAwareComponent from "~/components/cards/CardAwareComponent";
 import { TabId } from "~/store/sidebar";
 import { DisplayState, DisplayMode, Scale } from "~/store/display";
 import { CardType } from "~/store/card";
@@ -94,7 +96,7 @@ import {
 } from "~/assets/src/constants";
 
 @Component
-export default class CardContainer extends Vue {
+export default class CardContainer extends CardAwareComponent {
   isFlipped: boolean = false;
   warningDialog: boolean = false;
   wasWarned: boolean = this.isWarningSkipped;
@@ -121,10 +123,9 @@ export default class CardContainer extends Vue {
     const store = this.$store.state;
     const fileName = store.export.fileName;
     if (fileName) return fileName;
-    const cardType: CardType = store.card.type;
-    switch (cardType) {
+    switch (this.cardType) {
       case CardType.FIGHTER:
-        return store.krosmaster.name || defaultFileName;
+        return store.fighter.name || defaultFileName;
       case CardType.FAVOR:
         return store.favor.name || defaultFileName;
       case CardType.CHALLENGE:
@@ -132,14 +133,6 @@ export default class CardContainer extends Vue {
     }
   }
 
-  get isRegularSize(): boolean {
-    const cardType: CardType = this.$store.state.card.type;
-    return (
-      (cardType === CardType.FIGHTER &&
-        this.$store.state.krosmaster.type !== "minion") ||
-      cardType === CardType.CHALLENGE
-    );
-  }
   get cardWidth(): number {
     const display: DisplayState = this.$store.state.display;
     if (this.isRegularSize) {

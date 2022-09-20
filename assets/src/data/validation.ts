@@ -2,7 +2,7 @@ import Validator, {
   ValidationError,
   ValidationSchema,
 } from "fastest-validator";
-import { Element, Limit, Range } from "~/assets/src/data/fighters";
+import { Element, FighterType, Limit, Range } from "~/assets/src/data/fighters";
 import { CardType } from "~/store/card";
 import { FavorType } from "~/store/favor";
 
@@ -11,12 +11,15 @@ const healthPattern = /^(-|[0-9]{0,2})$/g;
 const imagePattern =
   /(.*\.png)|(data:image\/(png|jpe?g);base64,([A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?)/g;
 
-const krosmasterDataSchema: ValidationSchema = {
+const fighterDataSchema: ValidationSchema = {
   type: "object",
   optional: true,
   props: {
     name: { type: "string" },
-    type: { type: "enum", values: ["common", "elite", "minion"] },
+    type: {
+      type: "enum",
+      values: [FighterType.COMMON, FighterType.ELITE, FighterType.MINION],
+    },
 
     mp: { type: "string", pattern: statisticPattern },
     hp: { type: "string", pattern: healthPattern },
@@ -211,7 +214,7 @@ const cardSchema: ValidationSchema = {
   props: {
     id: { type: "string" },
     card: basicDataSchema,
-    data: krosmasterDataSchema,
+    data: fighterDataSchema,
     favor: favorSchema,
     challenge: challengeSchema,
     dpi: { type: "number", integer: true, optional: true },

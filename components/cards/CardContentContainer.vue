@@ -1,7 +1,7 @@
 <template>
   <div
     class="data-container"
-    :class="{ 'small-data-container': isSmall }"
+    :class="{ 'small-data-container': isSmallSize }"
     :style="{ top: `${offsetY}px`, left: `${offsetX}px` }"
   >
     <slot />
@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
+
+import CardAwareComponent from "~/components/cards/CardAwareComponent";
 import { DisplayState, DisplayMode } from "~/store/display";
-import { CardType } from "~/store/card";
 import {
   cardWidth,
   cardHeight,
@@ -21,34 +21,28 @@ import {
 } from "~/assets/src/constants";
 
 @Component
-export default class CardContentContainer extends Vue {
-  get isSmall(): boolean {
-    const cardType: CardType = this.$store.state.card.type;
-    return (
-      (cardType === CardType.FIGHTER &&
-        this.$store.state.krosmaster.type === "minion") ||
-      cardType === CardType.FAVOR
-    );
-  }
-
+export default class CardContentContainer extends CardAwareComponent {
   get offsetX(): number {
     const display: DisplayState = this.$store.state.display;
+    const isSmall = this.isSmallSize;
     if (display.mode === DisplayMode.PRINT) {
-      const width = this.isSmall
+      const width = isSmall
         ? display.targetMinionWidth
         : display.targetKrosmasterWidth;
-      const standardWidth = this.isSmall ? minionCardWidth : cardWidth;
+      const standardWidth = isSmall ? minionCardWidth : cardWidth;
       return display.bleedingOffset + (width - standardWidth) / 2;
     }
     return 0;
   }
+
   get offsetY(): number {
     const display: DisplayState = this.$store.state.display;
+    const isSmall = this.isSmallSize;
     if (display.mode === DisplayMode.PRINT) {
-      const height = this.isSmall
+      const height = isSmall
         ? display.targetMinionHeight
         : display.targetKrosmasterHeight;
-      const standardHeight = this.isSmall ? minionCardHeight : cardHeight;
+      const standardHeight = isSmall ? minionCardHeight : cardHeight;
       return display.bleedingOffset + (height - standardHeight) / 2;
     }
     return 0;

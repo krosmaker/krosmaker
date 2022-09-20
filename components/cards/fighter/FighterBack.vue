@@ -2,7 +2,7 @@
   <div class="card-back" @click.stop="onCardClick">
     <CardContentContainer>
       <img
-        :class="{ artwork: isKrosmaster, 'artwork-minion': !isKrosmaster }"
+        :class="{ artwork: isKrosmaster, 'artwork-minion': isMinion }"
         :src="cardImage"
       />
     </CardContentContainer>
@@ -12,10 +12,10 @@
       :smallImage="require('~/assets/img/back/frame-minion.png')"
     />
     <CardContentContainer>
-      <div :class="{ watermark: true, 'watermark-minion': !isKrosmaster }">
+      <div :class="{ watermark: true, 'watermark-minion': isMinion }">
         @Krosmaker
       </div>
-      <div :class="{ version: true, 'version-minion': !isKrosmaster }">
+      <div :class="{ version: true, 'version-minion': isMinion }">
         {{ version }}
       </div>
     </CardContentContainer>
@@ -23,20 +23,16 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighterComponent";
 import { TabId } from "~/store/sidebar";
 
 @Component
-export default class FighterBack extends Vue {
+export default class FighterBack extends AbstractFighterComponent {
   get cardImage(): string {
     const background = this.$store.state.background;
     return background.useCropped ? background.cropped : background.original;
-  }
-
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
   }
 
   get version(): string {

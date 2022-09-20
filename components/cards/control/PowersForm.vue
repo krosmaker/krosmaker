@@ -114,9 +114,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import { Power } from "~/assets/src/data/fighters";
 import {
   maxAbilitiesCount,
@@ -124,7 +124,7 @@ import {
 } from "~/assets/src/constants";
 
 @Component
-export default class PowersForm extends Vue {
+export default class PowersForm extends AbstractForm {
   showDeleteDialog: boolean = false;
 
   get activePower(): number | null {
@@ -136,31 +136,26 @@ export default class PowersForm extends Vue {
   }
 
   get powers(): Power[] {
-    return this.$store.state.krosmaster.powers;
+    return this.fighterState.powers;
   }
 
   get isFull(): boolean {
-    const krosmaster = this.$store.state.krosmaster;
-    const totalAbilities = krosmaster.powers.length + krosmaster.spells.length;
-    const maxAbilities =
-      krosmaster.type === "minion"
-        ? maxMinionAbilitiesCount
-        : maxAbilitiesCount;
+    const fighter = this.fighterState;
+    const totalAbilities = fighter.powers.length + fighter.spells.length;
+    const maxAbilities = this.isMinion
+      ? maxMinionAbilitiesCount
+      : maxAbilitiesCount;
     return totalAbilities >= maxAbilities;
   }
 
-  truncate(text: string, length: number): string {
-    return text.length > length ? text.substring(0, length) + "…" : text;
-  }
-
   onNameChange(name: string, index: number) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setPowerName", { index, name });
+    this.setDirty();
+    this.commitToFighterStore("setPowerName", { index, name });
   }
 
   onDescriptionChange(description: string, index: number) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setPowerDescription", {
+    this.setDirty();
+    this.commitToFighterStore("setPowerDescription", {
       index,
       description,
     });
@@ -168,8 +163,8 @@ export default class PowersForm extends Vue {
 
   addPower() {
     if (!this.isFull) {
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/addPower", {
+      this.setDirty();
+      this.commitToFighterStore("addPower", {
         name: this.$i18n.t("card.edit.ability.newPowerName").toString(),
         description: this.$i18n
           .t("card.edit.ability.newPowerDescription")
@@ -189,8 +184,8 @@ export default class PowersForm extends Vue {
 
   private movePower(from: number, to: number) {
     if (this.isValidIndex(from) && this.isValidIndex(to)) {
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/switchPowers", { from, to });
+      this.setDirty();
+      this.commitToFighterStore("switchPowers", { from, to });
       this.activePower = to;
     }
   }
@@ -203,8 +198,8 @@ export default class PowersForm extends Vue {
     const powerId = this.activePower;
     if (powerId != null) {
       const name = this.powers[powerId].name;
-      this.$store.commit("export/setDirty", true);
-      this.$store.commit("krosmaster/removePower", powerId);
+      this.setDirty();
+      this.commitToFighterStore("removePower", powerId);
       this.activePower = null;
       this.$store.commit("notification/add", {
         message: "card.edit.notification.delete",

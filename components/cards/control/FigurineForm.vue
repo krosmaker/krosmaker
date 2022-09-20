@@ -80,6 +80,7 @@ import { Component } from "vue-property-decorator";
 import { debounce } from "vue-debounce";
 import Cropper from "cropperjs";
 
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import {
   cardWidth,
   cardHeight,
@@ -88,7 +89,6 @@ import {
 } from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
 import { TabId } from "~/store/sidebar";
-import { CardType } from "~/store/card";
 
 @Component({
   watch: {
@@ -99,15 +99,11 @@ import { CardType } from "~/store/card";
     },
   },
 })
-export default class FigurineForm extends Vue {
+export default class FigurineForm extends AbstractForm {
   invalidate: boolean = true;
   replaceImage: boolean = true;
   reloaded: boolean = true;
   sliderIconColor: string = "#777777";
-
-  get isKrosmaster(): boolean {
-    return this.$store.state.krosmaster.type !== "minion";
-  }
 
   get activeTab(): TabId {
     return this.$store.state.sidebar.activeTab;
@@ -118,7 +114,7 @@ export default class FigurineForm extends Vue {
   }
 
   set height(height: number) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("figurine/setHeight", height);
   }
 
@@ -127,7 +123,7 @@ export default class FigurineForm extends Vue {
   }
 
   set offsetX(offsetX: number) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("figurine/setOffsetX", offsetX);
   }
 
@@ -136,12 +132,8 @@ export default class FigurineForm extends Vue {
   }
 
   set offsetY(offsetY: number) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("figurine/setOffsetY", offsetY);
-  }
-
-  get isFighter() {
-    return this.$store.state.card.type === CardType.FIGHTER;
   }
 
   get useCropped(): boolean {
@@ -149,7 +141,7 @@ export default class FigurineForm extends Vue {
   }
 
   set useCropped(useCropped: boolean) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("figurine/setCropping", useCropped);
     this.restoreCropperSettings();
   }
@@ -189,7 +181,7 @@ export default class FigurineForm extends Vue {
         this.reloaded = false;
       } else {
         const image = cropper.getCroppedCanvas().toDataURL("image/png");
-        this.$store.commit("export/setDirty", true);
+        this.setDirty();
         this.$store.commit("figurine/crop", image);
         this.$store.commit("figurine/setCropperData", cropper);
       }
@@ -211,7 +203,7 @@ export default class FigurineForm extends Vue {
     // Cropper has to be displayed in order to calculate the correct height:
     this.useCropped = true;
 
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("figurine/upload", image);
     this.cropper.replace(image);
     this.$emit("focus");
@@ -223,7 +215,7 @@ export default class FigurineForm extends Vue {
   onCrop() {
     if (this.invalidate) {
       this.restoreCropperSettings();
-      if (this.$store.state.background.cropper != null) {
+      if (this.$store.state.figurine.cropper != null) {
         // It was necessary to restore the cropper state. Crop image change is ignored.
         return;
       }

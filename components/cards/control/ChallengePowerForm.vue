@@ -49,13 +49,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import { DivinePower } from "~/store/challenge";
 
 @Component
-export default class ChallengePowerForm extends Vue {
+export default class ChallengePowerForm extends AbstractForm {
   showDeleteDialog: boolean = false;
 
   get activePower(): number | null {
@@ -70,17 +70,13 @@ export default class ChallengePowerForm extends Vue {
     return this.$store.state.challenge.powers;
   }
 
-  truncate(text: string, length: number): string {
-    return text.length > length ? text.substring(0, length) + "…" : text;
-  }
-
   onNameChange(name: string, index: number) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("challenge/setPowerName", { index, name });
   }
 
   onDescriptionChange(description: string, index: number) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("challenge/setPowerDescription", {
       index,
       description,
@@ -88,7 +84,7 @@ export default class ChallengePowerForm extends Vue {
   }
 
   toggleType(index: number) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     const currentType = this.powers[index].isActive;
     this.$store.commit("challenge/setPowerType", {
       index,

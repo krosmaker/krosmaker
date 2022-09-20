@@ -17,6 +17,12 @@ export enum Limit {
   TARGET = "target",
 }
 
+export enum FighterType {
+  COMMON = "common",
+  ELITE = "elite",
+  MINION = "minion",
+}
+
 export interface Power {
   name: string;
   description: string;

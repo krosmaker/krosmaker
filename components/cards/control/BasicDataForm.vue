@@ -116,29 +116,24 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import EventBus from "~/assets/src/events/bus";
 
+import AbstractForm from "~/components/cards/control/AbstractForm";
 import {
   preventNonNumericInput,
   preventNonNumericPaste,
 } from "~/assets/src/helpers";
 import { CardType } from "~/store/card";
 import { FavorType } from "~/store/favor";
-import { KrosmasterType } from "~/store/krosmaster";
+import { FighterType } from "~/assets/src/data/fighters";
 
 @Component
-export default class BasicDataForm extends Vue {
-  get cardType(): CardType {
-    return this.$store.state.card.type;
-  }
-
+export default class BasicDataForm extends AbstractForm {
   get name(): string {
     const store = this.$store.state;
     switch (this.cardType) {
       case CardType.FIGHTER:
-        return store.krosmaster.name;
+        return store.fighter.name;
       case CardType.FAVOR:
         return store.favor.name;
       case CardType.CHALLENGE:
@@ -147,10 +142,10 @@ export default class BasicDataForm extends Vue {
   }
 
   set name(name: string) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     switch (this.cardType) {
       case CardType.FIGHTER:
-        this.$store.commit("krosmaster/setName", name);
+        this.commitToFighterStore("setName", name);
         break;
       case CardType.FAVOR:
         this.$store.commit("favor/setName", name);
@@ -161,24 +156,21 @@ export default class BasicDataForm extends Vue {
     }
   }
 
+  get cardType(): CardType {
+    // Even though available in the abstract component,
+    // this getter is necessary since a setter is defined.
+    return this.$store.state.card.type;
+  }
+
   set cardType(type: CardType) {
     const previousType = this.cardType;
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("sidebar/reset");
     this.$store.commit("card/setType", type);
     if (type !== previousType && type !== CardType.FAVOR) {
       this.$store.commit("background/reset", type);
-      // Updating cropper:
-      EventBus.$emit("card-load");
+      this.updateCroppers();
     }
-  }
-
-  get isFighter(): boolean {
-    return this.cardType === CardType.FIGHTER;
-  }
-
-  get isFavor(): boolean {
-    return this.cardType === CardType.FAVOR;
   }
 
   get comment(): string {
@@ -186,7 +178,7 @@ export default class BasicDataForm extends Vue {
   }
 
   set comment(comment: string) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("card/setComment", comment);
   }
 
@@ -195,14 +187,14 @@ export default class BasicDataForm extends Vue {
   }
 
   set version(version: string) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("card/setVersion", version);
   }
 
   get maxNameLength(): number {
     switch (this.cardType) {
       case CardType.FIGHTER:
-        return this.$store.state.krosmaster.type === "minion" ? 20 : 30;
+        return this.isMinion ? 20 : 30;
       case CardType.FAVOR:
         return 25;
       case CardType.CHALLENGE:
@@ -210,58 +202,59 @@ export default class BasicDataForm extends Vue {
     }
   }
 
-  get fighterType(): KrosmasterType {
-    return this.$store.state.krosmaster.type;
+  get fighterType(): FighterType {
+    return this.fighterState.type;
   }
 
-  set fighterType(type: KrosmasterType) {
+  set fighterType(type: FighterType) {
     const previousType = this.fighterType;
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setType", type);
+    this.setDirty();
+    this.commitToFighterStore("setType", type);
 
     // Updating default background on major fighter type change:
-    if (type === "minion" && previousType !== "minion") {
+    if (type === FighterType.MINION && previousType !== FighterType.MINION) {
       this.$store.commit(
         "background/upload",
         require("~/assets/img/back/background-minion.png")
       );
-      // Updating croppers:
-      EventBus.$emit("card-load");
-    } else if (type !== "minion" && previousType === "minion") {
+      this.updateCroppers();
+    } else if (
+      type !== FighterType.MINION &&
+      previousType === FighterType.MINION
+    ) {
       this.$store.commit(
         "background/upload",
         require("~/assets/img/back/background.png")
       );
-      // Updating croppers:
-      EventBus.$emit("card-load");
+      this.updateCroppers();
     }
   }
 
   get mp(): string {
-    return this.$store.state.krosmaster.mp;
+    return this.fighterState.mp;
   }
 
   set mp(mp: string) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setMP", mp);
+    this.setDirty();
+    this.commitToFighterStore("setMP", mp);
   }
 
   get hp(): string {
-    return this.$store.state.krosmaster.hp;
+    return this.fighterState.hp;
   }
 
   set hp(hp: string) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setHP", hp);
+    this.setDirty();
+    this.commitToFighterStore("setHP", hp);
   }
 
   get ap(): string {
-    return this.$store.state.krosmaster.ap;
+    return this.fighterState.ap;
   }
 
   set ap(ap: string) {
-    this.$store.commit("export/setDirty", true);
-    this.$store.commit("krosmaster/setAP", ap);
+    this.setDirty();
+    this.commitToFighterStore("setAP", ap);
   }
 
   get favorType(): FavorType {
@@ -269,7 +262,7 @@ export default class BasicDataForm extends Vue {
   }
 
   set favorType(favorType: FavorType) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("favor/setType", favorType);
   }
 
@@ -278,7 +271,7 @@ export default class BasicDataForm extends Vue {
   }
 
   set favorEffect(favorEffect: string) {
-    this.$store.commit("export/setDirty", true);
+    this.setDirty();
     this.$store.commit("favor/setEffect", favorEffect);
   }
 

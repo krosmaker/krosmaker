@@ -1,6 +1,6 @@
 import Dexie from "dexie";
 
-import { KrosmasterState } from "~/store/krosmaster";
+import { FighterState } from "~/store/fighter";
 import { BackgroundState } from "~/store/background";
 import { FigurineState } from "~/store/figurine";
 import { CardState } from "~/store/card";
@@ -11,7 +11,7 @@ export interface Card {
   id: string;
   dpi: number;
   card: CardState;
-  data?: KrosmasterState;
+  data?: FighterState;
   favor?: FavorState;
   challenge?: ChallengeState;
   background?: BackgroundState;

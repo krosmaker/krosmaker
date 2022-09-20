@@ -1,6 +1,6 @@
 <template>
   <fragment v-if="isFighter">
-    <slot v-if="isFighter" />
+    <slot />
   </fragment>
   <div v-else class="d-flex align-center justify-center pa-4 mt-4 mx-auto">
     {{ $t("card.edit.editorUnavailable") }}
@@ -8,14 +8,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { CardType } from "~/store/card";
+
+import AbstractForm from "~/components/cards/control/AbstractForm";
 
 @Component
-export default class FighterOnlyForm extends Vue {
-  get isFighter(): boolean {
-    return this.$store.state.card.type === CardType.FIGHTER;
-  }
-}
+export default class FighterOnlyForm extends AbstractForm {}
 </script>
