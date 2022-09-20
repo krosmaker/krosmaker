@@ -21,14 +21,19 @@ extracted from the official documents and published with Ankama's permission.
 Main features include:
 
 - Fighter cards editor:
-  - Complete support for Krosmaster and minion cards.
+  - Complete support for Krosmaster and Minion cards.
   - Figurine and artwork image editors with customizable cropping.
   - Spells and powers editors.
+  - Description editors supporting all symbols and markers.
   - Image export _(on Firefox and Chrome)._
   - JSON export allowing to save and load card configurations.
   - Saving and loading cards using a local browser database.
   - Size adjustment with customizable bleed area for printing.
-  - 300 DPI support.
+- Krosmic Favor cards editor:
+  - Complete support for Krosmic Favor cards.
+  - Customizable title and card type.
+  - Effect editor supporting all symbols and markers.
+- 300 DPI support with customizable printing settings.
 - Translations:
   - English.
   - French.
