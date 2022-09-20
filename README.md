@@ -2,8 +2,9 @@
 
 # Krosmaker
 
-[**Krosmaker**](https://krosmaker.github.io) is an online card creator tool for
-the **Krosmaster: Blast** board game. Create custom cards for your Krosmasters!
+[**Krosmaker**](https://krosmaker.github.io) is an online card creator
+tool for the **Krosmaster: Blast** board game. Create custom cards for
+your Krosmasters!
 
 ![Sample](.github/images/screenshot.png)
 
@@ -14,9 +15,8 @@ Need help? [See the wiki!](https://github.com/krosmaker/krosmaker/wiki)
 
 ### Features
 
-**Krosmaker** allows to create custom Krosmaster and minion cards that closely
-resemble the original **Krosmaster: Blast** style. The card graphics were
-extracted from the official documents and published with Ankama's permission.
+**Krosmaker** lets you create custom cards that closely resemble
+the original **Krosmaster: Blast** aesthetic.
 
 Main features include:
 
@@ -24,21 +24,28 @@ Main features include:
   - Complete support for Krosmaster and Minion cards.
   - Figurine and artwork image editors with customizable cropping.
   - Spells and powers editors.
-  - Description editors supporting all symbols and markers.
-  - Image export _(on Firefox and Chrome)._
-  - JSON export allowing to save and load card configurations.
-  - Saving and loading cards using a local browser database.
-  - Size adjustment with customizable bleed area for printing.
+  - Ability editors supporting all symbols and markers.
 - Krosmic Favor cards editor:
   - Complete support for Krosmic Favor cards.
   - Customizable title and card type.
   - Effect editor supporting all symbols and markers.
-- 300 DPI support with customizable printing settings.
+- Divine Challenge cards editor:
+  - Complete support for Divine Challange cards.
+  - Power editor supporting all symbols and markers.
+  - Artwork image editor with customizable cropping.
+- Saving and loading cards using a local browser database.
+- JSON export allowing to save and load card configurations.
+- Card image export _(on Firefox and Chrome)._
+  - 300 DPI support.
+  - Size adjustment with customizable bleed area for printing.
 - Translations:
   - English.
   - French.
   - Spanish.
   - Polish.
+
+The card graphics were extracted from the official PDFs and
+published with **Ankama**'s permission.
 
 ## Running from sources
 
@@ -47,8 +54,8 @@ Main features include:
 ### Docker
 
 The default [`Dockerfile`](Dockerfile) builds the application and serves
-the generated static resources with Nginx. It is recommended to run
-the application via Docker Compose:
+the generated static resources with _NGINX._ It is recommended to run
+the application via _Docker Compose_:
 
 ```bash
 $ docker-compose build
@@ -58,7 +65,7 @@ $ docker-compose up
 
 ### Node.js
 
-The supported Node.js version is stored in [`.nvmrc`](.nvmrc).
+The supported _Node.js_ version is stored in [`.nvmrc`](.nvmrc).
 You can run the following commands after cloning the repository:
 
 ```bash
@@ -94,5 +101,5 @@ For a detailed explanation of the project setup, check out
 - [@SGe-GH](https://github.com/SGe-GH) - French translation, testing.
 
 > The graphics and other assets from the **Krosmaster: Blast**
-> are copyrighted by Ankama and published with their permission.
-> This project is not produced by or affiliated with Ankama.
+> are copyrighted by **Ankama** and published with their permission.
+> This project is not produced by or affiliated with **Ankama**.
