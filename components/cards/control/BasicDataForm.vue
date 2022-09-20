@@ -30,12 +30,12 @@
           row
           :label="$t('card.edit.rarity')"
         >
-          <v-radio :label="$t('card.edit.elite')" value="elite" color="amber" />
           <v-radio
             :label="$t('card.edit.common')"
             value="common"
             color="white"
           />
+          <v-radio :label="$t('card.edit.elite')" value="elite" color="amber" />
           <v-radio
             :label="$t('card.edit.minion')"
             value="minion"

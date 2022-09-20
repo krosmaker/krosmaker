@@ -53,7 +53,7 @@ import { DivinePower } from "~/store/challenge";
 type Header = "blue" | "magenta" | "navy";
 
 @Component
-export default class PowerContainer extends Vue {
+export default class ChallengePower extends Vue {
   @Prop({ type: Number, required: true })
   index!: number;
   @Prop({ type: Object, required: true })
