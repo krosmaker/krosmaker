@@ -38,6 +38,7 @@
         <Description
           v-if="reverseDescription"
           class="reverse-description"
+          :italic="true"
           :addOffset="false"
           :content="reverseDescription"
           @click.native="openSpell(index)"
@@ -421,7 +422,6 @@ export default class SpellContainer extends AbstractFighterComponent {
     }
 
     .reverse-description {
-      font-style: italic;
       opacity: 0.6;
     }
     .reverse-description::before {

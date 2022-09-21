@@ -18,6 +18,9 @@ export default class Description extends Vue {
   @Prop({ type: Boolean, default: false })
   enlargeIcons!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  italic!: boolean;
+
   private markers: Marker[] = [
     { keyword: "MP", class: "mp" },
     { keyword: "HP", class: "hp" },
@@ -74,7 +77,10 @@ export default class Description extends Vue {
       }
       return partial;
     });
-    const attributes = this.enlargeIcons ? { class: "large-icons" } : {};
+    const classes = [];
+    if (this.enlargeIcons) classes.push("large-icons");
+    if (this.italic) classes.push("italic");
+    const attributes = classes.length > 0 ? { class: classes.join(" ") } : {};
     if (this.addOffset) {
       return create("span", attributes, [
         create("span", { class: "description-offset" }),
@@ -251,6 +257,15 @@ export default class Description extends Vue {
 .lock-icon {
   background-image: url("~assets/img/front/descriptions/dice/lock.png");
   width: 40px;
+}
+
+.italic {
+  font-style: italic;
+
+  .marker-text {
+    font-style: normal;
+    padding-left: 2px;
+  }
 }
 
 .large-icons {
