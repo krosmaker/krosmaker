@@ -20,6 +20,17 @@
       maxlength="30"
       v-model="content"
     />
+    <div class="suffix suffix-shadow" v-if="isTwoSided && suffix">
+      <span class="suffix-offset">{{ content }}</span>
+      <span class="name-shadow">- {{ suffix }}</span>
+    </div>
+    <div class="suffix" v-if="isTwoSided && suffix">
+      <span class="suffix-offset">{{ content }}</span>
+      <svg class="suffix-elite" v-if="isElite">
+        <text class="suffix-elite-text" x="0" y="48">- {{ suffix }}</text>
+      </svg>
+      <span class="suffix-text" v-else>- {{ suffix }}</span>
+    </div>
   </div>
 </template>
 
@@ -30,13 +41,23 @@ import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighter
 
 @Component
 export default class FighterName extends AbstractFighterComponent {
+  get isTwoSided(): boolean {
+    return this.fighterState.twoSided;
+  }
+
   get content(): string {
     return this.fighterState.name;
   }
 
   set content(content: string) {
     this.setDirty();
-    this.commitToFighterStore("setName", content);
+    // Names are shared by both card sides:
+    this.$store.commit("fighter/setName", content);
+    this.$store.commit("reverse/setName", content);
+  }
+
+  get suffix(): string {
+    return this.fighterState.suffix;
   }
 }
 </script>
@@ -93,6 +114,41 @@ $name-width: 980px;
       fill: url(#elite-name-gradient);
       user-select: none;
     }
+  }
+
+  .suffix {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    .name-shadow {
+      position: static;
+      text-transform: capitalize;
+    }
+
+    .suffix-offset {
+      visibility: hidden;
+    }
+
+    .suffix-elite {
+      height: 80px;
+
+      .suffix-elite-text {
+        text-transform: capitalize;
+        fill: url(#elite-name-gradient);
+        user-select: none;
+      }
+    }
+
+    .suffix-text {
+      text-transform: capitalize;
+    }
+  }
+
+  .suffix-shadow {
+    left: 1px;
+    top: 1px;
   }
 }
 </style>

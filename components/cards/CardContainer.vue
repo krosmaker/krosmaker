@@ -15,7 +15,7 @@
         'max-height': `${cardHeight}px`,
       }"
     >
-      <Card ref="card" :is-flipped="isFlipped" />
+      <Card ref="card" />
     </v-flex>
     <v-flex class="controls-panel" xs12 sm8 md6>
       <v-card>
@@ -37,10 +37,7 @@
         </v-card-actions>
       </v-card>
     </v-flex>
-    <CardEditSidebar
-      @front-select="isFlipped = false"
-      @back-select="isFlipped = true"
-    />
+    <CardEditSidebar />
     <v-dialog v-model="warningDialog" persistent max-width="490">
       <v-card>
         <v-card-title class="headline">
@@ -97,7 +94,6 @@ import {
 
 @Component
 export default class CardContainer extends CardAwareComponent {
-  isFlipped: boolean = false;
   warningDialog: boolean = false;
   wasWarned: boolean = this.isWarningSkipped;
 

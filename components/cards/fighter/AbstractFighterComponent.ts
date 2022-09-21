@@ -7,7 +7,11 @@ import { isWindows } from "~/assets/src/helpers";
 @Component
 export default class AbstractFighterComponent extends Vue {
   @Prop({ type: String, default: "fighter" })
-  store!: "fighter";
+  store!: "fighter" | "reverse";
+
+  get isReverse(): boolean {
+    return this.store === "reverse";
+  }
 
   get fighterState(): FighterState {
     return this.$store.state[this.store];

@@ -18,6 +18,7 @@ export enum Scale {
 }
 
 export interface DisplayState {
+  isFlipped: boolean;
   mode: DisplayMode;
   targetKrosmasterWidth: number;
   targetKrosmasterHeight: number;
@@ -26,7 +27,8 @@ export interface DisplayState {
   bleedingOffset: number;
   roundedCorners: boolean;
   scale: Scale;
-  isValid: boolean;
+  isFrontValid: boolean;
+  isBackValid: boolean;
 }
 
 function loadFromLocalStorage<T>(key: string, defaultValue: T): T {
@@ -41,6 +43,7 @@ function saveInLocalStorage<T>(key: string, value: T) {
 }
 
 export const state: () => DisplayState = () => ({
+  isFlipped: false,
   mode: loadFromLocalStorage("display.mode", DisplayMode.PLAY),
   targetKrosmasterWidth: loadFromLocalStorage(
     "display.targetKrosmasterWidth",
@@ -61,7 +64,8 @@ export const state: () => DisplayState = () => ({
   bleedingOffset: loadFromLocalStorage("display.bleedingOffset", 36),
   roundedCorners: loadFromLocalStorage("display.roundedCorners", true),
   scale: loadFromLocalStorage("display.scale", Scale.LARGE),
-  isValid: true,
+  isFrontValid: true,
+  isBackValid: true,
 });
 
 export const mutations = {
@@ -93,6 +97,10 @@ export const mutations = {
     );
     state.scale = loadFromLocalStorage("display.scale", state.scale);
     EventBus.$emit("abilityResize");
+  },
+
+  setFlipped(state: DisplayState, isFlipped: boolean) {
+    state.isFlipped = isFlipped;
   },
 
   setMode(state: DisplayState, mode: DisplayMode) {
@@ -140,7 +148,10 @@ export const mutations = {
     saveInLocalStorage("display.scale", scale);
   },
 
-  setValid(state: DisplayState, isValid: boolean) {
-    state.isValid = isValid;
+  setFrontValid(state: DisplayState, isValid: boolean) {
+    state.isFrontValid = isValid;
+  },
+  setBackValid(state: DisplayState, isValid: boolean) {
+    state.isBackValid = isValid;
   },
 };

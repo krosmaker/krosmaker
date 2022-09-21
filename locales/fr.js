@@ -66,6 +66,8 @@ export default {
       fighter: "Combattant",
       rarity: "Rareté",
       elite: "Elite",
+      twoSided: "Recto-verso",
+      suffix: "Suffixe",
       common: "Commune",
       minion: "Invocation",
       ap: "PA",
@@ -129,6 +131,7 @@ export default {
 
       // Figurine:
       figurine: "Figurine",
+      useSameImage: "Utiliser la même image",
 
       // Powers, spells:
       powers: "Pouvoirs",

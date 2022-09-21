@@ -43,6 +43,23 @@
           />
         </v-radio-group>
       </v-col>
+      <v-col cols="5" v-if="isFighter">
+        <v-switch
+          v-model="isTwoSided"
+          class="mb-1"
+          :label="$t('card.edit.twoSided')"
+        />
+      </v-col>
+      <v-col cols="7" v-if="isFighter">
+        <v-fade-transition>
+          <v-text-field
+            v-if="isTwoSided"
+            v-model="suffix"
+            :label="$t('card.edit.suffix')"
+            :maxlength="maxNameLength"
+          />
+        </v-fade-transition>
+      </v-col>
       <v-col cols="4" v-if="isFighter">
         <v-text-field
           color="success"
@@ -145,7 +162,7 @@ export default class BasicDataForm extends AbstractForm {
     this.setDirty();
     switch (this.cardType) {
       case CardType.FIGHTER:
-        this.commitToFighterStore("setName", name);
+        this.commitToAllFighterStores("setName", name);
         break;
       case CardType.FAVOR:
         this.$store.commit("favor/setName", name);
@@ -202,6 +219,25 @@ export default class BasicDataForm extends AbstractForm {
     }
   }
 
+  get suffix(): string {
+    return this.fighterState.suffix;
+  }
+
+  set suffix(suffix: string) {
+    this.setDirty();
+    this.commitToFighterStore("setSuffix", suffix);
+  }
+
+  get isTwoSided(): boolean {
+    return this.fighterState.twoSided;
+  }
+
+  set isTwoSided(isTwoSided: boolean) {
+    this.setDirty();
+    this.commitToAllFighterStores("setTwoSided", isTwoSided);
+    this.updateCroppers();
+  }
+
   get fighterType(): FighterType {
     return this.fighterState.type;
   }
@@ -209,7 +245,7 @@ export default class BasicDataForm extends AbstractForm {
   set fighterType(type: FighterType) {
     const previousType = this.fighterType;
     this.setDirty();
-    this.commitToFighterStore("setType", type);
+    this.commitToAllFighterStores("setType", type);
 
     // Updating default background on major fighter type change:
     if (type === FighterType.MINION && previousType !== FighterType.MINION) {

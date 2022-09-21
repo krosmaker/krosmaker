@@ -9,7 +9,9 @@ import {
 
 export interface FighterState {
   name: string;
+  suffix: string;
   type: FighterType;
+  twoSided: boolean;
 
   mp: string;
   hp: string;
@@ -21,7 +23,9 @@ export interface FighterState {
 
 export const state: () => FighterState = () => ({
   name: "",
+  suffix: "",
   type: FighterType.COMMON,
+  twoSided: false,
 
   mp: "",
   hp: "",
@@ -39,8 +43,14 @@ export const mutations = {
   setName(state: FighterState, name: string) {
     state.name = name || "";
   },
+  setSuffix(state: FighterState, suffix: string) {
+    state.suffix = suffix || "";
+  },
   setType(state: FighterState, type: FighterType) {
     state.type = type;
+  },
+  setTwoSided(state: FighterState, twoSided: boolean) {
+    state.twoSided = twoSided;
   },
 
   setMP(state: FighterState, mp: string) {
@@ -132,7 +142,9 @@ export const mutations = {
 
   reset(state: FighterState) {
     state.name = "";
+    state.suffix = "";
     state.type = FighterType.COMMON;
+    state.twoSided = false;
 
     state.mp = "";
     state.hp = "";

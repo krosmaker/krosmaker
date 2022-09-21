@@ -12,7 +12,15 @@ export default class AbstractForm extends CardAwareComponent {
   }
 
   commitToFighterStore(mutation: string, payload?: any) {
+    const fighterState = this.$store.state.fighter;
+    const store =
+      fighterState.twoSided && this.isFlipped ? "reverse" : "fighter";
+    this.$store.commit(`${store}/${mutation}`, payload);
+  }
+
+  commitToAllFighterStores(mutation: string, payload?: any) {
     this.$store.commit(`fighter/${mutation}`, payload);
+    this.$store.commit(`reverse/${mutation}`, payload);
   }
 
   updateCroppers() {

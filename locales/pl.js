@@ -67,6 +67,8 @@ export default {
       fighter: "Postać",
       rarity: "Rodzaj",
       elite: "Elita",
+      twoSided: "Dwustronna",
+      suffix: "Przydomek",
       common: "Zwykła",
       minion: "Przyzwanie",
       ap: "Punkty akcji",
@@ -129,6 +131,7 @@ export default {
 
       // Figurine:
       figurine: "Miniaturka",
+      useSameImage: "Użyj tego samego obrazu",
 
       // Powers, spells:
       powers: "Moce",

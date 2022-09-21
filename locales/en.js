@@ -65,6 +65,8 @@ export default {
 
       fighter: "Fighter",
       rarity: "Rarity",
+      twoSided: "Two-sided",
+      suffix: "Suffix",
       elite: "Elite",
       common: "Common",
       minion: "Minion",
@@ -129,6 +131,7 @@ export default {
 
       // Figurine:
       figurine: "Figurine",
+      useSameImage: "Use the same image",
 
       // Powers, spells:
       powers: "Powers",

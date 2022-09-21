@@ -350,6 +350,7 @@ import EventBus from "~/assets/src/events/bus";
 import { validateCardData } from "~/assets/src/data/validation";
 import { dpi } from "~/assets/src/constants";
 import { CardState, CardType } from "~/store/card";
+import { FighterState } from "~/store/fighter";
 
 @Component
 export default class ExportForm extends AbstractForm {
@@ -475,8 +476,13 @@ export default class ExportForm extends AbstractForm {
     switch (cardState.type) {
       case CardType.FIGHTER:
         card.data = store.fighter;
-        card.background = store.background;
         card.figurine = store.figurine;
+        if (store.fighter.twoSided) {
+          card.reverse = store.reverse;
+          card.reverseFigurine = store.reverseFigurine;
+        } else {
+          card.background = store.background;
+        }
         break;
       case CardType.FAVOR:
         card.favor = store.favor;
@@ -558,6 +564,8 @@ export default class ExportForm extends AbstractForm {
   }
 
   private replaceCard(card: Card) {
+    this.doBeforeCardChange();
+
     let cardType: CardType;
     if (!card.card) {
       // Historic files do not define the card type.
@@ -585,12 +593,22 @@ export default class ExportForm extends AbstractForm {
 
     switch (cardType) {
       case CardType.FIGHTER:
+        const fighterState = card.data as FighterState;
+        const isTwoSided = fighterState?.twoSided || false;
         this.resetFavor();
         this.resetChallenge();
-        this.fileName = card.id === card.data?.name ? "" : card.id;
-        this.$store.commit("fighter/replace", card.data);
-        this.$store.commit("background/replace", card.background);
+        this.fileName = card.id === fighterState?.name ? "" : card.id;
+        this.$store.commit("fighter/replace", fighterState);
         this.$store.commit("figurine/replace", card.figurine);
+        if (isTwoSided) {
+          this.$store.commit("reverse/replace", card.reverse);
+          this.$store.commit("reverseFigurine/replace", card.reverseFigurine);
+          this.$store.commit("background/reset", CardType.FIGHTER);
+        } else {
+          this.$store.commit("background/replace", card.background);
+          this.$store.commit("fighter/setTwoSided", false);
+          this.resetFighterReverse();
+        }
         break;
       case CardType.FAVOR:
         this.resetFighter();
@@ -608,6 +626,12 @@ export default class ExportForm extends AbstractForm {
     }
 
     this.doAfterCardChange();
+  }
+
+  private doBeforeCardChange() {
+    // Clearing display warnings:
+    this.$store.commit("display/setFrontValid", true);
+    this.$store.commit("display/setBackValid", true);
   }
 
   private doAfterCardChange() {
@@ -738,6 +762,7 @@ export default class ExportForm extends AbstractForm {
 
   resetCard() {
     this.fileName = "";
+    this.doBeforeCardChange();
     this.$store.commit("card/reset");
     this.resetFighter();
     this.resetFavor();
@@ -748,8 +773,14 @@ export default class ExportForm extends AbstractForm {
 
   resetFighter() {
     this.$store.commit("fighter/reset");
-    this.$store.commit("background/reset", this.$store.state.card.type);
     this.$store.commit("figurine/reset");
+    this.$store.commit("background/reset", this.$store.state.card.type);
+    this.resetFighterReverse();
+  }
+
+  resetFighterReverse() {
+    this.$store.commit("reverse/reset");
+    this.$store.commit("reverseFigurine/reset");
   }
 
   resetFavor() {

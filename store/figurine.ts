@@ -1,4 +1,5 @@
 import Cropper from "cropperjs";
+import { ReverseFigurineState } from "~/store/reverseFigurine";
 
 export interface FigurineState {
   original: string;
@@ -54,6 +55,11 @@ export const mutations = {
     };
   },
 
+  setUseSameImage(state: FigurineState, useSameImage: boolean) {
+    // Workaround for sharing mutations with reverseFigurine.
+    (state as ReverseFigurineState).useSameImage = useSameImage;
+  },
+
   reset(state: FigurineState) {
     const defaultFigurine = require("~/assets/img/front/default-figurine.png");
     state.original = defaultFigurine;
@@ -63,5 +69,9 @@ export const mutations = {
     state.offsetX = 730;
     state.offsetY = 10;
     delete state.cropper;
+    // Workaround for sharing mutations with reverseFigurine.
+    if ("useSameImage" in state) {
+      (state as ReverseFigurineState).useSameImage = true;
+    }
   },
 };

@@ -6,6 +6,7 @@ import { FigurineState } from "~/store/figurine";
 import { CardState } from "~/store/card";
 import { FavorState } from "~/store/favor";
 import { ChallengeState } from "~/store/challenge";
+import { ReverseFigurineState } from "~/store/reverseFigurine";
 
 export interface Card {
   id: string;
@@ -16,6 +17,8 @@ export interface Card {
   challenge?: ChallengeState;
   background?: BackgroundState;
   figurine?: FigurineState;
+  reverse?: FighterState;
+  reverseFigurine?: ReverseFigurineState;
 }
 
 export default class KrosmakerDatabase extends Dexie {
@@ -23,9 +26,9 @@ export default class KrosmakerDatabase extends Dexie {
 
   constructor() {
     super("Krosmaker");
-    this.version(4).stores({
+    this.version(5).stores({
       krosmasters:
-        "id, dpi, card, data, favor, challenge, background, figurine",
+        "id, dpi, card, data, favor, challenge, background, figurine, reverse, reverseFigurine",
     });
 
     this.cards = this.table("krosmasters");

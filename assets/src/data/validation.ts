@@ -16,10 +16,12 @@ const fighterDataSchema: ValidationSchema = {
   optional: true,
   props: {
     name: { type: "string" },
+    suffix: { type: "string", default: "" },
     type: {
       type: "enum",
       values: [FighterType.COMMON, FighterType.ELITE, FighterType.MINION],
     },
+    twoSided: { type: "boolean", default: false },
 
     mp: { type: "string", pattern: statisticPattern },
     hp: { type: "string", pattern: healthPattern },
@@ -215,6 +217,7 @@ const cardSchema: ValidationSchema = {
     id: { type: "string" },
     card: basicDataSchema,
     data: fighterDataSchema,
+    reverse: fighterDataSchema,
     favor: favorSchema,
     challenge: challengeSchema,
     dpi: { type: "number", integer: true, optional: true },
@@ -241,6 +244,20 @@ const cardSchema: ValidationSchema = {
         cropper: cropperDataSchema,
       },
     },
+    reverseFigurine: {
+      type: "object",
+      optional: true,
+      props: {
+        original: { type: "string", pattern: imagePattern },
+        cropped: { type: "string", pattern: imagePattern },
+        useCropped: { type: "boolean" },
+        height: { type: "number" },
+        offsetX: { type: "number" },
+        offsetY: { type: "number" },
+        cropper: cropperDataSchema,
+        useSameImage: { type: "boolean" },
+      },
+    },
   },
   custom: (value: any, errors: ValidationError[], _: any, field: string) => {
     let cardType: CardType = CardType.FIGHTER;
@@ -256,12 +273,15 @@ const cardSchema: ValidationSchema = {
 
     switch (cardType) {
       case CardType.FIGHTER:
+        let isTwoSided = false;
         if (!value.data) {
           errors.push({
             type: "missingProperty",
             field: "data",
             message: `Fighter cards must include a "data" property.`,
           });
+        } else {
+          isTwoSided = "twoSided" in value.data ? value.data.twoSided : false;
         }
         if (!value.figurine) {
           errors.push({
@@ -270,7 +290,22 @@ const cardSchema: ValidationSchema = {
             message: `Fighter cards must include a "figurine" property.`,
           });
         }
-        if (!value.background) {
+        if (isTwoSided) {
+          if (!value.reverse) {
+            errors.push({
+              type: "missingProperty",
+              field: "reverse",
+              message: `Two-sided fighter cards must include a "reverse" property.`,
+            });
+          }
+          if (!value.reverseFigurine) {
+            errors.push({
+              type: "missingProperty",
+              field: "reverseFigurine",
+              message: `Two-sided fighter cards must include a "reverseFigurine" property.`,
+            });
+          }
+        } else if (!value.background) {
           errors.push({
             type: "missingProperty",
             field: "background",

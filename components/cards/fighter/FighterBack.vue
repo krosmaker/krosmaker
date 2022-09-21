@@ -1,5 +1,6 @@
 <template>
-  <div class="card-back" @click.stop="onCardClick">
+  <FighterFront store="reverse" v-if="isTwoSided" />
+  <div class="card-back" @click.stop="onCardClick" v-else>
     <CardContentContainer>
       <img
         :class="{ artwork: isKrosmaster, 'artwork-minion': isMinion }"
@@ -30,6 +31,10 @@ import { TabId } from "~/store/sidebar";
 
 @Component
 export default class FighterBack extends AbstractFighterComponent {
+  get isTwoSided(): boolean {
+    return this.$store.state.fighter.twoSided;
+  }
+
   get cardImage(): string {
     const background = this.$store.state.background;
     return background.useCropped ? background.cropped : background.original;

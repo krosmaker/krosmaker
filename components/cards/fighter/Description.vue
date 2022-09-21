@@ -76,12 +76,12 @@ export default class Description extends Vue {
     });
     const attributes = this.enlargeIcons ? { class: "large-icons" } : {};
     if (this.addOffset) {
-      return create("div", attributes, [
+      return create("span", attributes, [
         create("span", { class: "description-offset" }),
         ...elements,
       ]);
     }
-    return create("div", attributes, elements);
+    return create("span", attributes, elements);
   }
 
   private createIcon(
@@ -117,6 +117,7 @@ export default class Description extends Vue {
 
 .marker-text {
   font-weight: bold;
+  font-style: normal;
 }
 
 .ap-icon,
@@ -169,6 +170,7 @@ export default class Description extends Vue {
 .injury-text {
   color: #d30a1e;
   word-spacing: -2px;
+  margin-left: -1px;
 }
 
 .air-icon,
@@ -178,7 +180,7 @@ export default class Description extends Vue {
   width: 38px;
   height: 38px;
   margin-top: -8px;
-  margin-left: -2px;
+  margin-left: 1px;
 }
 
 .air-icon {

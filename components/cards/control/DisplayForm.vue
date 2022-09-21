@@ -137,7 +137,11 @@ export default class DisplayForm extends AbstractForm {
   }
 
   get isInvalidSize(): boolean {
-    return !this.$store.state.display.isValid;
+    if (!this.isFighter) return false;
+    const display: DisplayState = this.$store.state.display;
+    return this.isTwoSided
+      ? !display.isFrontValid || !display.isBackValid
+      : !display.isFrontValid;
   }
 
   get rounded(): number | undefined {

@@ -8,8 +8,13 @@
       :store="store"
     />
   </fragment>
-  <fragment v-else-if="hasNoSpells && powers.length > 0">
-    <Power :index="0" :power="powers[0]" :store="store" />
+  <fragment v-else>
+    <Power
+      v-if="hasNoSpells && powers.length > 0"
+      :index="0"
+      :power="powers[0]"
+      :store="store"
+    />
   </fragment>
 </template>
 

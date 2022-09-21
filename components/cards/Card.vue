@@ -18,24 +18,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 import CardAwareComponent from "./CardAwareComponent";
-import { DisplayState, DisplayMode } from "~/store/display";
 
 /**
  * Displays a flippable Krosmaster card with a front and a back side.
  */
 @Component
-export default class Card extends CardAwareComponent {
-  @Prop({ type: Boolean, default: false })
-  isFlipped!: boolean;
-
-  get isRounded(): boolean {
-    const display: DisplayState = this.$store.state.display;
-    return display.mode === DisplayMode.PLAY && display.roundedCorners;
-  }
-}
+export default class Card extends CardAwareComponent {}
 </script>
 
 <style lang="scss" scoped>

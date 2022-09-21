@@ -1,9 +1,9 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { FighterType } from "~/assets/src/data/fighters";
-import EventBus from "~/assets/src/events/bus";
 
 import { CardType } from "~/store/card";
+import { DisplayMode, DisplayState } from "~/store/display";
 import { FighterState } from "~/store/fighter";
 
 /**
@@ -29,7 +29,15 @@ export default class CardAwareComponent extends Vue {
   }
 
   get fighterState(): FighterState {
-    return this.$store.state.fighter;
+    const fighterState = this.$store.state.fighter;
+    if (fighterState.twoSided) {
+      return this.isFlipped ? this.$store.state.reverse : fighterState;
+    }
+    return fighterState;
+  }
+
+  get isTwoSided(): boolean {
+    return this.$store.state.fighter.twoSided;
   }
 
   get isKrosmaster(): boolean {
@@ -40,11 +48,28 @@ export default class CardAwareComponent extends Vue {
     return this.fighterState.type === FighterType.MINION;
   }
 
+  get isFlipped(): boolean {
+    return this.$store.state.display.isFlipped;
+  }
+
+  set isFlipped(isFlipped: boolean) {
+    if (this.isFighter && this.isTwoSided) {
+      // Ensuring that non-existing spells or powers are not selected:
+      this.$store.commit("sidebar/reset");
+    }
+    this.$store.commit("display/setFlipped", isFlipped);
+  }
+
   get isRegularSize(): boolean {
     return (this.isFighter && this.isKrosmaster) || this.isChallenge;
   }
 
   get isSmallSize(): boolean {
     return (this.isFighter && this.isMinion) || this.isFavor;
+  }
+
+  get isRounded(): boolean {
+    const display: DisplayState = this.$store.state.display;
+    return display.mode === DisplayMode.PLAY && display.roundedCorners;
   }
 }

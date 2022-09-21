@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import AbstractFighterComponent from "~/components/cards/fighter/AbstractFighterComponent";
@@ -49,16 +48,21 @@ export default class Abilities extends AbstractFighterComponent {
         let offset = height - maxHeight;
         if (offset > this.maxAbilitiesOffset) {
           offset = this.maxAbilitiesOffset;
-          this.$store.commit("display/setValid", false);
+          this.setValid(false);
         } else {
-          this.$store.commit("display/setValid", true);
+          this.setValid(true);
         }
         container.style.marginTop = `-${offset}px`;
       } else {
         container.style.marginTop = "0px";
-        this.$store.commit("display/setValid", true);
+        this.setValid(true);
       }
     });
+  }
+
+  setValid(isValid: boolean) {
+    const mutation = this.isReverse ? "setBackValid" : "setFrontValid";
+    this.$store.commit(`display/${mutation}`, isValid);
   }
 }
 </script>

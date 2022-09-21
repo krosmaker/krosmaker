@@ -126,7 +126,7 @@ export default class PowerContainer extends AbstractFighterComponent {
       line-height: 34px;
       margin-left: $power-offset;
       margin-right: $power-offset;
-      padding-top: 60px;
+      padding-top: 62px;
       font-weight: 400;
       overflow: hidden;
       text-overflow: ellipsis;

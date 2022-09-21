@@ -8,8 +8,13 @@
       :store="store"
     />
   </fragment>
-  <fragment v-else-if="spells.length > 0">
-    <Spell :index="0" :spell="spells[0]" :store="store" />
+  <fragment v-else>
+    <Spell
+      v-if="spells.length > 0"
+      :index="0"
+      :spell="spells[0]"
+      :store="store"
+    />
   </fragment>
 </template>
 

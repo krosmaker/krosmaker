@@ -41,7 +41,8 @@
       </v-tab-item>
       <v-tab-item>
         <v-card flat class="edit-tab-container">
-          <ArtworkForm />
+          <ReverseFigurineForm v-show="isFighter && isTwoSided" />
+          <ArtworkForm v-show="!isFighter || (isFighter && !isTwoSided)" />
         </v-card>
       </v-tab-item>
       <v-tab-item>
@@ -73,6 +74,7 @@
 import { Component } from "vue-property-decorator";
 
 import AbstractForm from "~/components/cards/control/AbstractForm";
+import { CardType } from "~/store/card";
 import { TabId } from "~/store/sidebar";
 
 @Component
@@ -93,10 +95,40 @@ export default class CardEditSidebar extends AbstractForm {
     this.$store.commit("sidebar/setExpand", expand);
   }
 
+  get availableEditors(): TabId[] {
+    switch (this.cardType) {
+      case CardType.FAVOR:
+        return [TabId.NAME, TabId.DISPLAY, TabId.EXPORT];
+      case CardType.CHALLENGE:
+        return [
+          TabId.NAME,
+          TabId.ARTWORK,
+          TabId.POWERS,
+          TabId.DISPLAY,
+          TabId.EXPORT,
+        ];
+      case CardType.FIGHTER:
+        return this.isTwoSided
+          ? // Disabling automatic flipping on tabs
+            // that can be edited separately for each side:
+            [TabId.ARTWORK, TabId.FIGURINE]
+          : // Otherwise all tabs are active:
+            [
+              TabId.NAME,
+              TabId.FIGURINE,
+              TabId.ARTWORK,
+              TabId.SPELLS,
+              TabId.POWERS,
+              TabId.DISPLAY,
+              TabId.EXPORT,
+            ];
+    }
+  }
+
   onTabClick(tab: TabId, tabName: string | null = null) {
     this.onTabChange(tab);
-    if (this.expand && tabName != null) {
-      this.$emit(`${tabName}-select`);
+    if (this.expand && tabName != null && this.availableEditors.includes(tab)) {
+      this.isFlipped = tabName === "back";
     }
   }
 
@@ -121,7 +153,8 @@ export default class CardEditSidebar extends AbstractForm {
 }
 
 .edit-tab-container {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   max-height: calc(100vh - 100px);
 }
 

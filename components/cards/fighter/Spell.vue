@@ -23,16 +23,26 @@
         @input="onNameChange($event, index)"
         :limit="40"
       />
-      <Description
+      <div
         class="spell-description"
         :class="{
           'spell-description-extended': spell.damage.element === 'none',
           'spell-description-windows': isWindows,
         }"
-        :addOffset="true"
-        :content="spell.description"
-        @click.native="openSpell(index)"
-      />
+      >
+        <Description
+          :addOffset="true"
+          :content="spell.description"
+          @click.native="openSpell(index)"
+        />
+        <Description
+          v-if="reverseDescription"
+          class="reverse-description"
+          :addOffset="false"
+          :content="reverseDescription"
+          @click.native="openSpell(index)"
+        />
+      </div>
     </div>
 
     <div
@@ -123,6 +133,7 @@ import AbstractFighterComponent from "./AbstractFighterComponent";
 import { Spell } from "~/assets/src/data/fighters";
 import { TabId } from "~/store/sidebar";
 import EventBus from "~/assets/src/events/bus";
+import { FighterState } from "~/store/fighter";
 
 @Component
 export default class SpellContainer extends AbstractFighterComponent {
@@ -134,6 +145,43 @@ export default class SpellContainer extends AbstractFighterComponent {
   observer: ResizeObserver = new ResizeObserver(() => {
     EventBus.$emit("abilityResize");
   });
+
+  get reverseState(): FighterState {
+    return this.store === "fighter"
+      ? this.$store.state.reverse
+      : this.$store.state.fighter;
+  }
+
+  get requiresSpaceBeforeColon(): boolean {
+    return this.$i18n.locale.startsWith("fr");
+  }
+
+  get reverseDescription(): string {
+    if (this.fighterState.twoSided) {
+      const reverse = this.reverseState;
+      const reverseSpellVariant = reverse.spells.find(
+        (reverseSpell) => reverseSpell.name === this.spell.name
+      );
+      if (
+        reverseSpellVariant &&
+        reverseSpellVariant.description !== this.spell.description
+      ) {
+        const description = reverseSpellVariant.description;
+        const suffix = reverse.suffix;
+        const space = this.requiresSpaceBeforeColon ? " " : "";
+        return suffix
+          ? `*${this.capitalize(suffix)}${space}:* ${description}`
+          : description;
+      }
+    }
+    return "";
+  }
+
+  capitalize(text: string): string {
+    return text.replace(/(\b[a-z](?!\s))/g, (letter) =>
+      letter.toLocaleUpperCase()
+    );
+  }
 
   mounted() {
     this.observer.observe(this.$refs.container as Element);
@@ -370,6 +418,15 @@ export default class SpellContainer extends AbstractFighterComponent {
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       min-height: 116px;
+    }
+
+    .reverse-description {
+      font-style: italic;
+      opacity: 0.6;
+    }
+    .reverse-description::before {
+      content: "\a";
+      white-space: pre;
     }
 
     .spell-name-windows {

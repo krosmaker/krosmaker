@@ -51,7 +51,6 @@ import {
 } from "~/assets/src/constants";
 import EventBus from "~/assets/src/events/bus";
 import { TabId } from "~/store/sidebar";
-import { CardType } from "~/store/card";
 
 @Component({
   watch: {
@@ -166,17 +165,6 @@ export default class ArtworkForm extends AbstractForm {
   }
 }
 </script>
-
-<style lang="scss">
-.cropper-bg {
-  background-image: initial;
-}
-
-.cropper-modal {
-  background-color: transparent;
-  opacity: 1;
-}
-</style>
 
 <style lang="scss" scoped>
 h3 {

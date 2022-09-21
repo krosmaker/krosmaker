@@ -25,6 +25,8 @@ Main features include:
   - Figurine and artwork image editors with customizable cropping.
   - Spells and powers editors.
   - Ability editors supporting all symbols and markers.
+  - Support for two-sided cards with a second profile variant
+    instead of an artwork at the other side of the card.
 - Krosmic Favor cards editor:
   - Complete support for Krosmic Favor cards.
   - Customizable title and card type.
