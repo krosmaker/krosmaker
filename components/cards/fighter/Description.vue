@@ -162,7 +162,7 @@ export default class Description extends Vue {
   background-image: url("~assets/img/front/descriptions/markers/injury.png");
   width: 30px;
   height: 40px;
-  margin-left: 2px;
+  margin-left: 1px;
   margin-bottom: -4px;
   margin-top: -10px;
 }
@@ -170,7 +170,6 @@ export default class Description extends Vue {
 .injury-text {
   color: #d30a1e;
   word-spacing: -2px;
-  margin-left: -1px;
 }
 
 .air-icon,

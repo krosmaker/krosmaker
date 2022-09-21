@@ -235,6 +235,12 @@ export default class BasicDataForm extends AbstractForm {
   set isTwoSided(isTwoSided: boolean) {
     this.setDirty();
     this.commitToAllFighterStores("setTwoSided", isTwoSided);
+    // Syncing common properties:
+    if (isTwoSided) {
+      const fighterState = this.$store.state.fighter;
+      this.$store.commit("reverse/setName", fighterState.name);
+      this.$store.commit("reverse/setType", fighterState.type);
+    }
     this.updateCroppers();
   }
 
