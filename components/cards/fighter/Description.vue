@@ -83,7 +83,7 @@ export default class Description extends Vue {
     const attributes = classes.length > 0 ? { class: classes.join(" ") } : {};
     if (this.addOffset) {
       return create("span", attributes, [
-        create("span", { class: "description-offset" }),
+        create("div", { class: "description-offset" }),
         ...elements,
       ]);
     }
@@ -113,7 +113,8 @@ export default class Description extends Vue {
 
 <style lang="scss" scoped>
 .description-offset {
-  margin-left: 78px;
+  display: inline-block;
+  padding-left: 78px;
 }
 
 .marker-icon {

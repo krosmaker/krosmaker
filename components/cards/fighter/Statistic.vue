@@ -48,7 +48,7 @@ export default class Statistic extends AbstractFighterComponent {
 </script>
 
 <style lang="scss" scoped>
-$shadow-size: 10px;
+$shadow-size: 8px;
 $statistics: (
   mp: #4d7015,
   hp: #d42637,

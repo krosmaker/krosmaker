@@ -27,7 +27,10 @@ export default {
         content: "An online card creator for the Krosmaster: Blast board game.",
       },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", type: "image/png", href: "/logo-192.png" },
+    ],
   },
   /*
    ** Global CSS
@@ -67,7 +70,7 @@ export default {
    */
   modules: ["nuxt-i18n"],
   /*
-   ** vuetify module configuration
+   ** Vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
@@ -87,6 +90,9 @@ export default {
       },
     },
   },
+  /**
+   ** Environment variables loaded and replaced during build
+   */
   env: {
     version: require("./package.json").version,
     gitHash: require("child_process").execSync("git rev-parse --short HEAD", {
@@ -99,6 +105,7 @@ export default {
    */
   build: {},
   /*
+   ** Internationalization plugin configuration
    ** See https://i18n.nuxtjs.org/options-reference/
    */
   i18n: {
