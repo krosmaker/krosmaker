@@ -20,13 +20,18 @@
     <v-flex class="controls-panel" xs12 sm8 md6>
       <v-card>
         <v-card-actions class="headline">
-          <v-btn text @click.stop="isFlipped = !isFlipped">
+          <v-btn id="flipButton" text @click.stop="isFlipped = !isFlipped">
             <v-icon dark left>
               {{ isFlipped ? "mdi-redo" : "mdi-undo" }}
             </v-icon>
             {{ $t("card.flip") }}
           </v-btn>
-          <v-btn text @click.stop="download" :loading="isExporting">
+          <v-btn
+            id="downloadButton"
+            text
+            @click.stop="download"
+            :loading="isExporting"
+          >
             <v-icon dark left>mdi-download</v-icon>
             {{ $t("common.download") }}
           </v-btn>

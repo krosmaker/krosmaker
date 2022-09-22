@@ -26,7 +26,7 @@
       <v-tab @click="onTabClick(5)">
         <v-icon>mdi-fit-to-screen</v-icon>
       </v-tab>
-      <v-tab @click="onTabClick(6)">
+      <v-tab id="exportTab" @click="onTabClick(6)">
         <v-icon>mdi-content-save</v-icon>
       </v-tab>
       <v-tab-item>

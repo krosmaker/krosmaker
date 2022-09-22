@@ -125,6 +125,7 @@ export default class Description extends Vue {
 .marker-text {
   font-weight: bold;
   font-style: normal;
+  word-spacing: -3px;
 }
 
 .ap-icon,
@@ -133,19 +134,16 @@ export default class Description extends Vue {
   width: 38px;
   height: 38px;
   margin-top: -10px;
-  margin-right: -2px;
-  margin-left: -2px;
 }
 
 .mp-icon {
   background-image: url("~assets/img/front/descriptions/markers/mp.png");
-  margin-right: -3px;
-  margin-left: -3px;
+  margin-right: -2px;
+  margin-left: -2px;
 }
 
 .mp-text {
   color: #507b36;
-  word-spacing: -2px;
 }
 
 .hp-icon {
@@ -158,25 +156,25 @@ export default class Description extends Vue {
 
 .ap-icon {
   background-image: url("~assets/img/front/descriptions/markers/ap.png");
+  margin-right: -1px;
+  margin-left: -1px;
 }
 
 .ap-text {
   color: #1f548b;
-  word-spacing: -2px;
 }
 
 .injury-icon {
   background-image: url("~assets/img/front/descriptions/markers/injury.png");
   width: 30px;
   height: 40px;
-  margin-left: 1px;
+  margin-right: 1px;
   margin-bottom: -4px;
   margin-top: -10px;
 }
 
 .injury-text {
   color: #d30a1e;
-  word-spacing: -2px;
 }
 
 .air-icon,
@@ -185,8 +183,9 @@ export default class Description extends Vue {
 .water-icon {
   width: 38px;
   height: 38px;
-  margin-top: -8px;
-  margin-left: 1px;
+  margin-top: -7px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .air-icon {
@@ -229,13 +228,13 @@ export default class Description extends Vue {
   height: 40px;
   margin-bottom: -4px;
   margin-top: -10px;
-  margin-left: 2px;
-  margin-right: -2px;
 }
 
 .armor-icon {
   background-image: url("~assets/img/front/descriptions/dice/armor.png");
   width: 40px;
+  margin-left: 1px;
+  margin-right: -3px;
 }
 
 .critical-icon {
@@ -246,12 +245,13 @@ export default class Description extends Vue {
 .dodge-icon {
   background-image: url("~assets/img/front/descriptions/dice/dodge.png");
   width: 32px;
+  margin-right: 1px;
 }
 
 .dofus-icon {
   background-image: url("~assets/img/front/descriptions/dice/dofus.png");
   width: 40px;
-  margin-left: -2px;
+  margin-left: -5px;
   margin-right: -4px;
 }
 
@@ -276,14 +276,12 @@ export default class Description extends Vue {
     width: 56px;
     height: 56px;
     margin-top: -12px;
-    margin-right: -3px;
-    margin-left: -3px;
   }
 
   .mp-icon {
     background-image: url("~assets/img/front/descriptions/large/markers/mp.png");
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-right: -1px;
+    margin-left: -2px;
   }
 
   .hp-icon {
@@ -298,9 +296,9 @@ export default class Description extends Vue {
     background-image: url("~assets/img/front/descriptions/large/markers/injury.png");
     width: 45px;
     height: 60px;
-    margin-left: 3px;
-    margin-bottom: -6px;
     margin-top: -15px;
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .air-icon,
@@ -310,7 +308,8 @@ export default class Description extends Vue {
     width: 56px;
     height: 56px;
     margin-top: -12px;
-    margin-left: -3px;
+    margin-left: 3px;
+    margin-right: 3px;
   }
 
   .air-icon {
@@ -337,35 +336,41 @@ export default class Description extends Vue {
     height: 60px;
     margin-bottom: -6px;
     margin-top: -15px;
-    margin-left: 3px;
-    margin-right: -3px;
   }
 
   .armor-icon {
     background-image: url("~assets/img/front/descriptions/large/dice/armor.png");
     width: 54px;
+    margin-left: 3px;
+    margin-right: 3px;
   }
 
   .critical-icon {
     background-image: url("~assets/img/front/descriptions/large/dice/critical.png");
     width: 57px;
+    margin-left: 1px;
+    margin-right: 1px;
   }
 
   .dodge-icon {
     background-image: url("~assets/img/front/descriptions/large/dice/dodge.png");
     width: 49px;
+    margin-left: 1px;
+    margin-right: 1px;
   }
 
   .dofus-icon {
     background-image: url("~assets/img/front/descriptions/large/dice/dofus.png");
     width: 60px;
-    margin-left: -3px;
+    margin-left: -7px;
     margin-right: -6px;
   }
 
   .lock-icon {
     background-image: url("~assets/img/front/descriptions/large/dice/lock.png");
     width: 60px;
+    margin-left: 1px;
+    margin-right: 1px;
   }
 }
 </style>

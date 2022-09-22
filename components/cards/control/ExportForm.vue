@@ -47,7 +47,14 @@
           accept="application/json"
           @change="onImportFile"
         />
-        <v-btn dark x-large width="100%" @click="onImport">
+        <v-btn
+          id="importButton"
+          dark
+          x-large
+          width="100%"
+          @click="onImport"
+          :loading="isImporting"
+        >
           <v-icon dark left>mdi-upload</v-icon>
           {{ $t("common.import") }}
         </v-btn>
@@ -397,6 +404,7 @@ export default class ExportForm extends AbstractForm {
   deleteDialog: boolean = false;
 
   isExporting: boolean = false;
+  isImporting: boolean = false;
 
   importWarningDialog: boolean = false;
   loadWarningDialog: boolean = false;
@@ -706,6 +714,7 @@ export default class ExportForm extends AbstractForm {
   }
 
   private showImportFileChooser() {
+    this.isImporting = true;
     this.fileInput.value = "";
     this.fileInput.click();
   }
@@ -718,8 +727,8 @@ export default class ExportForm extends AbstractForm {
       var reader = new FileReader();
       reader.onload = (event) => {
         const file = event?.target?.result as string | null;
-        if (file) {
-          try {
+        try {
+          if (file) {
             const card = JSON.parse(file);
             const validationErrors = validateCardData(card);
             if (validationErrors.length === 0) {
@@ -733,10 +742,12 @@ export default class ExportForm extends AbstractForm {
                 validationErrors
               );
             }
-          } catch (error) {
-            console.error("Unable to decode imported file.", error);
-            this.showValidationErrorDialog("card.edit.fileFormatError");
           }
+        } catch (error) {
+          console.error("Unable to decode imported file.", error);
+          this.showValidationErrorDialog("card.edit.fileFormatError");
+        } finally {
+          this.isImporting = false;
         }
       };
       reader.readAsText(file);

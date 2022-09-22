@@ -89,6 +89,7 @@ export default class FavorFront extends Vue {
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       text-align: center;
+      padding-top: 9px;
     }
   }
 }
