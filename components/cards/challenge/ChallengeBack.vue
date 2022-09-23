@@ -1,6 +1,10 @@
 <template>
   <div class="card-back" @click.stop="onCardClick">
-    <CardBackground :image="artwork" />
+    <CardBackground
+      class="background"
+      :image="require('~/assets/img/challenge/background.png')"
+    />
+    <CardBackground class="background" :image="artwork" />
     <CardContentContainer>
       <div class="watermark">@Krosmaker</div>
       <div class="version">{{ version }}</div>
@@ -38,6 +42,10 @@ export default class ChallengeBack extends Vue {
   cursor: pointer;
   overflow: hidden;
   border-radius: inherit;
+
+  .background {
+    position: absolute;
+  }
 
   .watermark,
   .version {
