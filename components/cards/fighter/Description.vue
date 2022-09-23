@@ -175,6 +175,7 @@ export default class Description extends Vue {
 
 .injury-text {
   color: #d30a1e;
+  word-spacing: -2px;
 }
 
 .air-icon,
