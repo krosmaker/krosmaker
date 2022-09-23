@@ -1,17 +1,11 @@
 import Cropper from "cropperjs";
 import { ReverseFigurineState } from "~/store/reverseFigurine";
+import ImageState from "~/store/image";
 
-export interface FigurineState {
-  original: string;
-  cropped: string;
-  useCropped: boolean;
+export interface FigurineState extends ImageState {
   height: number;
   offsetX: number;
   offsetY: number;
-  cropper?: {
-    croppingData: Cropper.Data;
-    canvasData: Cropper.CanvasData;
-  };
 }
 
 export const state: () => FigurineState = () => ({
@@ -26,6 +20,9 @@ export const state: () => FigurineState = () => ({
 export const mutations = {
   replace(state: FigurineState, newState: FigurineState) {
     Object.assign(state, newState);
+    if (!newState.cropped) {
+      state.cropped = newState.original;
+    }
   },
 
   setHeight(state: FigurineState, height: number) {

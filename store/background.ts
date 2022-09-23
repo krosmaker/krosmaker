@@ -1,15 +1,8 @@
 import Cropper from "cropperjs";
 import { CardType } from "./card";
+import ImageState from "~/store/image";
 
-export interface BackgroundState {
-  original: string;
-  cropped: string;
-  useCropped: boolean;
-  cropper?: {
-    croppingData: Cropper.Data;
-    canvasData: Cropper.CanvasData;
-  };
-}
+export interface BackgroundState extends ImageState {}
 
 export const state: () => BackgroundState = () => ({
   original: require("~/assets/img/back/background.png"),
@@ -20,6 +13,9 @@ export const state: () => BackgroundState = () => ({
 export const mutations = {
   replace(state: BackgroundState, newState: BackgroundState) {
     Object.assign(state, newState);
+    if (!newState.cropped) {
+      state.cropped = newState.original;
+    }
   },
 
   setCropping(state: BackgroundState, useCropped: boolean) {

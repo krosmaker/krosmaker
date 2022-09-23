@@ -226,7 +226,7 @@ const cardSchema: ValidationSchema = {
       optional: true,
       props: {
         original: { type: "string", pattern: imagePattern },
-        cropped: { type: "string", pattern: imagePattern },
+        cropped: { type: "string", pattern: imagePattern, optional: true },
         useCropped: { type: "boolean" },
         cropper: cropperDataSchema,
       },
@@ -236,7 +236,7 @@ const cardSchema: ValidationSchema = {
       optional: true,
       props: {
         original: { type: "string", pattern: imagePattern },
-        cropped: { type: "string", pattern: imagePattern },
+        cropped: { type: "string", pattern: imagePattern, optional: true },
         useCropped: { type: "boolean" },
         height: { type: "number" },
         offsetX: { type: "number" },
@@ -249,7 +249,7 @@ const cardSchema: ValidationSchema = {
       optional: true,
       props: {
         original: { type: "string", pattern: imagePattern },
-        cropped: { type: "string", pattern: imagePattern },
+        cropped: { type: "string", pattern: imagePattern, optional: true },
         useCropped: { type: "boolean" },
         height: { type: "number" },
         offsetX: { type: "number" },

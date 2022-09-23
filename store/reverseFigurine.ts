@@ -3,6 +3,7 @@ import {
   state as originalState,
   mutations as originalMutations,
 } from "~/store/figurine";
+
 export interface ReverseFigurineState extends FigurineState {
   useSameImage: boolean;
 }

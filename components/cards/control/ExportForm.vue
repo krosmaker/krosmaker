@@ -358,6 +358,7 @@ import { validateCardData } from "~/assets/src/data/validation";
 import { dpi } from "~/assets/src/constants";
 import { CardState, CardType } from "~/store/card";
 import { FighterState } from "~/store/fighter";
+import ImageState from "~/store/image";
 
 @Component
 export default class ExportForm extends AbstractForm {
@@ -484,12 +485,14 @@ export default class ExportForm extends AbstractForm {
     switch (cardState.type) {
       case CardType.FIGHTER:
         card.data = store.fighter;
-        card.figurine = store.figurine;
+        card.figurine = this.serializeImageState(store.figurine);
         if (store.fighter.twoSided) {
           card.reverse = store.reverse;
-          card.reverseFigurine = store.reverseFigurine;
+          card.reverseFigurine = this.serializeImageState(
+            store.reverseFigurine
+          );
         } else {
-          card.background = store.background;
+          card.background = this.serializeImageState(store.background);
         }
         break;
       case CardType.FAVOR:
@@ -497,10 +500,20 @@ export default class ExportForm extends AbstractForm {
         break;
       case CardType.CHALLENGE:
         card.challenge = store.challenge;
-        card.background = store.background;
+        card.background = this.serializeImageState(store.background);
         break;
     }
     return card;
+  }
+
+  private serializeImageState<T extends ImageState>(state: T): T {
+    const result: any = {};
+    Object.assign(result, state);
+    if (!state.useCropped) {
+      delete result.cropped;
+      delete result.cropper;
+    }
+    return result as T;
   }
 
   cancelLoading() {
