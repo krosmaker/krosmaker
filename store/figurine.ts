@@ -8,13 +8,17 @@ export interface FigurineState extends ImageState {
   offsetY: number;
 }
 
+const defaultHeight = 350; // px
+const defaultOffsetX = 730; // ~73.0% left
+const defaultOffsetY = 10; // ~1.0% top
+
 export const state: () => FigurineState = () => ({
   original: require("~/assets/img/front/default-figurine.png"),
   cropped: require("~/assets/img/front/default-figurine.png"),
   useCropped: true,
-  height: 350, // px
-  offsetX: 730, // 73.0% left
-  offsetY: 10, // 1.0% top
+  height: defaultHeight,
+  offsetX: defaultOffsetX,
+  offsetY: defaultOffsetY,
 });
 
 export const mutations = {
@@ -62,9 +66,9 @@ export const mutations = {
     state.original = defaultFigurine;
     state.cropped = defaultFigurine;
     state.useCropped = true;
-    state.height = 350;
-    state.offsetX = 730;
-    state.offsetY = 10;
+    state.height = defaultHeight;
+    state.offsetX = defaultOffsetX;
+    state.offsetY = defaultOffsetY;
     delete state.cropper;
     // Workaround for sharing mutations with reverseFigurine.
     if ("useSameImage" in state) {
@@ -72,3 +76,11 @@ export const mutations = {
     }
   },
 };
+
+export function hasDefaultPlacementSettings(figurine: FigurineState): boolean {
+  return (
+    figurine.height === defaultHeight &&
+    figurine.offsetX === defaultOffsetX &&
+    figurine.offsetY === defaultOffsetY
+  );
+}

@@ -29,19 +29,15 @@
           'spell-description-extended': spell.damage.element === 'none',
           'spell-description-windows': isWindows,
         }"
+        @click="openSpell(index)"
       >
-        <Description
-          :addOffset="true"
-          :content="spell.description"
-          @click.native="openSpell(index)"
-        />
+        <Description :addOffset="true" :content="spell.description" />
         <Description
           v-if="reverseDescription"
           class="reverse-description"
           :italic="true"
           :addOffset="false"
           :content="reverseDescription"
-          @click.native="openSpell(index)"
         />
       </div>
     </div>

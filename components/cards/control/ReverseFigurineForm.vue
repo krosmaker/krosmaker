@@ -86,6 +86,7 @@
 import { Component } from "vue-property-decorator";
 
 import AbstractFigurineForm from "~/components/cards/control/AbstractFigurineForm.vue";
+import { FigurineState, hasDefaultPlacementSettings } from "~/store/figurine";
 import { ReverseFigurineState } from "~/store/reverseFigurine";
 import { TabId } from "~/store/sidebar";
 
@@ -112,6 +113,13 @@ export default class ReverseFigurineForm extends AbstractFigurineForm {
     this.setDirty();
     this.commit("setUseSameImage", useSameImage);
     if (!useSameImage) {
+      if (hasDefaultPlacementSettings(this.figurine)) {
+        const frontFigurine: FigurineState = this.$store.state.figurine;
+        this.commit("setHeight", frontFigurine.height);
+        this.commit("setOffsetX", frontFigurine.offsetX);
+        this.commit("setOffsetY", frontFigurine.offsetY);
+      }
+
       this.invalidate = true;
       this.replaceImage = true;
       this.reloaded = true;
