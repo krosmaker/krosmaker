@@ -35,8 +35,9 @@
         <Description
           v-if="reverseDescription"
           class="reverse-description"
+          :class="{ 'secondary-description': spell.description }"
+          :addOffset="!spell.description"
           :italic="true"
-          :addOffset="false"
           :content="reverseDescription"
         />
       </div>
@@ -161,6 +162,7 @@ export default class SpellContainer extends AbstractFighterComponent {
       );
       if (
         reverseSpellVariant &&
+        reverseSpellVariant.description &&
         reverseSpellVariant.description !== this.spell.description
       ) {
         const description = reverseSpellVariant.description;
@@ -420,7 +422,7 @@ export default class SpellContainer extends AbstractFighterComponent {
     .reverse-description {
       opacity: 0.6;
     }
-    .reverse-description::before {
+    .secondary-description::before {
       content: "\a";
       white-space: pre;
     }

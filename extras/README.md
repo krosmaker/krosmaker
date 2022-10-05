@@ -130,7 +130,7 @@ following these steps:
 1. Add any necessary details with the paintbrush and gradient tools.
    You can adjust the size as needed. Try to keep the image minimalistic.
 1. Use `Filters > Blur > Gaussian blur` with size X and Y set to **7**.
-1. Set layer opacity to **12.5**.
+1. Set layer opacity to **17.5**.
 1. Make the minion image layer transparent.
 1. Add at least 2 new layers: _stars_.
 1. Paint a few white **1** pixel dots with the pencil tool on each layer.
@@ -167,7 +167,7 @@ following these steps:
    around **20-40**.
 1. Soften the lines that are outside the outline and other illustration
    details from the _outline_ layer.
-1. Set the constellation layer opacity to **20**.
+1. Set the constellation layer opacity to **25**.
 
 The final result should consist of:
 
