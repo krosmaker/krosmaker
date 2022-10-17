@@ -113,6 +113,7 @@ export default {
       { code: "en", iso: "en-US", file: "en.js" },
       { code: "fr", iso: "fr-FR", file: "fr.js" },
       { code: "es", iso: "es-ES", file: "es.js" },
+      { code: "br", iso: "pt-BR", file: "br.js" },
       { code: "pl", iso: "pl-PL", file: "pl.js" },
     ],
     defaultLocale: "en",

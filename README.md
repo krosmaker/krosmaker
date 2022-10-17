@@ -44,6 +44,7 @@ Main features include:
   - English.
   - French.
   - Spanish.
+  - Brazilian Portuguese.
   - Polish.
 
 The card graphics were extracted from the official PDFs and
@@ -97,10 +98,11 @@ For a detailed explanation of the project setup, check out
 
 ## Contributors
 
-- [@czyzby](https://github.com/czyzby/) - app development, Polish translation.
-- [Marsza](https://github.com/marszaa/) - recreation of the Krosmaster dice icons.
-- [Jesús Martínez](https://krosarchive.es/) - Spanish translation.
-- [@SGe-GH](https://github.com/SGe-GH) - French translation, testing.
+- [**@czyzby**](https://github.com/czyzby/): app development, Polish translation.
+- [**Marsza**](https://github.com/marszaa/): recreation of the Krosmaster dice icons.
+- [**Jesús Martínez**](https://krosarchive.es/): Spanish translation.
+- [**@SGe-GH**](https://github.com/SGe-GH): French translation, testing.
+- **Wallace Nogueira "Luvenus"**: Brazilian Portuguese translation.
 
 > The graphics and other assets from the **Krosmaster: Blast**
 > are copyrighted by **Ankama** and published with their permission.

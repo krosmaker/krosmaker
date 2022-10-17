@@ -3,22 +3,24 @@
     <v-app-bar fixed app clipped-left height="64">
       <v-toolbar-title class="toolbar-title">Krosmaker</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu offset-y>
+      <v-menu offset-y nudge-left="6">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
-            <img :src="require(`~/assets/img/locale/${currentLocale}.png`)" />
+          <v-btn icon class="locale-button" v-bind="attrs" v-on="on">
+            {{ getIconForLocale(currentLocale.iso) }}
           </v-btn>
         </template>
         <v-list>
-          <nuxt-link
-            :to="switchLocalePath(locale.code)"
+          <v-list-item
+            class="ma-0 mr-2 ml-2 pa-0"
             v-for="(locale, index) in locales"
             :key="index"
           >
-            <v-list-item>
-              <img :src="require(`~/assets/img/locale/${locale.code}.png`)" />
-            </v-list-item>
-          </nuxt-link>
+            <nuxt-link class="locale-link" :to="switchLocalePath(locale.code)">
+              <v-btn icon large class="locale-button">{{
+                getIconForLocale(locale.iso)
+              }}</v-btn>
+            </nuxt-link>
+          </v-list-item>
         </v-list>
       </v-menu>
       <v-btn
@@ -100,20 +102,30 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import localeEmoji from "locale-emoji";
 
 import { Notification } from "~/store/notification";
 
+interface LocaleObject {
+  code: string;
+  iso: string;
+  file: string;
+}
+
 @Component
 export default class DefaultLayout extends Vue {
-  get currentLocale() {
-    return this.$i18n.locale || { code: "en" };
+  get currentLocale(): LocaleObject {
+    const localeCode = this.$i18n.locale || "en";
+    return (this.$i18n.locales || []).find(
+      (locale) => (locale as any).code === localeCode
+    ) as LocaleObject;
   }
 
-  get locales() {
-    const currentLocale = this.currentLocale;
+  get locales(): LocaleObject[] {
+    const currentLocale = this.currentLocale.code;
     return (this.$i18n.locales || []).filter(
       (locale) => (locale as any).code !== currentLocale
-    );
+    ) as LocaleObject[];
   }
 
   get version(): string {
@@ -126,6 +138,10 @@ export default class DefaultLayout extends Vue {
 
   get notifications(): Notification[] {
     return this.$store.state.notification.notifications;
+  }
+
+  getIconForLocale(code: string): string {
+    return localeEmoji(code);
   }
 
   onNotificationHide(notification: Notification) {
@@ -168,6 +184,14 @@ export default class DefaultLayout extends Vue {
 
 .displayed-container {
   opacity: 1;
+}
+
+.locale-link {
+  text-decoration: none;
+}
+
+.locale-button {
+  font-size: 20px;
 }
 
 .locale-select {
