@@ -79,6 +79,7 @@ export default {
       effect: "Efekt",
       regular: "Zwykły",
       superior: "Znakomity",
+      custom: "Inny",
 
       challenge: "Wyzwanie",
       active: "Akcja",

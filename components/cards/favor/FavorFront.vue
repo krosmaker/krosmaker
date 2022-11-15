@@ -6,9 +6,14 @@
       :smallImage="require('~/assets/img/favor/favor-front.png')"
     />
     <CardBackground
-      v-else
+      v-else-if="isSuperior"
       class="background"
       :smallImage="require('~/assets/img/favor/favor-front-superior.png')"
+    />
+    <CardBackground
+      v-else
+      class="background"
+      :smallImage="require('~/assets/img/favor/favor-front-custom.png')"
     />
     <CardContentContainer>
       <FavorName class="name" />
@@ -37,6 +42,10 @@ import { TabId } from "~/store/sidebar";
 export default class FavorFront extends Vue {
   get isRegular(): boolean {
     return this.$store.state.favor.type === FavorType.REGULAR;
+  }
+
+  get isSuperior(): boolean {
+    return this.$store.state.favor.type === FavorType.SUPERIOR;
   }
 
   get effect(): string {

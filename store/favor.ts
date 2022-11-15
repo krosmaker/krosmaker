@@ -1,6 +1,7 @@
 export enum FavorType {
   REGULAR = "regular",
   SUPERIOR = "superior",
+  CUSTOM = "custom",
 }
 
 export interface FavorState {

@@ -168,7 +168,10 @@ const favorSchema: ValidationSchema = {
   type: "object",
   optional: true,
   props: {
-    type: { type: "enum", values: [FavorType.REGULAR, FavorType.SUPERIOR] },
+    type: {
+      type: "enum",
+      values: [FavorType.REGULAR, FavorType.SUPERIOR, FavorType.CUSTOM],
+    },
     name: { type: "string" },
     effect: { type: "string" },
   },

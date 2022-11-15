@@ -78,6 +78,7 @@ export default {
       effect: "Efecto",
       regular: "Regular",
       superior: "Superior",
+      custom: "Otro",
 
       challenge: "Desafío",
       active: "Activo",

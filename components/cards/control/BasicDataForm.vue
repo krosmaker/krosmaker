@@ -104,6 +104,11 @@
             value="superior"
             color="#a46ec3"
           />
+          <v-radio
+            :label="$t('card.edit.custom')"
+            value="custom"
+            color="#aaaaaa"
+          />
         </v-radio-group>
       </v-col>
       <v-col cols="12" v-if="isFavor">
