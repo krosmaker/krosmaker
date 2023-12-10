@@ -46,6 +46,7 @@
           type="file"
           accept="application/json"
           @change="onImportFile"
+          @cancel="onImportCancel"
         />
         <v-btn
           id="importButton"
@@ -732,7 +733,7 @@ export default class ExportForm extends AbstractForm {
     this.fileInput.click();
   }
 
-  onImportFile(inputEvent: InputEvent) {
+  onImportFile(inputEvent: Event) {
     const event = inputEvent as any;
     var files = event.target?.files || event?.dataTransfer?.files;
     if (files != null && files!.length > 0) {
@@ -763,8 +764,17 @@ export default class ExportForm extends AbstractForm {
           this.isImporting = false;
         }
       };
+      reader.onabort = () => {
+        this.isImporting = false;
+      };
       reader.readAsText(file);
+    } else {
+      this.isImporting = false;
     }
+  }
+
+  onImportCancel() {
+    this.isImporting = false;
   }
 
   private showValidationErrorDialog(
