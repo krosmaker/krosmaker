@@ -6,6 +6,10 @@ $card-width: 1038px;
 $card-height: 744px;
 // Standard border radius of 3.175mm at 300 DPI.
 $card-border-radius: 37.5px;
+// Maximum width of a card including printing offsets supported by the application.
+$card-max-width: 1150px;
+// Maximum height of a card including printing offsets supported by the application.
+$card-max-height: 850px;
 
 // Width of a European mini card representing roughly 67mm at 300 DPI.
 $minion-card-width: 792px;

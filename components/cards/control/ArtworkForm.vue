@@ -46,6 +46,8 @@ import AbstractForm from "~/components/cards/control/AbstractForm";
 import {
   artworkWidth,
   artworkHeight,
+  cardWidth,
+  cardHeight,
   minionArtworkWidth,
   minionArtworkHeight,
 } from "~/assets/src/constants";
@@ -85,6 +87,9 @@ export default class ArtworkForm extends AbstractForm {
   }
 
   get aspectRatio(): number {
+    if (this.isChallenge) {
+      return cardWidth / cardHeight;
+    }
     return this.isRegularSize
       ? artworkWidth / artworkHeight
       : minionArtworkWidth / minionArtworkHeight;
